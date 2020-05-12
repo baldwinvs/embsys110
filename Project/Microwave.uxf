@@ -1,760 +1,125 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>160</x>
-      <y>120</y>
-      <w>240</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>display_clock
+<diagram program="umlet" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLState</id><coordinates><x>160</x><y>120</y><w>240</w><h>150</h></coordinates><panel_attributes>display_clock
 --
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>810</x>
-      <y>120</y>
-      <w>240</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>set_cook_timer
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>810</x><y>120</y><w>240</w><h>150</h></coordinates><panel_attributes>set_cook_timer
 --
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>1110</x>
-      <y>120</y>
-      <w>240</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>set_power_level
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>1110</x><y>120</y><w>240</w><h>150</h></coordinates><panel_attributes>set_power_level
 --
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>160</x>
-      <y>400</y>
-      <w>240</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>set_clock
+\\maybe have child states that do the input validation
+style=wordwrap
+
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>160</x><y>400</y><w>240</w><h>150</h></coordinates><panel_attributes>set_clock
 --
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>1580</x>
-      <y>90</y>
-      <w>100</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>This is a text element to place text anywhere.
-style=wordwrap</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>390</x>
-      <y>140</y>
-      <w>440</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>420.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>490</x>
-      <y>120</y>
-      <w>190</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>COOK_TIMER
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>1580</x><y>90</y><w>100</w><h>70</h></coordinates><panel_attributes>This is a text element to place text anywhere.
+style=wordwrap</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>140</y><w>440</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>420;10;10;10</additional_attributes></element><element><id>Text</id><coordinates><x>490</x><y>120</y><w>190</w><h>30</h></coordinates><panel_attributes>COOK_TIMER
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>120</x>
-      <y>300</y>
-      <w>80</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>CLOCK
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>120</x><y>300</y><w>80</w><h>30</h></coordinates><panel_attributes>CLOCK
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>970</x>
-      <y>70</y>
-      <w>230</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>210.0;50.0;210.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>990</x>
-      <y>280</y>
-      <w>180</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>COOK_TIMER
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>970</x><y>70</y><w>230</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>210;50;210;10;10;10;10;50</additional_attributes></element><element><id>Text</id><coordinates><x>990</x><y>280</y><w>180</w><h>30</h></coordinates><panel_attributes>COOK_TIMER [!maxUsed]
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>970</x>
-      <y>260</y>
-      <w>230</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0;210.0;50.0;210.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>980</x>
-      <y>50</y>
-      <w>200</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>POWER_LEVEL
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>970</x><y>260</y><w>230</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;210;50;210;10</additional_attributes></element><element><id>Text</id><coordinates><x>980</x><y>50</y><w>200</w><h>30</h></coordinates><panel_attributes>POWER_LEVEL
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>220</x>
-      <y>70</y>
-      <w>90</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>70.0;50.0;70.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLSpecialState</id>
-    <coordinates>
-      <x>220</x>
-      <y>70</y>
-      <w>20</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>type=initial</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>630</x>
-      <y>360</y>
-      <w>790</w>
-      <h>260</h>
-    </coordinates>
-    <panel_attributes>display_timer
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>220</x><y>70</y><w>90</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>70;50;70;10;10;10</additional_attributes></element><element><id>UMLSpecialState</id><coordinates><x>220</x><y>70</y><w>20</w><h>20</h></coordinates><panel_attributes>type=initial</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>630</x><y>360</y><w>790</w><h>260</h></coordinates><panel_attributes>display_timer
 --
 STOP/ ^^LAMP_OFF_REQ
 OPEN/ ^^LAMP_ON_REQ
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1410</x>
-      <y>390</y>
-      <w>160</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>1420</x>
-      <y>370</y>
-      <w>130</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>START
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1410</x><y>390</y><w>160</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;140;10</additional_attributes></element><element><id>Text</id><coordinates><x>1420</x><y>370</y><w>130</w><h>30</h></coordinates><panel_attributes>START
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>350</x>
-      <y>260</y>
-      <w>30</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>360</x>
-      <y>300</y>
-      <w>80</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>CLOCK
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>260</y><w>30</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>Text</id><coordinates><x>360</x><y>300</y><w>80</w><h>30</h></coordinates><panel_attributes>CLOCK
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>190</x>
-      <y>260</y>
-      <w>30</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>10</x>
-      <y>0</y>
-      <w>1540</w>
-      <h>1050</h>
-    </coordinates>
-    <panel_attributes>Started
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>260</y><w>30</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;140;10;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>10</x><y>0</y><w>1540</w><h>1450</h></coordinates><panel_attributes>Started
 --
 STOP/ ^CANCEL
 
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>0</x>
-      <y>150</y>
-      <w>180</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>40</x>
-      <y>130</y>
-      <w>80</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>CANCEL
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>0</x><y>150</y><w>180</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>160;10;10;10</additional_attributes></element><element><id>Text</id><coordinates><x>40</x><y>130</y><w>80</w><h>30</h></coordinates><panel_attributes>CANCEL
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>1010</x>
-      <y>450</y>
-      <w>330</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>display_timer_paused
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>1010</x><y>450</y><w>330</w><h>150</h></coordinates><panel_attributes>display_timer_paused
 --
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1330</x>
-      <y>430</y>
-      <w>150</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>90.0;10.0;130.0;10.0;130.0;60.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1330</x>
-      <y>520</y>
-      <w>110</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>1420</x>
-      <y>410</y>
-      <w>130</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>START[closed]
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1330</x><y>430</y><w>150</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>90;10;130;10;130;60;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>1330</x><y>520</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;90;10</additional_attributes></element><element><id>Text</id><coordinates><x>1420</x><y>410</y><w>130</w><h>30</h></coordinates><panel_attributes>START[closed]
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>1340</x>
-      <y>500</y>
-      <w>80</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>STOP
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>1340</x><y>500</y><w>80</w><h>30</h></coordinates><panel_attributes>STOP
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>0</x>
-      <y>650</y>
-      <w>1570</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;1550.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>70</x>
-      <y>690</y>
-      <w>410</w>
-      <h>300</h>
-    </coordinates>
-    <panel_attributes>Magnetron root
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>0</x><y>650</y><w>1570</w><h>30</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;1550;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>50</x><y>690</y><w>410</w><h>300</h></coordinates><panel_attributes>Fan root
+--
+valign=top
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>70</x><y>860</y><w>90</w><h>110</h></coordinates><panel_attributes>Off
+--
+valign=top
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>350</x><y>860</y><w>90</w><h>110</h></coordinates><panel_attributes>On
+--
+valign=top
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>150</x><y>930</y><w>220</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=2</panel_attributes><additional_attributes>10;10;200;10</additional_attributes></element><element><id>Relation</id><coordinates><x>150</x><y>880</y><w>220</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=2</panel_attributes><additional_attributes>200;10;10;10</additional_attributes></element><element><id>Text</id><coordinates><x>160</x><y>860</y><w>190</w><h>30</h></coordinates><panel_attributes>FAN_ON_REQ
+style=wordwrap
+halign=center
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>160</x><y>910</y><w>190</w><h>30</h></coordinates><panel_attributes>FAN_OFF_REQ
+style=wordwrap
+halign=center
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLSpecialState</id><coordinates><x>60</x><y>810</y><w>20</w><h>20</h></coordinates><panel_attributes>type=initial
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>70</x><y>810</y><w>80</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=2</panel_attributes><additional_attributes>60;50;60;10;10;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>1070</x><y>690</y><w>410</w><h>300</h></coordinates><panel_attributes>Lamp root
+--
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>1090</x><y>860</y><w>90</w><h>110</h></coordinates><panel_attributes>Off
+--
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>1370</x><y>860</y><w>90</w><h>110</h></coordinates><panel_attributes>On
+--
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1170</x><y>930</y><w>220</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;200;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1170</x><y>880</y><w>220</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>200;10;10;10</additional_attributes></element><element><id>Text</id><coordinates><x>1180</x><y>860</y><w>190</w><h>30</h></coordinates><panel_attributes>LAMP_ON_REQ
+style=wordwrap
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>1180</x><y>910</y><w>190</w><h>30</h></coordinates><panel_attributes>LAMP_OFF_REQ
+style=wordwrap
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLSpecialState</id><coordinates><x>1080</x><y>810</y><w>20</w><h>20</h></coordinates><panel_attributes>type=initial</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1080</x><y>810</y><w>90</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>70;50;70;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1010</x><y>650</y><w>30</w><h>410</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;390</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>650</y><w>30</w><h>410</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;390</additional_attributes></element><element><id>Relation</id><coordinates><x>680</x><y>310</y><w>210</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>190;50;190;10;10;10;10;50</additional_attributes></element><element><id>Text</id><coordinates><x>690</x><y>290</y><w>180</w><h>30</h></coordinates><panel_attributes>START/ add30Sec()
+style=wordwrap
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1330</x><y>570</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;90;10</additional_attributes></element><element><id>Text</id><coordinates><x>1340</x><y>550</y><w>80</w><h>30</h></coordinates><panel_attributes>OPEN
+style=wordwrap
+halign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>430</x><y>1260</y><w>250</w><h>80</h></coordinates><panel_attributes>Off
+--
+exit/ stop magnetronTimer
+valign=top
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>870</x><y>1260</y><w>240</w><h>80</h></coordinates><panel_attributes>On
+--
+exit/ stop magnetronTimer
+valign=top
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>1330</y><w>300</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=1</panel_attributes><additional_attributes>10;10;10;50;280;50;280;10</additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>1210</y><w>300</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=1</panel_attributes><additional_attributes>280;50;280;10;10;10;10;50</additional_attributes></element><element><id>Text</id><coordinates><x>670</x><y>1180</y><w>240</w><h>40</h></coordinates><panel_attributes>MAGNETRON_ON_REQ/
+start magnetronTimer(powerLevel, on)
+style=wordwrap
+halign=left
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>670</x><y>1340</y><w>240</w><h>40</h></coordinates><panel_attributes>MAGNETRON_OFF_REQ/
+start magnetronTimer(powerLevel, off)
+style=wordwrap
+halign=left
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLSpecialState</id><coordinates><x>430</x><y>1210</y><w>20</w><h>20</h></coordinates><panel_attributes>type=initial
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>1210</y><w>70</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=1</panel_attributes><additional_attributes>50;50;50;10;10;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>380</x><y>1090</y><w>830</w><h>310</h></coordinates><panel_attributes>Magnetron root
 --
 \\Could abstract the timer to this AO, maybe look at state history as well
-\\Find the time that the magnetron is on &amp; off, respectively.
+\\Give a duty cycle of 30 seconds, then use a PWM style approach to powering on the magnetron. (i.e.: 30% power is 9 seconds on, 21 seconds off)
+\\Input to the timer function is a lookup table of paired values {on ms time, off ms time}
 valign=top
-style=wordwrap</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>90</x>
-      <y>860</y>
-      <w>90</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>Off
---
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>370</x>
-      <y>860</y>
-      <w>90</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>On
---
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>170</x>
-      <y>930</y>
-      <w>220</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>170</x>
-      <y>880</y>
-      <w>220</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>180</x>
-      <y>860</y>
-      <w>190</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>MAGNETRON_ON_REQ
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>180</x>
-      <y>910</y>
-      <w>190</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>MAGNETRON_OFF_REQ
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1060</x><y>1210</y><w>110</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=1</panel_attributes><additional_attributes>10;50;10;10;90;10;90;90;50;90</additional_attributes></element><element><id>Text</id><coordinates><x>1010</x><y>1190</y><w>190</w><h>30</h></coordinates><panel_attributes>MAGNETRON_ON_REQ
 style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLSpecialState</id>
-    <coordinates>
-      <x>80</x>
-      <y>810</y>
-      <w>20</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>type=initial</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>80</x>
-      <y>810</y>
-      <w>90</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>70.0;50.0;70.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>570</x>
-      <y>690</y>
-      <w>410</w>
-      <h>300</h>
-    </coordinates>
-    <panel_attributes>Turntable root
+halign=center
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>590</x><y>860</y><w>90</w><h>110</h></coordinates><panel_attributes>Off
 --
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>590</x>
-      <y>860</y>
-      <w>90</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>Off
+valign=top
+group=3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>870</x><y>860</y><w>90</w><h>110</h></coordinates><panel_attributes>On
 --
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>870</x>
-      <y>860</y>
-      <w>90</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>On
+valign=top
+group=3</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>670</x><y>930</y><w>220</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=3</panel_attributes><additional_attributes>10;10;200;10</additional_attributes></element><element><id>Relation</id><coordinates><x>670</x><y>880</y><w>220</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=3</panel_attributes><additional_attributes>200;10;10;10</additional_attributes></element><element><id>Text</id><coordinates><x>680</x><y>860</y><w>190</w><h>30</h></coordinates><panel_attributes>TURNTABLE_ON_REQ
+style=wordwrap
+halign=center
+group=3</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>680</x><y>910</y><w>190</w><h>30</h></coordinates><panel_attributes>TURNTABLE_OFF_REQ
+style=wordwrap
+halign=center
+group=3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLSpecialState</id><coordinates><x>580</x><y>810</y><w>20</w><h>20</h></coordinates><panel_attributes>type=initial
+group=3</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>810</y><w>80</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=3</panel_attributes><additional_attributes>60;50;60;10;10;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>570</x><y>690</y><w>410</w><h>300</h></coordinates><panel_attributes>Turntable root
 --
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>670</x>
-      <y>930</y>
-      <w>220</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>670</x>
-      <y>880</y>
-      <w>220</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>680</x>
-      <y>860</y>
-      <w>190</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>TURNTABLE_ON_REQ
-style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>680</x>
-      <y>910</y>
-      <w>190</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>TURNTABLE_OFF_REQ
-style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLSpecialState</id>
-    <coordinates>
-      <x>580</x>
-      <y>810</y>
-      <w>20</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>type=initial</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>580</x>
-      <y>810</y>
-      <w>90</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>70.0;50.0;70.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>1070</x>
-      <y>690</y>
-      <w>410</w>
-      <h>300</h>
-    </coordinates>
-    <panel_attributes>Lamp root
---
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>1090</x>
-      <y>860</y>
-      <w>90</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>Off
---
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>1370</x>
-      <y>860</y>
-      <w>90</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>On
---
-valign=top</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1170</x>
-      <y>930</y>
-      <w>220</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1170</x>
-      <y>880</y>
-      <w>220</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>1180</x>
-      <y>860</y>
-      <w>190</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>LAMP_ON_REQ
-style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>1180</x>
-      <y>910</y>
-      <w>190</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>LAMP_OFF_REQ
-style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLSpecialState</id>
-    <coordinates>
-      <x>1080</x>
-      <y>810</y>
-      <w>20</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>type=initial</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1080</x>
-      <y>810</y>
-      <w>90</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>70.0;50.0;70.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1010</x>
-      <y>650</y>
-      <w>30</w>
-      <h>420</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;400.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>510</x>
-      <y>650</y>
-      <w>30</w>
-      <h>420</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;400.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>680</x>
-      <y>310</y>
-      <w>210</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>190.0;50.0;190.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>690</x>
-      <y>290</y>
-      <w>180</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>START/ add30Sec()
-style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1330</x>
-      <y>570</y>
-      <w>110</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>1340</x>
-      <y>550</y>
-      <w>80</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>OPEN
-style=wordwrap
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-</diagram>
+valign=top
+group=3</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>0</x><y>1020</y><w>1570</w><h>40</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;20;1550;10</additional_attributes></element></diagram>
