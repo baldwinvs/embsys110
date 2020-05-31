@@ -36,8 +36,8 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef COMPOSITE_ACT_INTERFACE_H
-#define COMPOSITE_ACT_INTERFACE_H
+#ifndef MICROWAVE_INTERFACE_H
+#define MICROWAVE_INTERFACE_H
 
 #include "fw_def.h"
 #include "fw_evt.h"
@@ -48,56 +48,175 @@ using namespace FW;
 
 namespace APP {
 
-#define COMPOSITE_ACT_INTERFACE_EVT \
-    ADD_EVT(COMPOSITE_ACT_START_REQ) \
-    ADD_EVT(COMPOSITE_ACT_START_CFM) \
-    ADD_EVT(COMPOSITE_ACT_STOP_REQ) \
-    ADD_EVT(COMPOSITE_ACT_STOP_CFM)
+#define MICROWAVE_INTERFACE_EVT \
+    ADD_EVT(MICROWAVE_START_REQ) \
+    ADD_EVT(MICROWAVE_START_CFM) \
+    ADD_EVT(MICROWAVE_STOP_REQ) \
+    ADD_EVT(MICROWAVE_STOP_CFM) \
+    ADD_EVT(MICROWAVE_EXT_STOP_SIG) \
+    ADD_EVT(MICROWAVE_EXT_START_SIG) \
+    ADD_EVT(MICROWAVE_EXT_COOK_TIME_SIG) \
+    ADD_EVT(MICROWAVE_EXT_POWER_LEVEL_SIG) \
+    ADD_EVT(MICROWAVE_EXT_KITCHEN_TIMER_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DOOR_OPEN_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DOOR_CLOSED_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_0_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_1_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_2_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_3_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_4_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_5_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_6_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_7_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_8_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_9_SIG)
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
 
 enum {
-    COMPOSITE_ACT_INTERFACE_EVT_START = INTERFACE_EVT_START(COMPOSITE_ACT),
-    COMPOSITE_ACT_INTERFACE_EVT
+    MICROWAVE_INTERFACE_EVT_START = INTERFACE_EVT_START(MICROWAVE),
+    MICROWAVE_INTERFACE_EVT
 };
 
 enum {
-    COMPOSITE_ACT_REASON_UNSPEC = 0,
+    MICROWAVE_REASON_UNSPEC = 0,
 };
 
-class CompositeActStartReq : public Evt {
+class MicrowaveStartReq : public Evt {
 public:
     enum {
         TIMEOUT_MS = 200
     };
-    CompositeActStartReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(COMPOSITE_ACT_START_REQ, to, from, seq) {}
+    MicrowaveStartReq(Hsmn to, Hsmn from, Sequence seq) :
+        Evt(MICROWAVE_START_REQ, to, from, seq) {}
 };
 
-class CompositeActStartCfm : public ErrorEvt {
+class MicrowaveStartCfm : public ErrorEvt {
 public:
-    CompositeActStartCfm(Hsmn to, Hsmn from, Sequence seq,
+    MicrowaveStartCfm(Hsmn to, Hsmn from, Sequence seq,
                    Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(COMPOSITE_ACT_START_CFM, to, from, seq, error, origin, reason) {}
+        ErrorEvt(MICROWAVE_START_CFM, to, from, seq, error, origin, reason) {}
 };
 
-class CompositeActStopReq : public Evt {
+class MicrowaveStopReq : public Evt {
 public:
     enum {
         TIMEOUT_MS = 200
     };
-    CompositeActStopReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(COMPOSITE_ACT_STOP_REQ, to, from, seq) {}
+    MicrowaveStopReq(Hsmn to, Hsmn from, Sequence seq) :
+        Evt(MICROWAVE_STOP_REQ, to, from, seq) {}
 };
 
-class CompositeActStopCfm : public ErrorEvt {
+class MicrowaveStopCfm : public ErrorEvt {
 public:
-    CompositeActStopCfm(Hsmn to, Hsmn from, Sequence seq,
+    MicrowaveStopCfm(Hsmn to, Hsmn from, Sequence seq,
                    Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(COMPOSITE_ACT_STOP_CFM, to, from, seq, error, origin, reason) {}
+        ErrorEvt(MICROWAVE_STOP_CFM, to, from, seq, error, origin, reason) {}
+};
+
+class MicrowaveExtStopSig : public Evt {
+public:
+    MicrowaveExtStopSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_STOP_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtStartSig : public Evt {
+public:
+    MicrowaveExtStartSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_START_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtCookTimeSig : public Evt {
+public:
+    MicrowaveExtCookTimeSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_COOK_TIME_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtPowerLevelSig : public Evt {
+public:
+    MicrowaveExtPowerLevelSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_POWER_LEVEL_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtKitchenTimerSig : public Evt {
+public:
+    MicrowaveExtKitchenTimerSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_KITCHEN_TIMER_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDoorOpenSig : public Evt {
+public:
+    MicrowaveExtDoorOpenSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DOOR_OPEN_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDoorClosedSig : public Evt {
+public:
+    MicrowaveExtDoorClosedSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DOOR_CLOSED_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit0Sig : public Evt {
+public:
+    MicrowaveExtDigit0Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_0_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit1Sig : public Evt {
+public:
+    MicrowaveExtDigit1Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_1_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit2Sig : public Evt {
+public:
+    MicrowaveExtDigit2Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_2_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit3Sig : public Evt {
+public:
+    MicrowaveExtDigit3Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_3_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit4Sig : public Evt {
+public:
+    MicrowaveExtDigit4Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_4_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit5Sig : public Evt {
+public:
+    MicrowaveExtDigit5Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_5_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit6Sig : public Evt {
+public:
+    MicrowaveExtDigit6Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_6_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit7Sig : public Evt {
+public:
+    MicrowaveExtDigit7Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_7_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit8Sig : public Evt {
+public:
+    MicrowaveExtDigit8Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_8_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigit9Sig : public Evt {
+public:
+    MicrowaveExtDigit9Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_DIGIT_9_SIG, to, from, seq) {}
 };
 
 } // namespace APP
 
-#endif // COMPOSITE_ACT_INTERFACE_H
+#endif // MICROWAVE_INTERFACE_H

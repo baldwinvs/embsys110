@@ -134,6 +134,7 @@ enum
     PRIO_ILI9341        = 22,
     PRIO_WIFI_ST        = 20,
     PRIO_GPIO_IN_ACT    = 16,
+    PRIO_MICROWAVE      = 11
     PRIO_DEMO           = 10,
     PRIO_GPIO_OUT_ACT   = 9,
     PRIO_TEST_LED       = 8,

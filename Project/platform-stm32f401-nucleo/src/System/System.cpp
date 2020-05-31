@@ -53,6 +53,7 @@
 #include "SensorInterface.h"
 #include "DispInterface.h"
 #include "WifiInterface.h"
+#include "MicrowaveInterface.h"
 #include "bsp.h"
 #include <vector>
 #include <memory>
@@ -283,6 +284,10 @@ QState System::Starting1(System * const me, QEvt const * const e) {
             me->GetHsm().SaveOutSeq(*evt);
             Fw::Post(evt);
 
+            evt = new CompositeActStartReq(MICROWAVE, SYSTEM, GEN_SEQ());
+            me->GetHsm().SaveOutSeq(*evt);
+            Fw::Post(evt);
+
             // USER LED pin (PA.5) is shared with TFP display SPI clock pin.
             // It must not be enabled when the TFP is used (e.g. in LevelMeter).
             //evt = new GpioOutStartReq(USER_LED, SYSTEM, GEN_SEQ());
@@ -307,6 +312,7 @@ QState System::Starting1(System * const me, QEvt const * const e) {
         case TRAFFIC_START_CFM:
         case GPIO_IN_START_CFM:
         case WIFI_START_CFM:
+        case MICROWAVE_START_CFM:
         case GPIO_OUT_START_CFM: {
             EVENT(e);
             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
@@ -518,6 +524,10 @@ QState System::Stopping2(System * const me, QEvt const * const e) {
             me->GetHsm().SaveOutSeq(*evt);
             Fw::Post(evt);
 
+            evt = new CompositeActStopReq(MICROWAVE, SYSTEM, GEN_SEQ());
+            me->GetHsm().SaveOutSeq(*evt);
+            Fw::Post(evt);
+
             evt = new SensorStopReq(IKS01A1, SYSTEM, GEN_SEQ());
             me->GetHsm().SaveOutSeq(*evt);
             Fw::Post(evt);
@@ -546,6 +556,7 @@ QState System::Stopping2(System * const me, QEvt const * const e) {
         case TRAFFIC_STOP_CFM:
         case GPIO_IN_STOP_CFM:
         case WIFI_STOP_CFM:
+        case MICROWAVE_STOP_CFM:
         case SENSOR_STOP_CFM:
         case GPIO_OUT_STOP_CFM: {
             EVENT(e);

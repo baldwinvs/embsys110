@@ -36,15 +36,15 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef SIMPLEACT_CMD_H
-#define SIMPLEACT_CMD_H
+#ifndef MAGNETRON_CMD_H
+#define MAGNETRON_CMD_H
 
 #include "ConsoleInterface.h"
 
 namespace APP {
 
-CmdStatus SimpleActCmd(Console &console, Evt const *e);
+CmdStatus MagnetronCmd(Console &console, Evt const *e);
 
 } // namespace APP
 
-#endif // SIMPLEACT_CMD_H
+#endif // MAGNETRON_CMD_H

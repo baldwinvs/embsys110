@@ -36,8 +36,8 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef SIMPLE_ACT_H
-#define SIMPLE_ACT_H
+#ifndef MAGNETRON_H
+#define MAGNETRON_H
 
 #include "qpcpp.h"
 #include "fw_active.h"
@@ -50,47 +50,46 @@ using namespace FW;
 
 namespace APP {
 
-class SimpleAct : public Active {
+class Magnetron : public Active {
 public:
-    SimpleAct();
+    Magnetron();
 
 protected:
-    static QState InitialPseudoState(SimpleAct * const me, QEvt const * const e);
-    static QState Root(SimpleAct * const me, QEvt const * const e);
-        static QState Stopped(SimpleAct * const me, QEvt const * const e);
-        static QState Starting(SimpleAct * const me, QEvt const * const e);
-        static QState Stopping(SimpleAct * const me, QEvt const * const e);
-        static QState Started(SimpleAct * const me, QEvt const * const e);
+    static QState InitialPseudoState(Magnetron * const me, QEvt const * const e);
+    static QState Root(Magnetron * const me, QEvt const * const e);
+        static QState Stopped(Magnetron * const me, QEvt const * const e);
+        static QState Started(Magnetron * const me, QEvt const * const e);
+            static QState Off(Magnetron * const me, QEvt const * const e);
+            static QState On(Magnetron * const me, QEvt const * const e);
+                static QState Running(Magnetron * const me, QEvt const * const e);
+                static QState NotRunning(Magnetron * const me, QEvt const * const e);
+            static QState Paused(Magnetron * const me, QEvt const * const e);
 
-    Timer m_stateTimer;
+    enum {
+        CYCLE_TIME_MS = 30000,
+    }
+    
+    Timer m_magnetronTimer;
+    uint32_t m_onTime;
+    uint32_t m_offTime;
+    uint32_t m_remainingTime;
+    MagnetronPipe* m_pipe;
+    
+    // m_history is a function pointer used for saving the previous state.
+    QState (*m_history) (Magnetron * const me, QEvt const * const e);
 
-#define SIMPLE_ACT_TIMER_EVT \
-    ADD_EVT(STATE_TIMER)
-
-#define SIMPLE_ACT_INTERNAL_EVT \
-    ADD_EVT(DONE) \
-    ADD_EVT(FAILED)
+#define MAGNETRON_TIMER_EVT \
+    ADD_EVT(MAGNETRON_TIMER)
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
 
     enum {
-        SIMPLE_ACT_TIMER_EVT_START = TIMER_EVT_START(SIMPLE_ACT),
-        SIMPLE_ACT_TIMER_EVT
-    };
-
-    enum {
-        SIMPLE_ACT_INTERNAL_EVT_START = INTERNAL_EVT_START(SIMPLE_ACT),
-        SIMPLE_ACT_INTERNAL_EVT
-    };
-
-    class Failed : public ErrorEvt {
-    public:
-        Failed(Hsmn hsmn, Error error, Hsmn origin, Reason reason) :
-            ErrorEvt(FAILED, hsmn, hsmn, 0, error, origin, reason) {}
+        MAGNETRON_TIMER_EVT_START = TIMER_EVT_START(MAGNETRON),
+        MAGNETRON_TIMER_EVT
     };
 };
 
 } // namespace APP
 
-#endif // SIMPLE_ACT_H
+#endif // MAGNETRON_H

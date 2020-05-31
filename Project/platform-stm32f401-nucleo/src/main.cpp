@@ -186,7 +186,7 @@ int main(void)
     Log::Off(WIFI_ST);
 
     // Start active objects.
-    compositeAct.Start(PRIO_COMPOSITE_ACT);
+    compositeAct.Start(PRIO_MICROWAVE);
     simpleAct.Start(PRIO_SIMPLE_ACT);
     demo.Start(PRIO_DEMO);
     gpioOutAct.Start(PRIO_GPIO_OUT_ACT);

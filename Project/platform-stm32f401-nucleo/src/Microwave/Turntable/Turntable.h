@@ -36,8 +36,8 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef COMPOSITE_REG_H
-#define COMPOSITE_REG_H
+#ifndef TURNTABLE_H
+#define TURNTABLE_H
 
 #include "qpcpp.h"
 #include "fw_region.h"
@@ -50,38 +50,20 @@ using namespace FW;
 
 namespace APP {
 
-class CompositeReg : public Region {
+class Turntable : public Region {
 public:
-    CompositeReg();
+    Turntable(Hsmn hsmn, const char *name);
 
 protected:
-    static QState InitialPseudoState(CompositeReg * const me, QEvt const * const e);
-    static QState Root(CompositeReg * const me, QEvt const * const e);
-        static QState Stopped(CompositeReg * const me, QEvt const * const e);
-        static QState Started(CompositeReg * const me, QEvt const * const e);
-
-    Timer m_stateTimer;
-
-#define COMPOSITE_REG_TIMER_EVT \
-    ADD_EVT(STATE_TIMER)
-
-#define COMPOSITE_REG_INTERNAL_EVT \
-    ADD_EVT(DONE)
+    static QState InitialPseudoState(Turntable * const me, QEvt const * const e);
+    static QState Root(Turntable * const me, QEvt const * const e);
+        static QState On(Turntable * const me, QEvt const * const e);
+        static QState Off(Turntable * const me, QEvt const * const e);
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
-
-    enum {
-        COMPOSITE_REG_TIMER_EVT_START = TIMER_EVT_START(COMPOSITE_REG),
-        COMPOSITE_REG_TIMER_EVT
-    };
-
-    enum {
-        COMPOSITE_REG_INTERNAL_EVT_START = INTERNAL_EVT_START(COMPOSITE_REG),
-        COMPOSITE_REG_INTERNAL_EVT
-    };
 };
 
 } // namespace APP
 
-#endif // COMPOSITE_REG_H
+#endif // TURNTABLE_H

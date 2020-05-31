@@ -36,11 +36,12 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef SIMPLE_ACT_INTERFACE_H
-#define SIMPLE_ACT_INTERFACE_H
+#ifndef MAGNETRON_INTERFACE_H
+#define MAGNETRON_INTERFACE_H
 
 #include "fw_def.h"
 #include "fw_evt.h"
+#include "fw_pipe.h"
 #include "app_hsmn.h"
 
 using namespace QP;
@@ -48,56 +49,82 @@ using namespace FW;
 
 namespace APP {
 
-#define SIMPLE_ACT_INTERFACE_EVT \
-    ADD_EVT(SIMPLE_ACT_START_REQ) \
-    ADD_EVT(SIMPLE_ACT_START_CFM) \
-    ADD_EVT(SIMPLE_ACT_STOP_REQ) \
-    ADD_EVT(SIMPLE_ACT_STOP_CFM)
+#define MAGNETRON_INTERFACE_EVT \
+    ADD_EVT(MAGNETRON_START_REQ) \
+    ADD_EVT(MAGNETRON_START_CFM) \
+    ADD_EVT(MAGNETRON_STOP_REQ) \
+    ADD_EVT(MAGNETRON_STOP_CFM) \
+    ADD_EVT(MAGNETRON_OFF_REQ) \
+    ADD_EVT(MAGNETRON_ON_REQ) \
+    ADD_EVT(MAGNETRON_PAUSE_REQ)
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
 
 enum {
-    SIMPLE_ACT_INTERFACE_EVT_START = INTERFACE_EVT_START(SIMPLE_ACT),
-    SIMPLE_ACT_INTERFACE_EVT
+    MAGNETRON_INTERFACE_EVT_START = INTERFACE_EVT_START(MAGNETRON),
+    MAGNETRON_INTERFACE_EVT
 };
 
 enum {
-    SIMPLE_ACT_REASON_UNSPEC = 0,
+    MAGNETRON_REASON_UNSPEC = 0,
 };
 
-class SimpleActStartReq : public Evt {
+typedef Pipe<uint32_t> MagnetronPipe;
+
+class MagnetronStartReq : public Evt {
 public:
     enum {
         TIMEOUT_MS = 200
     };
-    SimpleActStartReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(SIMPLE_ACT_START_REQ, to, from, seq) {}
+    MagnetronStartReq(Hsmn to, Hsmn from, Sequence seq) :
+        Evt(MAGNETRON_START_REQ, to, from, seq) {}
 };
 
-class SimpleActStartCfm : public ErrorEvt {
+class MagnetronStartCfm : public ErrorEvt {
 public:
-    SimpleActStartCfm(Hsmn to, Hsmn from, Sequence seq,
+    MagnetronStartCfm(Hsmn to, Hsmn from, Sequence seq,
                    Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(SIMPLE_ACT_START_CFM, to, from, seq, error, origin, reason) {}
+        ErrorEvt(MAGNETRON_START_CFM, to, from, seq, error, origin, reason) {}
 };
 
-class SimpleActStopReq : public Evt {
+class MagnetronStopReq : public Evt {
 public:
     enum {
         TIMEOUT_MS = 200
     };
-    SimpleActStopReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(SIMPLE_ACT_STOP_REQ, to, from, seq) {}
+    MagnetronStopReq(Hsmn to, Hsmn from, Sequence seq) :
+        Evt(MAGNETRON_STOP_REQ, to, from, seq) {}
 };
 
-class SimpleActStopCfm : public ErrorEvt {
+class MagnetronStopCfm : public ErrorEvt {
 public:
-    SimpleActStopCfm(Hsmn to, Hsmn from, Sequence seq,
+    MagnetronStopCfm(Hsmn to, Hsmn from, Sequence seq,
                    Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(SIMPLE_ACT_STOP_CFM, to, from, seq, error, origin, reason) {}
+        ErrorEvt(MAGNETRON_STOP_CFM, to, from, seq, error, origin, reason) {}
+};
+
+class MagnetronOffReq : public Evt {
+public:
+    MagnetronOffReq(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MAGNETRON_OFF_REQ, to, from, seq) {}
+};
+
+class MagnetronOnReq : public Evt {
+public:
+    MagnetronOnReq(Hsmn to, Hsmn from, Sequence seq, MagnetronPipe *pipe) :
+        Evt(MAGNETRON_ON_REQ, to, from, seq), m_pipe(pipe) {}
+    MagnetronPipe *GetPipe() const { return m_pipe; }
+private:
+    MagnetronPipe *m_pipe;
+};
+
+class MagnetronPauseReq : public Evt {
+public:
+    MagnetronPauseReq(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MAGNETRON_PAUSE_REQ, to, from, seq) {}
 };
 
 } // namespace APP
 
-#endif // SIMPLE_ACT_INTERFACE_H
+#endif // MAGNETRON_INTERFACE_H

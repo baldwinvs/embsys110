@@ -39,75 +39,27 @@
 #include "app_hsmn.h"
 #include "fw_log.h"
 #include "fw_assert.h"
-#include "CompositeRegInterface.h"
-#include "CompositeReg.h"
+#include "FanInterface.h"
+#include "Fan.h"
 
-FW_DEFINE_THIS_FILE("CompositeReg.cpp")
+FW_DEFINE_THIS_FILE("Fan.cpp")
 
 namespace APP {
 
 #undef ADD_EVT
 #define ADD_EVT(e_) #e_,
 
-static char const * const timerEvtName[] = {
-    "COMPOSITE_REG_TIMER_EVT_START",
-    COMPOSITE_REG_TIMER_EVT
-};
-
-static char const * const internalEvtName[] = {
-    "COMPOSITE_REG_INTERNAL_EVT_START",
-    COMPOSITE_REG_INTERNAL_EVT
-};
-
-static char const * const interfaceEvtName[] = {
-    "COMPOSITE_REG_INTERFACE_EVT_START",
-    COMPOSITE_REG_INTERFACE_EVT
-};
-
-static char const * const hsmName[] = {
-    "COMPOSITE_REG0",
-    "COMPOSITE_REG1",
-    "COMPOSITE_REG2",
-    "COMPOSITE_REG3"
-};
-
-static char const * GetName(Hsmn hsmn) {
-    uint16_t inst = hsmn - COMPOSITE_REG;
-    FW_ASSERT(inst < ARRAY_COUNT(hsmName));
-    return hsmName[inst];
+Fan::Fan(Hsmn hsmn, char const * name) :
+    Region((QStateHandler)&Fan::InitialPseudoState, hsmn, name) {
+    SET_EVT_NAME(FAN);
 }
 
-static Hsmn &GetCurrHsmn() {
-    static Hsmn hsmn = COMPOSITE_REG;
-    FW_ASSERT(hsmn <= COMPOSITE_REG_LAST);
-    return hsmn;
-}
-
-static void IncCurrHsmn() {
-    Hsmn &currHsmn = GetCurrHsmn();
-    ++currHsmn;
-    FW_ASSERT(currHsmn > 0);
-}
-
-static uint16_t GetInst(Hsmn hsmn) {
-    uint16_t inst = hsmn - COMPOSITE_REG;
-    FW_ASSERT(inst < COMPOSITE_REG_COUNT);
-    return inst;
-}
-
-CompositeReg::CompositeReg() :
-    Region((QStateHandler)&CompositeReg::InitialPseudoState, GetCurrHsmn(), GetName(GetCurrHsmn())),
-    m_stateTimer(this->GetHsm().GetHsmn(), STATE_TIMER) {
-    SET_EVT_NAME(COMPOSITE_REG);
-    IncCurrHsmn();
-}
-
-QState CompositeReg::InitialPseudoState(CompositeReg * const me, QEvt const * const e) {
+QState Fan::InitialPseudoState(Fan * const me, QEvt const * const e) {
     (void)e;
-    return Q_TRAN(&CompositeReg::Root);
+    return Q_TRAN(&Fan::Root);
 }
 
-QState CompositeReg::Root(CompositeReg * const me, QEvt const * const e) {
+QState Fan::Root(Fan * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -118,20 +70,21 @@ QState CompositeReg::Root(CompositeReg * const me, QEvt const * const e) {
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
-            return Q_TRAN(&CompositeReg::Stopped);
+            return Q_TRAN(&Fan::Stopped);
         }
-        case COMPOSITE_REG_START_REQ: {
+        case FAN_ON_REQ: {
             EVENT(e);
-            Evt const &req = EVT_CAST(*e);
-            Evt *evt = new CompositeRegStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE, GET_HSMN());
-            Fw::Post(evt);
-            return Q_HANDLED();
+            return Q_TRAN(&Fan::On);
+        }
+        case FAN_OFF_REQ: {
+            EVENT(e);
+            return Q_TRAN(&Fan::Off);
         }
     }
     return Q_SUPER(&QHsm::top);
 }
 
-QState CompositeReg::Stopped(CompositeReg * const me, QEvt const * const e) {
+QState Fan::On(Fan * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -141,48 +94,34 @@ QState CompositeReg::Stopped(CompositeReg * const me, QEvt const * const e) {
             EVENT(e);
             return Q_HANDLED();
         }
-        case COMPOSITE_REG_STOP_REQ: {
+        case FAN_OFF_REQ: {
             EVENT(e);
-            Evt const &req = EVT_CAST(*e);
-            Evt *evt = new CompositeRegStopCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_SUCCESS);
-            Fw::Post(evt);
-            return Q_HANDLED();
-        }
-        case COMPOSITE_REG_START_REQ: {
-            EVENT(e);
-            Evt const &req = EVT_CAST(*e);
-            Evt *evt = new CompositeRegStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_SUCCESS);
-            Fw::Post(evt);
-            return Q_TRAN(&CompositeReg::Started);
+            return Q_TRAN(&Fan::Off);
         }
     }
-    return Q_SUPER(&CompositeReg::Root);
+    return Q_SUPER(&Fan::Root);
 }
 
-QState CompositeReg::Started(CompositeReg * const me, QEvt const * const e) {
+QState Fan::Off(Fan * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            LOG("Instance = %d", GetInst(GET_HSMN()));
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
             return Q_HANDLED();
         }
-        case COMPOSITE_REG_STOP_REQ: {
+        case FAN_ON_REQ: {
             EVENT(e);
-            Evt const &req = EVT_CAST(*e);
-            Evt *evt = new CompositeRegStopCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_SUCCESS);
-            Fw::Post(evt);
-            return Q_TRAN(&CompositeReg::Stopped);
+            return Q_TRAN(&Fan::On);
         }
     }
-    return Q_SUPER(&CompositeReg::Root);
+    return Q_SUPER(&Fan::Root);
 }
 
 /*
-QState CompositeReg::MyState(CompositeReg * const me, QEvt const * const e) {
+QState Fan::MyState(Fan * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -193,10 +132,10 @@ QState CompositeReg::MyState(CompositeReg * const me, QEvt const * const e) {
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
-            return Q_TRAN(&CompositeReg::SubState);
+            return Q_TRAN(&Fan::SubState);
         }
     }
-    return Q_SUPER(&CompositeReg::SuperState);
+    return Q_SUPER(&Fan::SuperState);
 }
 */
 

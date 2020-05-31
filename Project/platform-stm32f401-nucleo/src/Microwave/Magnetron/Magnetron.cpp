@@ -39,10 +39,10 @@
 #include "app_hsmn.h"
 #include "fw_log.h"
 #include "fw_assert.h"
-#include "SimpleActInterface.h"
-#include "SimpleAct.h"
+#include "MagnetronInterface.h"
+#include "Magnetron.h"
 
-FW_DEFINE_THIS_FILE("SimpleAct.cpp")
+FW_DEFINE_THIS_FILE("Magnetron.cpp")
 
 namespace APP {
 
@@ -50,32 +50,38 @@ namespace APP {
 #define ADD_EVT(e_) #e_,
 
 static char const * const timerEvtName[] = {
-    "SIMPLE_ACT_TIMER_EVT_START",
-    SIMPLE_ACT_TIMER_EVT
+    "MAGNETRON_TIMER_EVT_START",
+    MAGNETRON_TIMER_EVT
 };
 
 static char const * const internalEvtName[] = {
-    "SIMPLE_ACT_INTERNAL_EVT_START",
-    SIMPLE_ACT_INTERNAL_EVT
+    "MAGNETRON_INTERNAL_EVT_START",
+    MAGNETRON_INTERNAL_EVT
 };
 
 static char const * const interfaceEvtName[] = {
-    "SIMPLE_ACT_INTERFACE_EVT_START",
-    SIMPLE_ACT_INTERFACE_EVT
+    "MAGNETRON_INTERFACE_EVT_START",
+    MAGNETRON_INTERFACE_EVT
 };
 
-SimpleAct::SimpleAct() :
-    Active((QStateHandler)&SimpleAct::InitialPseudoState, SIMPLE_ACT, "SIMPLE_ACT"),
-    m_stateTimer(GetHsm().GetHsmn(), STATE_TIMER) {
-    SET_EVT_NAME(SIMPLE_ACT);
-}
+Magnetron::Magnetron() :
+    Active((QStateHandler)&Magnetron::InitialPseudoState, MAGNETRON, "MAGNETRON"),
+    m_stateTimer(GetHsm().GetHsmn(),STATE_TIMER),
+    m_onTime{},
+    m_offTime{},
+    m_remainingTime{},
+    m_pipe{nullptr},
+    m_history{nullptr}
+    {
+        SET_EVT_NAME(MAGNETRON);
+    }
 
-QState SimpleAct::InitialPseudoState(SimpleAct * const me, QEvt const * const e) {
+QState Magnetron::InitialPseudoState(Magnetron * const me, QEvt const * const e) {
     (void)e;
-    return Q_TRAN(&SimpleAct::Root);
+    return Q_TRAN(&Magnetron::Root);
 }
 
-QState SimpleAct::Root(SimpleAct * const me, QEvt const * const e) {
+QState Magnetron::Root(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -86,26 +92,27 @@ QState SimpleAct::Root(SimpleAct * const me, QEvt const * const e) {
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
-            return Q_TRAN(&SimpleAct::Stopped);
+            EVENT(e);
+            return Q_TRAN(&Magnetron::Stopped);
         }
-        case SIMPLE_ACT_START_REQ: {
+        case MAGNETRON_START_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
-            Evt *evt = new SimpleActStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE, GET_HSMN());
+            Evt *evt = new MagnetronStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE, GET_HSMN());
             Fw::Post(evt);
             return Q_HANDLED();
         }
-        case SIMPLE_ACT_STOP_REQ: {
+        case MAGNETRON_STOP_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
             me->GetHsm().SaveInSeq(req);
-            return Q_TRAN(&SimpleAct::Stopping);
+            return Q_TRAN(&Magnetron::Stopped);
         }
     }
     return Q_SUPER(&QHsm::top);
 }
 
-QState SimpleAct::Stopped(SimpleAct * const me, QEvt const * const e) {
+QState Magnetron::Stopped(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -115,145 +122,64 @@ QState SimpleAct::Stopped(SimpleAct * const me, QEvt const * const e) {
             EVENT(e);
             return Q_HANDLED();
         }
-        case SIMPLE_ACT_STOP_REQ: {
+        case MAGNETRON_STOP_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
-            Evt *evt = new SimpleActStopCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_SUCCESS);
+            Evt *evt = new MagnetronStopCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_SUCCESS);
             Fw::Post(evt);
             return Q_HANDLED();
         }
-        case SIMPLE_ACT_START_REQ: {
+        case MAGNETRON_START_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
             me->GetHsm().SaveInSeq(req);
-            return Q_TRAN(&SimpleAct::Starting);
+            return Q_TRAN(&Magnetron::Started);
         }
     }
-    return Q_SUPER(&SimpleAct::Root);
+    return Q_SUPER(&Magnetron::Root);
 }
 
-QState SimpleAct::Starting(SimpleAct * const me, QEvt const * const e) {
+QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            uint32_t timeout = SimpleActStartReq::TIMEOUT_MS;
-            //FW_ASSERT(timeout > XxxStartReq::TIMEOUT_MS);
-            me->m_stateTimer.Start(timeout);
-            me->GetHsm().ResetOutSeq();
-            //Evt *evt = new XxxStartReq(XXX, GET_HSMN(), GEN_SEQ());
-            //me->GetHsm().SaveOutSeq(*evt);
-            //Fw::Post(evt);
-            // For testing, send DONE immediately. Do not use PostSync in entry action.
-            Evt *evt = new Evt(DONE, GET_HSMN());
-            Fw::Post(evt);
-            return Q_HANDLED();
+            return Q_TRAN(&Magnetron::Off);
         }
         case Q_EXIT_SIG: {
             EVENT(e);
-            me->m_stateTimer.Stop();
-            me->GetHsm().ClearInSeq();
             return Q_HANDLED();
         }
-        /*
-        case XXX_START_CFM: {
+        case MAGNETRON_OFF_REQ: {
             EVENT(e);
-            ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
-            bool allReceived;
-            if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
-                Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
-                me->PostSync(evt);
-            } else if (allReceived) {
-                Evt *evt = new Evt(DONE, GET_HSMN());
-                me->PostSync(evt);
-            }
-            return Q_HANDLED();
+            return Q_TRAN(&Magnetron::Off);
         }
-        */
-        case FAILED:
-        case STATE_TIMER: {
+        case MAGNETRON_ON_REQ: {
             EVENT(e);
-            Evt *evt;
-            if (e->sig == FAILED) {
-                ErrorEvt const &failed = ERROR_EVT_CAST(*e);
-                evt = new SimpleActStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(),
-                                            failed.GetError(), failed.GetOrigin(), failed.GetReason());
-            } else {
-                evt = new SimpleActStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_TIMEOUT, GET_HSMN());
+            //get data from pipe
+            MagnetronOnReq const &req = static_cast<MagnetronOnReq const &>(*e);
+            me->m_pipe = req.GetPipe();
+            uint32_t powerLevel{};
+            uint32_t count {me->m_pipe.Read(&powerLevel, 1)};
+            if(0 == count) {
+                LOG("Could not read from magnetron pipe\n");
+                return Q_HANDLED();
             }
-            Fw::Post(evt);
-            return Q_TRAN(&SimpleAct::Stopping);
-        }
-        case DONE: {
-            EVENT(e);
-            Evt *evt = new SimpleActStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_SUCCESS);
-            Fw::Post(evt);
-            return Q_TRAN(&SimpleAct::Started);
+
+            //calculate on/off times
+            me->m_onTime = static_cast<float>(powerLevel/10.0f) * APP::Magnetron::CYCLE_TIME_MS;
+            me->m_offTime = static_cast<uint32_t>(APP::Magnetron::CYCLE_TIME_MS) - me->m_onTime;
+            LOG("\tpower level: %d\n"
+                "\ton time    : %d\n"
+                "\toff time   : %d\n", powerLevel, me->m_onTime, me->m_offTime);
+            //start magnetron timer
+            me->m_magnetronTimer.Start(m_onTime);
+            return Q_TRAN(&Magnetron::On);
         }
     }
-    return Q_SUPER(&SimpleAct::Root);
+    return Q_SUPER(&Magnetron::Root);
 }
 
-QState SimpleAct::Stopping(SimpleAct * const me, QEvt const * const e) {
-    switch (e->sig) {
-        case Q_ENTRY_SIG: {
-            EVENT(e);
-            uint32_t timeout = SimpleActStopReq::TIMEOUT_MS;
-            //FW_ASSERT(timeout > XxxStopReq::TIMEOUT_MS);
-            me->m_stateTimer.Start(timeout);
-            me->GetHsm().ResetOutSeq();
-            //Evt *evt = new XxxStopReq(XXX, GET_HSMN(), GEN_SEQ());
-            //me->GetHsm().SaveOutSeq(*evt);
-            //Fw::Post(evt);
-            // For testing, send DONE immediately. Do not use PostSync in entry action.
-            Evt *evt = new Evt(DONE, GET_HSMN());
-            Fw::Post(evt);
-            return Q_HANDLED();
-        }
-        case Q_EXIT_SIG: {
-            EVENT(e);
-            me->m_stateTimer.Stop();
-            me->GetHsm().ClearInSeq();
-            me->GetHsm().Recall();
-            return Q_HANDLED();
-        }
-        case SIMPLE_ACT_STOP_REQ: {
-            EVENT(e);
-            me->GetHsm().Defer(e);
-            return Q_HANDLED();
-        }
-        /*
-        case XXX_STOP_CFM: {
-            EVENT(e);
-            ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
-            bool allReceived;
-            if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
-                Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
-                me->PostSync(evt);
-            } else if (allReceived) {
-                Evt *evt = new Evt(DONE, GET_HSMN());
-                me->PostSync(evt);
-            }
-            return Q_HANDLED();
-        }
-        */
-        case FAILED:
-        case STATE_TIMER: {
-            EVENT(e);
-            FW_ASSERT(0);
-            // Will not reach here.
-            return Q_HANDLED();
-        }
-        case DONE: {
-            EVENT(e);
-            Evt *evt = new SimpleActStopCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_SUCCESS);
-            Fw::Post(evt);
-            return Q_TRAN(&SimpleAct::Stopped);
-        }
-    }
-    return Q_SUPER(&SimpleAct::Root);
-}
-
-QState SimpleAct::Started(SimpleAct * const me, QEvt const * const e) {
+QState Magnetron::Off(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -264,11 +190,94 @@ QState SimpleAct::Started(SimpleAct * const me, QEvt const * const e) {
             return Q_HANDLED();
         }
     }
-    return Q_SUPER(&SimpleAct::Root);
+    return Q_SUPER(&Magnetron::Started);
 }
+
+QState Magnetron::On(Magnetron * const me, QEvt const * const e) {
+    switch (e->sig) {
+        case Q_ENTRY_SIG: {
+            EVENT(e);
+            return Q_TRAN(&Magnetron::Running);
+        }
+        case Q_EXIT_SIG: {
+            EVENT(e);
+            return Q_HANDLED();
+        }
+        case MAGNETRON_PAUSE_REQ: {
+            EVENT(e);
+            me->m_remainingTime = me->m_magnetronTimer.currCtr();
+            me->m_magnetronTimer.Stop();
+            return Q_TRAN(&Magnetron::Paused);
+        }
+    }
+    return Q_SUPER(&Magnetron::Started);
+}
+
+QState Magnetron::Running(Magnetron * const me, QEvt const * const e) {
+    switch (e->sig) {
+        case Q_ENTRY_SIG: {
+            EVENT(e);
+            m_history = &Magnetron::Running;
+            return Q_HANDLED();
+        }
+        case Q_EXIT_SIG: {
+            EVENT(e);
+            return Q_HANDLED();
+        }
+        case MAGNETRON_TIMER: {
+            EVENT(e);
+            me->m_magnetronTimer.Stop();
+            me->m_magnetronTimer.Start(me->m_offTime);
+            return Q_TRAN(&Magnetron::NotRunning);
+        }
+    }
+    return Q_SUPER(&Magnetron::On);
+}
+
+QState Magnetron::NotRunning(Magnetron * const me, QEvt const * const e) {
+    switch (e->sig) {
+        case Q_ENTRY_SIG: {
+            EVENT(e);
+            m_history = &Magnetron::NotRunning;
+            return Q_HANDLED();
+        }
+        case Q_EXIT_SIG: {
+            EVENT(e);
+            return Q_HANDLED();
+        }
+        case MAGNETRON_TIMER: {
+            EVENT(e);
+            me->m_magnetronTimer.Stop();
+            me->m_magnetronTimer.Start(me->m_onTime);
+            return Q_TRAN(&Magnetron::Running);
+        }
+    }
+    return Q_SUPER(&Magnetron::On);
+}
+
+QState Magnetron::Paused(Magnetron * const me, QEvt const * const e) {
+    switch (e->sig) {
+        case Q_ENTRY_SIG: {
+            EVENT(e);
+            return Q_HANDLED();
+        }
+        case Q_EXIT_SIG: {
+            EVENT(e);
+            return Q_HANDLED();
+        }
+        case MAGNETRON_ON_REQ: {
+            EVENT(e);
+            me->m_magnetronTimer.Start(me->m_remainingTime);
+            return Q_TRAN(&m_history);
+        }
+    }
+    return Q_SUPER(&Magnetron::Started);
+}
+
+
 
 /*
-QState SimpleAct::MyState(SimpleAct * const me, QEvt const * const e) {
+QState Magnetron::MyState(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -279,10 +288,10 @@ QState SimpleAct::MyState(SimpleAct * const me, QEvt const * const e) {
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
-            return Q_TRAN(&SimpleAct::SubState);
+            return Q_TRAN(&Magnetron::SubState);
         }
     }
-    return Q_SUPER(&SimpleAct::SuperState);
+    return Q_SUPER(&Magnetron::SuperState);
 }
 */
 

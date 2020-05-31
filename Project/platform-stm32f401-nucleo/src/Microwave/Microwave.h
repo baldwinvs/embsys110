@@ -36,41 +36,106 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef COMPOSITE_ACT_H
-#define COMPOSITE_ACT_H
+#ifndef MICROWAVE_H
+#define MICROWAVE_H
 
 #include "qpcpp.h"
 #include "fw_active.h"
 #include "fw_timer.h"
 #include "fw_evt.h"
 #include "app_hsmn.h"
-#include "CompositeReg.h"
+#include "Fan.h"
+#include "MWLamp.h"
+#include "Turntable.h"
+#include "MicrowaveMsgFormat.h"
+#include "MagnetronInterface.h"
 
 using namespace QP;
 using namespace FW;
 
 namespace APP {
 
-class CompositeAct : public Active {
+class Microwave : public Active {
 public:
-    CompositeAct();
+    Microwave();
 
 protected:
-    static QState InitialPseudoState(CompositeAct * const me, QEvt const * const e);
-    static QState Root(CompositeAct * const me, QEvt const * const e);
-        static QState Stopped(CompositeAct * const me, QEvt const * const e);
-        static QState Starting(CompositeAct * const me, QEvt const * const e);
-        static QState Stopping(CompositeAct * const me, QEvt const * const e);
-        static QState Started(CompositeAct * const me, QEvt const * const e);
+    static QState InitialPseudoState(Microwave * const me, QEvt const * const e);
+    static QState Root(Microwave * const me, QEvt const * const e);
+        static QState Stopped(Microwave * const me, QEvt const * const e);
+        static QState Started(Microwave * const me, QEvt const * const e);
+            static QState DisplayClock(Microwave * const me, QEvt const * const e);
+                static QState SetClock(Microwave * const me, QEvt const * const e);
+                    static QState ClockSelectHourTens(Microwave * const me, QEvt const * const e);
+                    static QState ClockSelectHourOnes(Microwave * const me, QEvt const * const e);
+                    static QState ClockSelectMinuteTens(Microwave * const me, QEvt const * const e);
+                    static QState ClockSelectMinuteOnes(Microwave * const me, QEvt const * const e);
+            static QState SetCookTimer(Microwave * const me, QEvt const * const e);
+            static QState SetPowerLevel(Microwave * const me, QEvt const * const e);
+            static QState SetKitchenTimer(Microwave * const me, QEvt const * const e);
+                static QState KitchenSelectHourTens(Microwave * const me, QEvt const * const me);
+                static QState KitchenSelectHourOnes(Microwave * const me, QEvt const * const me);
+                static QState KitchenSelectMinuteTens(Microwave * const me, QEvt const * const me);
+                static QState KitchenSelectMinuteOnes(Microwave * const me, QEvt const * const me);
+            static QState DisplayTimer(Microwave * const me, QEvt const * const e);
+                static QState DisplayTimerRunning(Microwave * const me, QEvt const * const e);
+                static QState DisplayTimerPaused(Microwave * const me, QEvt const * const e);
 
-    CompositeReg m_compositeReg[COMPOSITE_REG_COUNT];
+    struct DisplayTime {
+        MicrowaveMsgFormat::Time time;
+        uint32_t powerLevel;
+    };
 
-    Timer m_stateTimer;
+    MicrowaveMsgFormat::Time seconds2Time(const uint32_t seconds) const;
+    uint32_t time2Seconds(const MicrowaveMsgFormat::Time& time) const;
 
-#define COMPOSITE_ACT_TIMER_EVT \
-    ADD_EVT(STATE_TIMER)
+    void DecrementTimer();
+    void Add30SecondsToCookTime();
+    void IncrementClock();
 
-#define COMPOSITE_ACT_INTERNAL_EVT \
+    bool m_cook;
+    bool m_closed;
+    MicrowaveMsgFormat::Time m_clockTime;
+    MicrowaveMsgFormat::State m_state;
+
+    enum {
+        MAX_COOK_TIMERS = 2,
+    };
+    
+    uint32_t m_timerIndex;
+    uint32_t m_secondsRemaining;
+    DisplayTime m_displayTime[MAX_COOK_TIMERS];
+
+    Fan m_fan;              // Orthogonal region for the Fan
+    MWLamp m_lamp;          // Orthogonal region for the Microwave Lamp
+    Turntable m_turntable;  // Orthogonal region for the Turntable
+
+    enum {
+        HALF_SECOND_TIMEOUT_MS = 500,
+        SECOND_TIMEOUT_MS      = 1000,
+    };
+
+    Timer m_halfSecondTimer;
+    Timer m_secondTimer;
+
+    enum {
+        HALF_SECOND_COUNTS_PER_MINUTE = 120,
+    };
+
+    uint32_t m_halfSecondCounts;
+
+    enum {
+        MAGNETRON_PIPE_ORDER = 1
+    };
+
+    uint32_t m_magnetronStor[1 << MAGNETRON_PIPE_ORDER];
+    MagnetronPipe m_magnetronPipe;
+
+#define MICROWAVE_TIMER_EVT \
+    ADD_EVT(HALF_SECOND_TIMER) \
+    ADD_EVT(SECOND_TIMER)
+
+#define MICROWAVE_INTERNAL_EVT \
     ADD_EVT(DONE) \
     ADD_EVT(FAILED)
 
@@ -78,13 +143,13 @@ protected:
 #define ADD_EVT(e_) e_,
 
     enum {
-        COMPOSITE_ACT_TIMER_EVT_START = TIMER_EVT_START(COMPOSITE_ACT),
-        COMPOSITE_ACT_TIMER_EVT
+        MICROWAVE_TIMER_EVT_START = TIMER_EVT_START(MICROWAVE),
+        MICROWAVE_TIMER_EVT
     };
 
     enum {
-        COMPOSITE_ACT_INTERNAL_EVT_START = INTERNAL_EVT_START(COMPOSITE_ACT),
-        COMPOSITE_ACT_INTERNAL_EVT
+        MICROWAVE_INTERNAL_EVT_START = INTERNAL_EVT_START(MICROWAVE),
+        MICROWAVE_INTERNAL_EVT
     };
 
     class Failed : public ErrorEvt {
@@ -96,4 +161,4 @@ protected:
 
 } // namespace APP
 
-#endif // COMPOSITE_ACT_H
+#endif // MICROWAVE_H

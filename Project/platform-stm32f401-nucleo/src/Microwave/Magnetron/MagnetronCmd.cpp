@@ -40,17 +40,62 @@
 #include "fw_log.h"
 #include "fw_assert.h"
 #include "Console.h"
-#include "SimpleActCmd.h"
-#include "SimpleActInterface.h"
+#include "ConsoleInterface.h"
+#include "MagnetronCmd.h"
+#include "MagnetronInterface.h"
 
-FW_DEFINE_THIS_FILE("SimpleActCmd.cpp")
+FW_DEFINE_THIS_FILE("MagnetronCmd.cpp")
 
 namespace APP {
 
-static CmdStatus Test(Console &console, Evt const *e) {
+static uint32_t powerLevelStor[1];
+static bool pipeFilled{false};
+MagnetronPipe pipe(powerLevelStor, 1);
+
+static CmdStatus PowerLevel(Console &console, Evt const e) {
     switch (e->sig) {
         case Console::CONSOLE_CMD: {
-            console.PutStr("A simple active object. Add your own commands here.\n\r");
+            Console::ConsoleCmd const &ind = static_cast<Console::ConsoleCmd const &>(*e);
+            if (ind.Argc() < 2) {
+                console.PutStr("magnetron power <power level>\n\r");
+                return CMD_DONE;
+            }
+            uint32_t powerLevel = STRING_TO_NUM(ind.Argv(1), 0);
+            uint32_t count {pipe.Write(&powerLevel, 1)};
+            if(count == 0) {
+                console.PutStr("Pipe::Write unsuccessful\n\r");
+                return CMD_DONE;
+            }
+            pipeFilled = true;
+        }
+    }
+    return CMD_DONE;
+}
+
+static CmdStatus On(Console & console, Evt const e) {
+    switch (e->sig) {
+        case Console::CONSOLE_CMD: {
+            if(pipeFilled) {
+                console.PutStr("Magnetron power-on request\n\r");
+                Evt *evt = new MagnetronOnReq(MAGNETRON, console.GetHsmn());
+                Fw::Post(evt);
+                pipeFilled = false; //assuming that it was read correctly
+            }
+            else {
+                console.PutStr("No record of power level being set\n\r");
+            }
+            break;
+        }
+    }
+    return CMD_DONE;
+}
+
+static CmdStatus Off(Console & console, Evt const e) {
+    switch (e->sig) {
+        case Console::CONSOLE_CMD: {
+            console.PutStr("Magnetron power-off request\n\r");
+            Evt *evt = new MagnetronOffReq(MAGNETRON, console.GetHsmn());
+            Fw::Post(evt);
             break;
         }
     }
@@ -59,15 +104,17 @@ static CmdStatus Test(Console &console, Evt const *e) {
 
 static CmdStatus List(Console &console, Evt const *e);
 static CmdHandler const cmdHandler[] = {
-    { "test",       Test,       "Test command", 0 },
-    { "?",          List,       "List commands", 0 }
+    { "?",          List,       "List commands", 0 },
+    { "power",      PowerLevel, "Set Power Level", 0 },
+    { "on",         On,         "Turn on", 0 },
+    { "off",        Off,        "Turn off", 0 },
 };
 
 static CmdStatus List(Console &console, Evt const *e) {
     return console.ListCmd(e, cmdHandler, ARRAY_COUNT(cmdHandler));
 }
 
-CmdStatus SimpleActCmd(Console &console, Evt const *e) {
+CmdStatus MagnetronCmd(Console &console, Evt const *e) {
     return console.HandleCmd(e, cmdHandler, ARRAY_COUNT(cmdHandler));
 }
 

@@ -36,10 +36,12 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef COMPOSITE_REG_INTERFACE_H
-#define COMPOSITE_REG_INTERFACE_H
+#ifndef MWLAMP_H
+#define MWLAMP_H
 
-#include "fw_def.h"
+#include "qpcpp.h"
+#include "fw_region.h"
+#include "fw_timer.h"
 #include "fw_evt.h"
 #include "app_hsmn.h"
 
@@ -48,56 +50,20 @@ using namespace FW;
 
 namespace APP {
 
-#define COMPOSITE_REG_INTERFACE_EVT \
-    ADD_EVT(COMPOSITE_REG_START_REQ) \
-    ADD_EVT(COMPOSITE_REG_START_CFM) \
-    ADD_EVT(COMPOSITE_REG_STOP_REQ) \
-    ADD_EVT(COMPOSITE_REG_STOP_CFM)
+class MWLamp : public Region {
+public:
+    MWLamp(Hsmn hsmn, char const * name);
+
+protected:
+    static QState InitialPseudoState(MWLamp * const me, QEvt const * const e);
+    static QState Root(MWLamp * const me, QEvt const * const e);
+        static QState On(MWLamp * const me, QEvt const * const e);
+        static QState Off(MWLamp * const me, QEvt const * const e);
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
-
-enum {
-    COMPOSITE_REG_INTERFACE_EVT_START = INTERFACE_EVT_START(COMPOSITE_REG),
-    COMPOSITE_REG_INTERFACE_EVT
-};
-
-enum {
-    COMPOSITE_REG_REASON_UNSPEC = 0,
-};
-
-class CompositeRegStartReq : public Evt {
-public:
-    enum {
-        TIMEOUT_MS = 100
-    };
-    CompositeRegStartReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(COMPOSITE_REG_START_REQ, to, from, seq) {}
-};
-
-class CompositeRegStartCfm : public ErrorEvt {
-public:
-    CompositeRegStartCfm(Hsmn to, Hsmn from, Sequence seq,
-                   Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(COMPOSITE_REG_START_CFM, to, from, seq, error, origin, reason) {}
-};
-
-class CompositeRegStopReq : public Evt {
-public:
-    enum {
-        TIMEOUT_MS = 100
-    };
-    CompositeRegStopReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(COMPOSITE_REG_STOP_REQ, to, from, seq) {}
-};
-
-class CompositeRegStopCfm : public ErrorEvt {
-public:
-    CompositeRegStopCfm(Hsmn to, Hsmn from, Sequence seq,
-                   Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(COMPOSITE_REG_STOP_CFM, to, from, seq, error, origin, reason) {}
 };
 
 } // namespace APP
 
-#endif // COMPOSITE_REG_INTERFACE_H
+#endif // MWLAMP_H

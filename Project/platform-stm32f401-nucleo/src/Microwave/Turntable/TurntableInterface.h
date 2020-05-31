@@ -36,8 +36,8 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef COMPOSITE_REG_INTERFACE_H
-#define COMPOSITE_REG_INTERFACE_H
+#ifndef TURNTABLE_INTERFACE_H
+#define TURNTABLE_INTERFACE_H
 
 #include "fw_def.h"
 #include "fw_evt.h"
@@ -48,56 +48,34 @@ using namespace FW;
 
 namespace APP {
 
-#define COMPOSITE_REG_INTERFACE_EVT \
-    ADD_EVT(COMPOSITE_REG_START_REQ) \
-    ADD_EVT(COMPOSITE_REG_START_CFM) \
-    ADD_EVT(COMPOSITE_REG_STOP_REQ) \
-    ADD_EVT(COMPOSITE_REG_STOP_CFM)
+#define TURNTABLE_INTERFACE_EVT \
+    ADD_EVT(TURNTABLE_ON_REQ) \
+    ADD_EVT(TURNTABLE_OFF_REQ)
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
 
 enum {
-    COMPOSITE_REG_INTERFACE_EVT_START = INTERFACE_EVT_START(COMPOSITE_REG),
-    COMPOSITE_REG_INTERFACE_EVT
+    TURNTABLE_INTERFACE_EVT_START = INTERFACE_EVT_START(TURNTABLE),
+    TURNTABLE_INTERFACE_EVT
 };
 
 enum {
-    COMPOSITE_REG_REASON_UNSPEC = 0,
+    TURNTABLE_REASON_UNSPEC = 0,
 };
 
-class CompositeRegStartReq : public Evt {
+class TurntableOnReq : public Evt {
 public:
-    enum {
-        TIMEOUT_MS = 100
-    };
-    CompositeRegStartReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(COMPOSITE_REG_START_REQ, to, from, seq) {}
+    TurntableOnReq(Hsmn to, Hsmn from, Sequence seq) :
+        Evt(TURNTABLE_ON_REQ, to, from, seq) {}
 };
 
-class CompositeRegStartCfm : public ErrorEvt {
+class TurntableOffReq : public Evt {
 public:
-    CompositeRegStartCfm(Hsmn to, Hsmn from, Sequence seq,
-                   Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(COMPOSITE_REG_START_CFM, to, from, seq, error, origin, reason) {}
-};
-
-class CompositeRegStopReq : public Evt {
-public:
-    enum {
-        TIMEOUT_MS = 100
-    };
-    CompositeRegStopReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(COMPOSITE_REG_STOP_REQ, to, from, seq) {}
-};
-
-class CompositeRegStopCfm : public ErrorEvt {
-public:
-    CompositeRegStopCfm(Hsmn to, Hsmn from, Sequence seq,
-                   Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(COMPOSITE_REG_STOP_CFM, to, from, seq, error, origin, reason) {}
+    TurntableOffReq(Hsmn to, Hsmn from, Sequence seq= 0) :
+        Evt(TURNTABLE_OFF_REQ, to, from, seq) {}
 };
 
 } // namespace APP
 
-#endif // COMPOSITE_REG_INTERFACE_H
+#endif // TURNTABLE_INTERFACE_H

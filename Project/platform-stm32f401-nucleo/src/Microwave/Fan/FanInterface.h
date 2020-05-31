@@ -36,8 +36,8 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef COMPOSITE_REG_INTERFACE_H
-#define COMPOSITE_REG_INTERFACE_H
+#ifndef FAN_INTERFACE_H
+#define FAN_INTERFACE_H
 
 #include "fw_def.h"
 #include "fw_evt.h"
@@ -48,56 +48,34 @@ using namespace FW;
 
 namespace APP {
 
-#define COMPOSITE_REG_INTERFACE_EVT \
-    ADD_EVT(COMPOSITE_REG_START_REQ) \
-    ADD_EVT(COMPOSITE_REG_START_CFM) \
-    ADD_EVT(COMPOSITE_REG_STOP_REQ) \
-    ADD_EVT(COMPOSITE_REG_STOP_CFM)
+#define FAN_INTERFACE_EVT \
+    ADD_EVT(FAN_ON_REQ) \
+    ADD_EVT(FAN_OFF_REQ)
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
 
 enum {
-    COMPOSITE_REG_INTERFACE_EVT_START = INTERFACE_EVT_START(COMPOSITE_REG),
-    COMPOSITE_REG_INTERFACE_EVT
+    FAN_INTERFACE_EVT_START = INTERFACE_EVT_START(FAN),
+    FAN_INTERFACE_EVT
 };
 
 enum {
-    COMPOSITE_REG_REASON_UNSPEC = 0,
+    FAN_REASON_UNSPEC = 0,
 };
 
-class CompositeRegStartReq : public Evt {
+class FanOnReq : public Evt {
 public:
-    enum {
-        TIMEOUT_MS = 100
-    };
-    CompositeRegStartReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(COMPOSITE_REG_START_REQ, to, from, seq) {}
+    FanOnReq(Hsmn to, Hsmn from, Sequence seq) :
+        Evt(FAN_ON_REQ, to, from, seq) {}
 };
 
-class CompositeRegStartCfm : public ErrorEvt {
+class FanOffReq : public Evt {
 public:
-    CompositeRegStartCfm(Hsmn to, Hsmn from, Sequence seq,
-                   Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(COMPOSITE_REG_START_CFM, to, from, seq, error, origin, reason) {}
-};
-
-class CompositeRegStopReq : public Evt {
-public:
-    enum {
-        TIMEOUT_MS = 100
-    };
-    CompositeRegStopReq(Hsmn to, Hsmn from, Sequence seq) :
-        Evt(COMPOSITE_REG_STOP_REQ, to, from, seq) {}
-};
-
-class CompositeRegStopCfm : public ErrorEvt {
-public:
-    CompositeRegStopCfm(Hsmn to, Hsmn from, Sequence seq,
-                   Error error, Hsmn origin = HSM_UNDEF, Reason reason = 0) :
-        ErrorEvt(COMPOSITE_REG_STOP_CFM, to, from, seq, error, origin, reason) {}
+    FanOffReq(Hsmn to, Hsmn from, Sequence seq) :
+        Evt(FAN_OFF_REQ, to, from, seq) {}
 };
 
 } // namespace APP
 
-#endif // COMPOSITE_REG_INTERFACE_H
+#endif // FAN_INTERFACE_H

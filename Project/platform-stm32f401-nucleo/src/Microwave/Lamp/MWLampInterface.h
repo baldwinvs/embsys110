@@ -36,12 +36,10 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef COMPOSITE_REG_H
-#define COMPOSITE_REG_H
+#ifndef MW_LAMP_INTERFACE_H
+#define MW_LAMP_INTERFACE_H
 
-#include "qpcpp.h"
-#include "fw_region.h"
-#include "fw_timer.h"
+#include "fw_def.h"
 #include "fw_evt.h"
 #include "app_hsmn.h"
 
@@ -50,38 +48,34 @@ using namespace FW;
 
 namespace APP {
 
-class CompositeReg : public Region {
-public:
-    CompositeReg();
-
-protected:
-    static QState InitialPseudoState(CompositeReg * const me, QEvt const * const e);
-    static QState Root(CompositeReg * const me, QEvt const * const e);
-        static QState Stopped(CompositeReg * const me, QEvt const * const e);
-        static QState Started(CompositeReg * const me, QEvt const * const e);
-
-    Timer m_stateTimer;
-
-#define COMPOSITE_REG_TIMER_EVT \
-    ADD_EVT(STATE_TIMER)
-
-#define COMPOSITE_REG_INTERNAL_EVT \
-    ADD_EVT(DONE)
+#define MW_LAMP_INTERFACE_EVT \
+    ADD_EVT(MW_LAMP_ON_REQ) \
+    ADD_EVT(MW_LAMP_OFF_REQ)
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
 
-    enum {
-        COMPOSITE_REG_TIMER_EVT_START = TIMER_EVT_START(COMPOSITE_REG),
-        COMPOSITE_REG_TIMER_EVT
-    };
+enum {
+    MW_LAMP_INTERFACE_EVT_START = INTERFACE_EVT_START(MW_LAMP),
+    MW_LAMP_INTERFACE_EVT
+};
 
-    enum {
-        COMPOSITE_REG_INTERNAL_EVT_START = INTERNAL_EVT_START(COMPOSITE_REG),
-        COMPOSITE_REG_INTERNAL_EVT
-    };
+enum {
+    MW_LAMP_REASON_UNSPEC = 0,
+};
+
+class MwLampOnReq : public Evt {
+public:
+    MwLampOnReq(Hsmn to, Hsmn from, Sequence seq) :
+        Evt(MW_LAMP_ON_REQ, to, from, seq) {}
+};
+
+class MwLampStopReq : public Evt {
+public:
+    MwLampStopReq(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MW_LAMP_OFF_REQ, to, from, seq) {}
 };
 
 } // namespace APP
 
-#endif // COMPOSITE_REG_H
+#endif // MW_LAMP_INTERFACE_H

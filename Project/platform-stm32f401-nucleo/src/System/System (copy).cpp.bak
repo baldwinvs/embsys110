@@ -144,6 +144,8 @@ QState System::Root(System * const me, QEvt const * const e) {
         Fw::Post(evt);
         evt = new TrafficStartReq(TRAFFIC, SYSTEM, 0);
         Fw::Post(evt);
+        Evt *evt = new CompositeActStartReq(MICROWAVE, SYSTEM, 0);
+        Fw::Post(evt);
 
         // Test only.
         evt = new GpioInStartReq(USER_BTN, SYSTEM, 0);
@@ -188,6 +190,7 @@ QState System::Root(System * const me, QEvt const * const e) {
     case USER_LED_START_CFM:
     case WASH_START_CFM:
     case TRAFFIC_START_CFM:
+    case MICROWAVE_START_CFM:
     case LEVEL_METER_START_CFM: {
         EVENT(e);
         return Q_HANDLED();
