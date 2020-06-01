@@ -1,0 +1,23 @@
+Assignment 6 - EMBSYS110
+
+Message Format: TCP Server -> Wifi module
+
+HEADER  - 4 bytes
+MESSAGE - 2 bytes
+
+
+The HEADER and MESSAGE are ASCII encoded values.
+
+HEADER
+TRAF -> 0x54524146
+
+MESSAGE
+NS -> 0x4E53
+EW -> 0x4557
+
+
+Reporting traffic light status: Lamp -> Wifi module -> TCP Server
+
+I took the Lamp's object name, concatenated the log message
+for the corresponding light and then sent it to the the wifi module
+to be sent to the TCP server.

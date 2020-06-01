@@ -1,0 +1,11 @@
+21:59:52 **** Incremental Build of configuration Debug for project platform-stm32f401-nucleo ****
+make -j all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "platform-stm32f401-nucleo.elf"
+   text	   data	    bss	    dec	    hex	filename
+ 165893	    972	  89568	 256433	  3e9b1	platform-stm32f401-nucleo.elf
+Finished building: platform-stm32f401-nucleo.siz
+ 
+
+21:59:54 Build Finished (took 1s.771ms)
+
