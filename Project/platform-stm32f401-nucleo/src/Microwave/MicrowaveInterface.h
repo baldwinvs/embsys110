@@ -41,6 +41,7 @@
 
 #include "fw_def.h"
 #include "fw_evt.h"
+#include "fw_pipe.h"
 #include "app_hsmn.h"
 
 using namespace QP;
@@ -82,6 +83,8 @@ enum {
 enum {
     MICROWAVE_REASON_UNSPEC = 0,
 };
+
+typedef Pipe<MicrowaveMsgFormat::Message> MicrowavePipe;
 
 class MicrowaveStartReq : public Evt {
 public:

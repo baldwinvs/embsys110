@@ -12,29 +12,27 @@ enum class Destination : uint32_t {
 };
 
 enum class Type : uint8_t {
-    STATE   = 0x01,
-    SIGNAL  = 0x02,
-    UPDATE  = 0x04,
+    STATE   = 0x10,
+    SIGNAL  = 0x20,
+    UPDATE  = 0x40,
 };
 
 enum class State : uint32_t {
     NONE                        = 0x10000000,
     DISPLAY_CLOCK               = 0x10000001,
-    SET_CLOCK                   = 0x10000002,
-    CLOCK_SELECT_HOUR_TENS      = 0x10000004,
-    CLOCK_SELECT_HOUR_ONES      = 0x10000008,
-    CLOCK_SELECT_MINUTE_TENS    = 0x10000010,
-    CLOCK_SELECT_MINUTE_ONES    = 0x10000020,
-    SET_COOK_TIME               = 0x10000040,
+    CLOCK_SELECT_HOUR_TENS      = 0x10000002,
+    CLOCK_SELECT_HOUR_ONES      = 0x10000004,
+    CLOCK_SELECT_MINUTE_TENS    = 0x10000008,
+    CLOCK_SELECT_MINUTE_ONES    = 0x10000010,
+    SET_COOK_TIMER_INITIAL      = 0x10000020,
+    SET_COOK_TIMER_FINAL        = 0x10000040,
     SET_POWER_LEVEL             = 0x10000080,
-    SET_KITCHEN_TIMER           = 0x10000100,
-    KITCHEN_SELECT_HOUR_TENS    = 0x10000200,
-    KITCHEN_SELECT_HOUR_ONES    = 0x10000400,
-    KITCHEN_SELECT_MINUTE_TENS  = 0x10000800,
-    KITCHEN_SELECT_MINUTE_ONES  = 0x10001000,
-    DISPLAY_TIMER               = 0x10002000,
-    DISPLAY_TIMER_RUNNING       = 0x10004000,
-    DISPLAY_TIMER_PAUSED        = 0x10008000,
+    KITCHEN_SELECT_HOUR_TENS    = 0x10000100,
+    KITCHEN_SELECT_HOUR_ONES    = 0x10000200,
+    KITCHEN_SELECT_MINUTE_TENS  = 0x10000400,
+    KITCHEN_SELECT_MINUTE_ONES  = 0x10000800,
+    DISPLAY_TIMER_RUNNING       = 0x10000100,
+    DISPLAY_TIMER_PAUSED        = 0x10000200,
 };
 
 enum class Signal : uint32_t {
@@ -104,7 +102,7 @@ public:
 
     Message(Message&&) = default;
     Message& operator=(Message&&) = default;
-    
+
     bool operator==(const Message& rhs)
     {
         return 0 == memcmp(this, &rhs, sizeof(Message));

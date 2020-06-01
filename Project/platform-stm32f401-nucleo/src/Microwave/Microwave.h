@@ -71,6 +71,8 @@ protected:
                     static QState ClockSelectMinuteTens(Microwave * const me, QEvt const * const e);
                     static QState ClockSelectMinuteOnes(Microwave * const me, QEvt const * const e);
             static QState SetCookTimer(Microwave * const me, QEvt const * const e);
+                static QState SetCookTimerInitial(Microwave * const me, QEvt const * const e);
+                static QState SetCookTimerFinal(Microwave * const me, QEvt const * const e);
             static QState SetPowerLevel(Microwave * const me, QEvt const * const e);
             static QState SetKitchenTimer(Microwave * const me, QEvt const * const e);
                 static QState KitchenSelectHourTens(Microwave * const me, QEvt const * const me);
@@ -86,22 +88,46 @@ protected:
         uint32_t powerLevel;
     };
 
-    MicrowaveMsgFormat::Time seconds2Time(const uint32_t seconds) const;
-    uint32_t time2Seconds(const MicrowaveMsgFormat::Time& time) const;
+    template<typename Data>
+    void SendUpdate(const MicrowaveMsgFormat::Update update, const Data& data) {
+        m_message.update = update;
+        memcpy(m_message.data, &data, sizeof(data));
+        SendMessage(m_message);
+    }
+    void SendState(const MicrowaveMsgFormat::State state);
+    void SendSignal(const MicrowaveMsgFormat::Signal signal);
+    void SendMessage(const MicrowaveMsgFormat::Message& message);
+
+    void UpdateClock();
+    void UpdatePowerLevel();
+    void UpdateDisplayTime();
+
+    void ShiftLeftAndInsert(MicrowaveMsgFormat::Time& time, const uint32_t digit);
+    MicrowaveMsgFormat::Time Seconds2Time(const uint32_t seconds) const;
+    uint32_t Time2Seconds(const MicrowaveMsgFormat::Time& time) const;
 
     void DecrementTimer();
     void Add30SecondsToCookTime();
     void IncrementClock();
 
+    bool m_blink;
+    bool m_blinkToggle;
     bool m_cook;
     bool m_closed;
+    MicrowaveMsgFormat::Message m_message;
     MicrowaveMsgFormat::Time m_clockTime;
+    MicrowaveMsgFormat::Time m_proposedClockTime;
     MicrowaveMsgFormat::State m_state;
 
     enum {
         MAX_COOK_TIMERS = 2,
     };
+
+    enum {
+        MAX_POWER = 10,
+    }
     
+    uint32_t m_timersUsed;
     uint32_t m_timerIndex;
     uint32_t m_secondsRemaining;
     DisplayTime m_displayTime[MAX_COOK_TIMERS];
@@ -130,6 +156,13 @@ protected:
 
     uint32_t m_magnetronStor[1 << MAGNETRON_PIPE_ORDER];
     MagnetronPipe m_magnetronPipe;
+
+    enum {
+        MICROWAVE_PIPE_ORDER = 8
+    };
+
+    uint32_t m_microwaveStor[1 << MICROWAVE_PIPE_ORDER];
+    MicrowavePipe m_microwavePipe;
 
 #define MICROWAVE_TIMER_EVT \
     ADD_EVT(HALF_SECOND_TIMER) \
