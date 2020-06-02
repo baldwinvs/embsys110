@@ -1,0 +1,11 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=linux
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:platform-stm32f746-nucleo Debug,org.eclipse.launchbar.core.descriptorType.default\:OpenOCD stm32f7 nucleo,org.eclipse.launchbar.core.descriptorType.default\:platform-stm32f401-nucleo.elf,org.eclipse.launchbar.core.descriptorType.default\:OpenOCD stm32f4 nucleo,org.eclipse.launchbar.core.descriptorType.default\:platform-stm32f401-nucleo Debug
+eclipse.preferences.version=1
+org.eclipse.launchbar.core.descriptorType.default\:OpenOCD\ stm32f4\ nucleo/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:OpenOCD\ stm32f4\ nucleo/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:OpenOCD\ stm32f7\ nucleo/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:platform-stm32f401-nucleo\ Debug/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:platform-stm32f401-nucleo.elf/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:platform-stm32f401-nucleo.elf/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:platform-stm32f746-nucleo\ Debug/activeLaunchMode=debug

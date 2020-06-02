@@ -1,0 +1,730 @@
+23:37:30 **** Build of configuration Debug for project platform-stm32f767-nucleo ****
+make -j4 all 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal.c
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_adc.c
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_adc_ex.c
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_can.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal.d" -MT"system/src/stm32f7xx/stm32f7xx_hal.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal.o" "../system/src/stm32f7xx/stm32f7xx_hal.c"
+Invoking: Cross ARM C Compiler
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_adc_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_adc_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_adc_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_adc_ex.c"
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_can.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_can.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_can.o" "../system/src/stm32f7xx/stm32f7xx_hal_can.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_adc.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_adc.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_adc.o" "../system/src/stm32f7xx/stm32f7xx_hal_adc.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_adc.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_cec.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_cec.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_cec.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_cec.o" "../system/src/stm32f7xx/stm32f7xx_hal_cec.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_can.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_cortex.c
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal.c
+Invoking: Cross ARM C Compiler
+ 
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_cortex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_cortex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_cortex.o" "../system/src/stm32f7xx/stm32f7xx_hal_cortex.c"
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_crc.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_crc.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_crc.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_crc.o" "../system/src/stm32f7xx/stm32f7xx_hal_crc.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_adc_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_crc_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_crc_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_crc_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_crc_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_crc_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_crc.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_cryp.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_cryp.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_cryp.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_cryp.o" "../system/src/stm32f7xx/stm32f7xx_hal_cryp.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_cec.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_cryp_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_cryp_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_cryp_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_cryp_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_cryp_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_cortex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_dac.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_dac.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_dac.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_dac.o" "../system/src/stm32f7xx/stm32f7xx_hal_dac.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_crc_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_dac_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_dac_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_dac_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_dac_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_dac_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_cryp_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_dcmi.c
+Invoking: Cross ARM C Compiler
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_cryp.c
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_dcmi.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_dcmi.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_dcmi.o" "../system/src/stm32f7xx/stm32f7xx_hal_dcmi.c"
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_dcmi_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_dcmi_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_dcmi_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_dcmi_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_dcmi_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_dac.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_dfsdm.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_dfsdm.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_dfsdm.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_dfsdm.o" "../system/src/stm32f7xx/stm32f7xx_hal_dfsdm.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_dac_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_dma.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_dma.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_dma.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_dma.o" "../system/src/stm32f7xx/stm32f7xx_hal_dma.c"
+../system/src/stm32f7xx/stm32f7xx_hal_dcmi.c: In function 'HAL_DCMI_LineEventCallback':
+../system/src/stm32f7xx/stm32f7xx_hal_dcmi.c:612:60: warning: unused parameter 'hdcmi' [-Wunused-parameter]
+ __weak void HAL_DCMI_LineEventCallback(DCMI_HandleTypeDef *hdcmi)
+                                                            ^
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_dcmi_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_dma2d.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_dma2d.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_dma2d.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_dma2d.o" "../system/src/stm32f7xx/stm32f7xx_hal_dma2d.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_dfsdm.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_dma_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_dma_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_dma_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_dma_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_dma_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_dcmi.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_dsi.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_dsi.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_dsi.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_dsi.o" "../system/src/stm32f7xx/stm32f7xx_hal_dsi.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_dma.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_eth.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_eth.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_eth.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_eth.o" "../system/src/stm32f7xx/stm32f7xx_hal_eth.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_dsi.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_flash.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_flash.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_flash.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_flash.o" "../system/src/stm32f7xx/stm32f7xx_hal_flash.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_dma_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_flash_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_flash_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_flash_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_flash_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_flash_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_dma2d.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_gpio.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_gpio.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_gpio.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_gpio.o" "../system/src/stm32f7xx/stm32f7xx_hal_gpio.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_eth.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_hash.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_hash.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_hash.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_hash.o" "../system/src/stm32f7xx/stm32f7xx_hal_hash.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_flash_ex.c
+ 
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_flash.c
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_hash_ex.c
+ 
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_hash_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_hash_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_hash_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_hash_ex.c"
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_hcd.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_hcd.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_hcd.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_hcd.o" "../system/src/stm32f7xx/stm32f7xx_hal_hcd.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_hash.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_i2c.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_i2c.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_i2c.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_i2c.o" "../system/src/stm32f7xx/stm32f7xx_hal_i2c.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_gpio.c
+ 
+../system/src/stm32f7xx/stm32f7xx_hal_i2c.c: In function 'HAL_I2C_Master_Abort_IT':
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_i2c_ex.c
+../system/src/stm32f7xx/stm32f7xx_hal_i2c.c:2862:77: warning: unused parameter 'DevAddress' [-Wunused-parameter]
+ HAL_StatusTypeDef HAL_I2C_Master_Abort_IT(I2C_HandleTypeDef *hi2c, uint16_t DevAddress)
+                                                                             ^
+../system/src/stm32f7xx/stm32f7xx_hal_i2c.c: In function 'I2C_ITAddrCplt':
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_i2c_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_i2c_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_i2c_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_i2c_ex.c"
+../system/src/stm32f7xx/stm32f7xx_hal_i2c.c:3701:62: warning: unused parameter 'ITFlags' [-Wunused-parameter]
+ static void I2C_ITAddrCplt(I2C_HandleTypeDef *hi2c, uint32_t ITFlags)
+                                                              ^
+../system/src/stm32f7xx/stm32f7xx_hal_i2c.c: In function 'I2C_DMASlaveTransmitCplt':
+../system/src/stm32f7xx/stm32f7xx_hal_i2c.c:4268:57: warning: unused parameter 'hdma' [-Wunused-parameter]
+ static void I2C_DMASlaveTransmitCplt(DMA_HandleTypeDef *hdma)
+                                                         ^
+../system/src/stm32f7xx/stm32f7xx_hal_i2c.c: In function 'I2C_DMASlaveReceiveCplt':
+../system/src/stm32f7xx/stm32f7xx_hal_i2c.c:4322:56: warning: unused parameter 'hdma' [-Wunused-parameter]
+ static void I2C_DMASlaveReceiveCplt(DMA_HandleTypeDef *hdma)
+                                                        ^
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_hcd.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_i2s.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_i2s.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_i2s.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_i2s.o" "../system/src/stm32f7xx/stm32f7xx_hal_i2s.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_hash_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_irda.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_irda.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_irda.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_irda.o" "../system/src/stm32f7xx/stm32f7xx_hal_irda.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_i2c_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_iwdg.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_iwdg.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_iwdg.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_iwdg.o" "../system/src/stm32f7xx/stm32f7xx_hal_iwdg.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_i2s.c
+ 
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_irda.c
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_jpeg.c
+ 
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_jpeg.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_jpeg.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_jpeg.o" "../system/src/stm32f7xx/stm32f7xx_hal_jpeg.c"
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_lptim.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_lptim.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_lptim.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_lptim.o" "../system/src/stm32f7xx/stm32f7xx_hal_lptim.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_iwdg.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_ltdc.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_ltdc.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_ltdc.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_ltdc.o" "../system/src/stm32f7xx/stm32f7xx_hal_ltdc.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_jpeg.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_ltdc_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_ltdc_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_ltdc_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_ltdc_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_ltdc_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_lptim.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_mdios.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_mdios.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_mdios.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_mdios.o" "../system/src/stm32f7xx/stm32f7xx_hal_mdios.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_ltdc_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_msp_template.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_msp_template.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_msp_template.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_msp_template.o" "../system/src/stm32f7xx/stm32f7xx_hal_msp_template.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_i2c.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_nand.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_nand.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_nand.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_nand.o" "../system/src/stm32f7xx/stm32f7xx_hal_nand.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_mdios.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_nor.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_nor.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_nor.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_nor.o" "../system/src/stm32f7xx/stm32f7xx_hal_nor.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_msp_template.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_pcd.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_pcd.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_pcd.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_pcd.o" "../system/src/stm32f7xx/stm32f7xx_hal_pcd.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_nand.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_pcd_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_pcd_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_pcd_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_pcd_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_pcd_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_pcd.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_pwr.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_pwr.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_pwr.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_pwr.o" "../system/src/stm32f7xx/stm32f7xx_hal_pwr.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_ltdc.c
+ 
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_nor.c
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_pwr_ex.c
+ 
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_pwr_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_pwr_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_pwr_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_pwr_ex.c"
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_qspi.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_qspi.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_qspi.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_qspi.o" "../system/src/stm32f7xx/stm32f7xx_hal_qspi.c"
+../system/src/stm32f7xx/stm32f7xx_hal_pwr.c: In function 'HAL_PWR_EnterSLEEPMode':
+../system/src/stm32f7xx/stm32f7xx_hal_pwr.c:405:38: warning: unused parameter 'Regulator' [-Wunused-parameter]
+ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
+                                      ^
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_pcd_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_rcc.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_rcc.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_rcc.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_rcc.o" "../system/src/stm32f7xx/stm32f7xx_hal_rcc.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_pwr.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_rcc_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_rcc_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_rcc_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_rcc_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_rcc_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_pwr_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_rng.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_rng.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_rng.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_rng.o" "../system/src/stm32f7xx/stm32f7xx_hal_rng.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_rcc.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_rtc.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_rtc.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_rtc.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_rtc.o" "../system/src/stm32f7xx/stm32f7xx_hal_rtc.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_qspi.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_rtc_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_rtc_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_rtc_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_rtc_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_rtc_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_rng.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_sai.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_sai.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_sai.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_sai.o" "../system/src/stm32f7xx/stm32f7xx_hal_sai.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_rcc_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_sai_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_sai_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_sai_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_sai_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_sai_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_rtc_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_sd.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_sd.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_sd.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_sd.o" "../system/src/stm32f7xx/stm32f7xx_hal_sd.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_rtc.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_sdram.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_sdram.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_sdram.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_sdram.o" "../system/src/stm32f7xx/stm32f7xx_hal_sdram.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_sai_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_smartcard.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_smartcard.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_smartcard.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_smartcard.o" "../system/src/stm32f7xx/stm32f7xx_hal_smartcard.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_sdram.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_smartcard_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_smartcard_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_smartcard_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_smartcard_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_smartcard_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_sai.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_spdifrx.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_spdifrx.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_spdifrx.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_spdifrx.o" "../system/src/stm32f7xx/stm32f7xx_hal_spdifrx.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_smartcard.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_spi.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_spi.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_spi.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_spi.o" "../system/src/stm32f7xx/stm32f7xx_hal_spi.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_smartcard_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_sram.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_sram.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_sram.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_sram.o" "../system/src/stm32f7xx/stm32f7xx_hal_sram.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_spdifrx.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_tim.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_tim.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_tim.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_tim.o" "../system/src/stm32f7xx/stm32f7xx_hal_tim.c"
+../system/src/stm32f7xx/stm32f7xx_hal_tim.c: In function 'HAL_TIM_OnePulse_Start':
+../system/src/stm32f7xx/stm32f7xx_hal_tim.c:2111:76: warning: unused parameter 'OutputChannel' [-Wunused-parameter]
+ HAL_StatusTypeDef HAL_TIM_OnePulse_Start(TIM_HandleTypeDef *htim, uint32_t OutputChannel)
+                                                                            ^
+../system/src/stm32f7xx/stm32f7xx_hal_tim.c: In function 'HAL_TIM_OnePulse_Stop':
+../system/src/stm32f7xx/stm32f7xx_hal_tim.c:2145:75: warning: unused parameter 'OutputChannel' [-Wunused-parameter]
+ HAL_StatusTypeDef HAL_TIM_OnePulse_Stop(TIM_HandleTypeDef *htim, uint32_t OutputChannel)
+                                                                           ^
+../system/src/stm32f7xx/stm32f7xx_hal_tim.c: In function 'HAL_TIM_OnePulse_Start_IT':
+../system/src/stm32f7xx/stm32f7xx_hal_tim.c:2179:79: warning: unused parameter 'OutputChannel' [-Wunused-parameter]
+ HAL_StatusTypeDef HAL_TIM_OnePulse_Start_IT(TIM_HandleTypeDef *htim, uint32_t OutputChannel)
+                                                                               ^
+../system/src/stm32f7xx/stm32f7xx_hal_tim.c: In function 'HAL_TIM_OnePulse_Stop_IT':
+../system/src/stm32f7xx/stm32f7xx_hal_tim.c:2219:78: warning: unused parameter 'OutputChannel' [-Wunused-parameter]
+ HAL_StatusTypeDef HAL_TIM_OnePulse_Stop_IT(TIM_HandleTypeDef *htim, uint32_t OutputChannel)
+                                                                              ^
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_spi.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_tim_ex.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_tim_ex.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_tim_ex.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_tim_ex.o" "../system/src/stm32f7xx/stm32f7xx_hal_tim_ex.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_sd.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_uart.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_uart.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_uart.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_uart.o" "../system/src/stm32f7xx/stm32f7xx_hal_uart.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_sram.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_usart.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_usart.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_usart.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_usart.o" "../system/src/stm32f7xx/stm32f7xx_hal_usart.c"
+../system/src/stm32f7xx/stm32f7xx_hal_uart.c:1401:13: warning: 'UART_DMATxHalfCplt' defined but not used [-Wunused-function]
+ static void UART_DMATxHalfCplt(DMA_HandleTypeDef *hdma)
+             ^
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_tim_ex.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_hal_wwdg.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_hal_wwdg.d" -MT"system/src/stm32f7xx/stm32f7xx_hal_wwdg.o" -c -o "system/src/stm32f7xx/stm32f7xx_hal_wwdg.o" "../system/src/stm32f7xx/stm32f7xx_hal_wwdg.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_usart.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_ll_fmc.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_ll_fmc.d" -MT"system/src/stm32f7xx/stm32f7xx_ll_fmc.o" -c -o "system/src/stm32f7xx/stm32f7xx_ll_fmc.o" "../system/src/stm32f7xx/stm32f7xx_ll_fmc.c"
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c: In function 'FMC_NAND_CommonSpace_Timing_Init':
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c:518:123: warning: unused parameter 'Bank' [-Wunused-parameter]
+ HAL_StatusTypeDef FMC_NAND_CommonSpace_Timing_Init(FMC_NAND_TypeDef *Device, FMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
+                                                                                                                           ^
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c: In function 'FMC_NAND_AttributeSpace_Timing_Init':
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c:557:126: warning: unused parameter 'Bank' [-Wunused-parameter]
+ HAL_StatusTypeDef FMC_NAND_AttributeSpace_Timing_Init(FMC_NAND_TypeDef *Device, FMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
+                                                                                                                              ^
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c: In function 'FMC_NAND_DeInit':
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c:593:70: warning: unused parameter 'Bank' [-Wunused-parameter]
+ HAL_StatusTypeDef FMC_NAND_DeInit(FMC_NAND_TypeDef *Device, uint32_t Bank)
+                                                                      ^
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c: In function 'FMC_NAND_ECC_Enable':
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c:637:74: warning: unused parameter 'Bank' [-Wunused-parameter]
+ HAL_StatusTypeDef FMC_NAND_ECC_Enable(FMC_NAND_TypeDef *Device, uint32_t Bank)
+                                                                          ^
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c: In function 'FMC_NAND_ECC_Disable':
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c:656:75: warning: unused parameter 'Bank' [-Wunused-parameter]
+ HAL_StatusTypeDef FMC_NAND_ECC_Disable(FMC_NAND_TypeDef *Device, uint32_t Bank)  
+                                                                           ^
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c: In function 'FMC_NAND_GetECC':
+../system/src/stm32f7xx/stm32f7xx_ll_fmc.c:676:88: warning: unused parameter 'Bank' [-Wunused-parameter]
+ HAL_StatusTypeDef FMC_NAND_GetECC(FMC_NAND_TypeDef *Device, uint32_t *ECCval, uint32_t Bank, uint32_t Timeout)
+                                                                                        ^
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_wwdg.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_ll_sdmmc.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_ll_sdmmc.d" -MT"system/src/stm32f7xx/stm32f7xx_ll_sdmmc.o" -c -o "system/src/stm32f7xx/stm32f7xx_ll_sdmmc.o" "../system/src/stm32f7xx/stm32f7xx_ll_sdmmc.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_tim.c
+ 
+Building file: ../system/src/stm32f7xx/stm32f7xx_ll_usb.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/stm32f7xx/stm32f7xx_ll_usb.d" -MT"system/src/stm32f7xx/stm32f7xx_ll_usb.o" -c -o "system/src/stm32f7xx/stm32f7xx_ll_usb.o" "../system/src/stm32f7xx/stm32f7xx_ll_usb.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_ll_fmc.c
+ 
+Building file: ../system/src/newlib/_cxx.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"system/src/newlib/_cxx.d" -MT"system/src/newlib/_cxx.o" -c -o "system/src/newlib/_cxx.o" "../system/src/newlib/_cxx.cpp"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_ll_sdmmc.c
+ 
+Building file: ../system/src/newlib/_exit.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/newlib/_exit.d" -MT"system/src/newlib/_exit.o" -c -o "system/src/newlib/_exit.o" "../system/src/newlib/_exit.c"
+Finished building: ../system/src/stm32f7xx/stm32f7xx_hal_uart.c
+ 
+Building file: ../system/src/newlib/_sbrk.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/newlib/_sbrk.d" -MT"system/src/newlib/_sbrk.o" -c -o "system/src/newlib/_sbrk.o" "../system/src/newlib/_sbrk.c"
+Finished building: ../system/src/newlib/_cxx.cpp
+ 
+Building file: ../system/src/newlib/_startup.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/newlib/_startup.d" -MT"system/src/newlib/_startup.o" -c -o "system/src/newlib/_startup.o" "../system/src/newlib/_startup.c"
+Finished building: ../system/src/newlib/_exit.c
+ 
+Building file: ../system/src/newlib/_syscalls.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/newlib/_syscalls.d" -MT"system/src/newlib/_syscalls.o" -c -o "system/src/newlib/_syscalls.o" "../system/src/newlib/_syscalls.c"
+Finished building: ../system/src/newlib/_sbrk.c
+Finished building: ../system/src/stm32f7xx/stm32f7xx_ll_usb.c
+ 
+ 
+Building file: ../system/src/newlib/assert.c
+Building file: ../system/src/diag/Trace.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/diag/Trace.d" -MT"system/src/diag/Trace.o" -c -o "system/src/diag/Trace.o" "../system/src/diag/Trace.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/newlib/assert.d" -MT"system/src/newlib/assert.o" -c -o "system/src/newlib/assert.o" "../system/src/newlib/assert.c"
+Finished building: ../system/src/newlib/_syscalls.c
+ 
+Finished building: ../system/src/newlib/_startup.c
+Building file: ../system/src/diag/trace_impl.c
+ 
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/diag/trace_impl.d" -MT"system/src/diag/trace_impl.o" -c -o "system/src/diag/trace_impl.o" "../system/src/diag/trace_impl.c"
+Building file: ../system/src/cortexm/_initialize_hardware.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/cortexm/_initialize_hardware.d" -MT"system/src/cortexm/_initialize_hardware.o" -c -o "system/src/cortexm/_initialize_hardware.o" "../system/src/cortexm/_initialize_hardware.c"
+Finished building: ../system/src/newlib/assert.c
+ 
+Building file: ../system/src/cortexm/_reset_hardware.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/cortexm/_reset_hardware.d" -MT"system/src/cortexm/_reset_hardware.o" -c -o "system/src/cortexm/_reset_hardware.o" "../system/src/cortexm/_reset_hardware.c"
+Finished building: ../system/src/diag/Trace.c
+ 
+Building file: ../system/src/cortexm/exception_handlers.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/cortexm/exception_handlers.d" -MT"system/src/cortexm/exception_handlers.o" -c -o "system/src/cortexm/exception_handlers.o" "../system/src/cortexm/exception_handlers.c"
+Finished building: ../system/src/cortexm/_initialize_hardware.c
+ 
+Building file: ../system/src/cmsis/startup_stm32f767xx.S
+Invoking: Cross ARM GNU Assembler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -x assembler-with-cpp -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -MMD -MP -MF"system/src/cmsis/startup_stm32f767xx.d" -MT"system/src/cmsis/startup_stm32f767xx.o" -c -o "system/src/cmsis/startup_stm32f767xx.o" "../system/src/cmsis/startup_stm32f767xx.S"
+Finished building: ../system/src/cortexm/_reset_hardware.c
+ 
+Building file: ../system/src/cmsis/system_stm32f7xx.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/src/cmsis/system_stm32f7xx.d" -MT"system/src/cmsis/system_stm32f7xx.o" -c -o "system/src/cmsis/system_stm32f7xx.o" "../system/src/cmsis/system_stm32f7xx.c"
+Finished building: ../system/src/cmsis/startup_stm32f767xx.S
+ 
+Building file: ../system/BSP/STM32F7xx_Nucleo_144/stm32f7xx_nucleo_144.c
+Finished building: ../system/src/diag/trace_impl.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"system/BSP/STM32F7xx_Nucleo_144/stm32f7xx_nucleo_144.d" -MT"system/BSP/STM32F7xx_Nucleo_144/stm32f7xx_nucleo_144.o" -c -o "system/BSP/STM32F7xx_Nucleo_144/stm32f7xx_nucleo_144.o" "../system/BSP/STM32F7xx_Nucleo_144/stm32f7xx_nucleo_144.c"
+ 
+Building file: ../src/UartAct/UartOut/UartOut.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/UartAct/UartOut/UartOut.d" -MT"src/UartAct/UartOut/UartOut.o" -c -o "src/UartAct/UartOut/UartOut.o" "../src/UartAct/UartOut/UartOut.cpp"
+Finished building: ../system/src/cortexm/exception_handlers.c
+ 
+Building file: ../src/UartAct/UartIn/UartIn.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/UartAct/UartIn/UartIn.d" -MT"src/UartAct/UartIn/UartIn.o" -c -o "src/UartAct/UartIn/UartIn.o" "../src/UartAct/UartIn/UartIn.cpp"
+Finished building: ../system/src/cmsis/system_stm32f7xx.c
+ 
+Building file: ../src/UartAct/UartAct.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/UartAct/UartAct.d" -MT"src/UartAct/UartAct.o" -c -o "src/UartAct/UartAct.o" "../src/UartAct/UartAct.cpp"
+Finished building: ../system/BSP/STM32F7xx_Nucleo_144/stm32f7xx_nucleo_144.c
+ 
+Building file: ../src/Template/SimpleReg/SimpleReg.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/Template/SimpleReg/SimpleReg.d" -MT"src/Template/SimpleReg/SimpleReg.o" -c -o "src/Template/SimpleReg/SimpleReg.o" "../src/Template/SimpleReg/SimpleReg.cpp"
+Finished building: ../src/UartAct/UartOut/UartOut.cpp
+ 
+Building file: ../src/Template/SimpleAct/SimpleAct.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/Template/SimpleAct/SimpleAct.d" -MT"src/Template/SimpleAct/SimpleAct.o" -c -o "src/Template/SimpleAct/SimpleAct.o" "../src/Template/SimpleAct/SimpleAct.cpp"
+Finished building: ../src/UartAct/UartIn/UartIn.cpp
+ 
+Building file: ../src/Template/CompositeAct/CompositeReg/CompositeReg.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/Template/CompositeAct/CompositeReg/CompositeReg.d" -MT"src/Template/CompositeAct/CompositeReg/CompositeReg.o" -c -o "src/Template/CompositeAct/CompositeReg/CompositeReg.o" "../src/Template/CompositeAct/CompositeReg/CompositeReg.cpp"
+Finished building: ../src/Template/SimpleReg/SimpleReg.cpp
+ 
+Building file: ../src/Template/CompositeAct/CompositeAct.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/Template/CompositeAct/CompositeAct.d" -MT"src/Template/CompositeAct/CompositeAct.o" -c -o "src/Template/CompositeAct/CompositeAct.o" "../src/Template/CompositeAct/CompositeAct.cpp"
+Finished building: ../src/Template/SimpleAct/SimpleAct.cpp
+ 
+Building file: ../src/System/System.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/System/System.d" -MT"src/System/System.o" -c -o "src/System/System.o" "../src/System/System.cpp"
+Finished building: ../src/UartAct/UartAct.cpp
+ 
+Building file: ../src/System/SystemCmd.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/System/SystemCmd.d" -MT"src/System/SystemCmd.o" -c -o "src/System/SystemCmd.o" "../src/System/SystemCmd.cpp"
+Finished building: ../src/Template/CompositeAct/CompositeReg/CompositeReg.cpp
+ 
+Building file: ../src/Console/CmdParser/CmdParser.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/Console/CmdParser/CmdParser.d" -MT"src/Console/CmdParser/CmdParser.o" -c -o "src/Console/CmdParser/CmdParser.o" "../src/Console/CmdParser/CmdParser.cpp"
+Finished building: ../src/Template/CompositeAct/CompositeAct.cpp
+ 
+Building file: ../src/Console/CmdInput/CmdInput.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/Console/CmdInput/CmdInput.d" -MT"src/Console/CmdInput/CmdInput.o" -c -o "src/Console/CmdInput/CmdInput.o" "../src/Console/CmdInput/CmdInput.cpp"
+Finished building: ../src/System/SystemCmd.cpp
+ 
+Building file: ../src/Console/Console.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/Console/Console.d" -MT"src/Console/Console.o" -c -o "src/Console/Console.o" "../src/Console/Console.cpp"
+Finished building: ../src/System/System.cpp
+ 
+Building file: ../src/Console/ConsoleCmd.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/Console/ConsoleCmd.d" -MT"src/Console/ConsoleCmd.o" -c -o "src/Console/ConsoleCmd.o" "../src/Console/ConsoleCmd.cpp"
+Finished building: ../src/Console/CmdParser/CmdParser.cpp
+ 
+Building file: ../src/_write.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -std=gnu11 -MMD -MP -MF"src/_write.d" -MT"src/_write.o" -c -o "src/_write.o" "../src/_write.c"
+Finished building: ../src/_write.c
+ 
+Building file: ../src/bsp.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/bsp.d" -MT"src/bsp.o" -c -o "src/bsp.o" "../src/bsp.cpp"
+../src/bsp.cpp:86:6: warning: unused parameter 'buf' [-Wunused-parameter]
+ void BspWrite(char const *buf, uint32_t len) {
+      ^
+../src/bsp.cpp:86:6: warning: unused parameter 'len' [-Wunused-parameter]
+../src/bsp.cpp:50:27: warning: 'usart' defined but not used [-Wunused-variable]
+ static UART_HandleTypeDef usart;
+                           ^
+Finished building: ../src/Console/CmdInput/CmdInput.cpp
+ 
+Building file: ../src/main.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.cpp"
+Finished building: ../src/Console/ConsoleCmd.cpp
+ 
+Building file: ../src/periph.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/periph.d" -MT"src/periph.o" -c -o "src/periph.o" "../src/periph.cpp"
+Finished building: ../src/bsp.cpp
+ 
+Building file: ../src/stm32f7xx_it.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/stm32f7xx_it.d" -MT"src/stm32f7xx_it.o" -c -o "src/stm32f7xx_it.o" "../src/stm32f7xx_it.cpp"
+Finished building: ../src/Console/Console.cpp
+ 
+Building file: ../src/test.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"src/test.d" -MT"src/test.o" -c -o "src/test.o" "../src/test.cpp"
+Finished building: ../src/periph.cpp
+ 
+Building file: ../qpcpp/src/qxk/qxk.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qxk/qxk.d" -MT"qpcpp/src/qxk/qxk.o" -c -o "qpcpp/src/qxk/qxk.o" "../qpcpp/src/qxk/qxk.cpp"
+../src/main.cpp:261:13: warning: 'void Error_Handler()' defined but not used [-Wunused-function]
+ static void Error_Handler(void)
+             ^
+../src/main.cpp:277:13: warning: 'void MPU_Config()' defined but not used [-Wunused-function]
+ static void MPU_Config(void)
+             ^
+Finished building: ../src/stm32f7xx_it.cpp
+ 
+Building file: ../qpcpp/src/qxk/qxk_mutex.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qxk/qxk_mutex.d" -MT"qpcpp/src/qxk/qxk_mutex.o" -c -o "qpcpp/src/qxk/qxk_mutex.o" "../qpcpp/src/qxk/qxk_mutex.cpp"
+Finished building: ../qpcpp/src/qxk/qxk.cpp
+ 
+Building file: ../qpcpp/src/qxk/qxk_sema.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qxk/qxk_sema.d" -MT"qpcpp/src/qxk/qxk_sema.o" -c -o "qpcpp/src/qxk/qxk_sema.o" "../qpcpp/src/qxk/qxk_sema.cpp"
+Finished building: ../src/test.cpp
+ 
+Building file: ../qpcpp/src/qxk/qxk_xthr.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qxk/qxk_xthr.d" -MT"qpcpp/src/qxk/qxk_xthr.o" -c -o "qpcpp/src/qxk/qxk_xthr.o" "../qpcpp/src/qxk/qxk_xthr.cpp"
+Finished building: ../qpcpp/src/qxk/qxk_mutex.cpp
+ 
+Finished building: ../src/main.cpp
+ 
+Building file: ../qpcpp/src/qf/qep_msm.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qep_msm.d" -MT"qpcpp/src/qf/qep_msm.o" -c -o "qpcpp/src/qf/qep_msm.o" "../qpcpp/src/qf/qep_msm.cpp"
+Building file: ../qpcpp/src/qf/qep_hsm.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qep_hsm.d" -MT"qpcpp/src/qf/qep_hsm.o" -c -o "qpcpp/src/qf/qep_hsm.o" "../qpcpp/src/qf/qep_hsm.cpp"
+Finished building: ../qpcpp/src/qxk/qxk_sema.cpp
+ 
+Building file: ../qpcpp/src/qf/qf_act.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_act.d" -MT"qpcpp/src/qf/qf_act.o" -c -o "qpcpp/src/qf/qf_act.o" "../qpcpp/src/qf/qf_act.cpp"
+Finished building: ../qpcpp/src/qxk/qxk_xthr.cpp
+ 
+Building file: ../qpcpp/src/qf/qf_actq.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_actq.d" -MT"qpcpp/src/qf/qf_actq.o" -c -o "qpcpp/src/qf/qf_actq.o" "../qpcpp/src/qf/qf_actq.cpp"
+Finished building: ../qpcpp/src/qf/qep_hsm.cpp
+ 
+Building file: ../qpcpp/src/qf/qf_defer.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_defer.d" -MT"qpcpp/src/qf/qf_defer.o" -c -o "qpcpp/src/qf/qf_defer.o" "../qpcpp/src/qf/qf_defer.cpp"
+Finished building: ../qpcpp/src/qf/qep_msm.cpp
+ 
+Finished building: ../qpcpp/src/qf/qf_act.cpp
+Building file: ../qpcpp/src/qf/qf_dyn.cpp
+ 
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_dyn.d" -MT"qpcpp/src/qf/qf_dyn.o" -c -o "qpcpp/src/qf/qf_dyn.o" "../qpcpp/src/qf/qf_dyn.cpp"
+Building file: ../qpcpp/src/qf/qf_mem.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_mem.d" -MT"qpcpp/src/qf/qf_mem.o" -c -o "qpcpp/src/qf/qf_mem.o" "../qpcpp/src/qf/qf_mem.cpp"
+Finished building: ../qpcpp/src/qf/qf_defer.cpp
+ 
+Building file: ../qpcpp/src/qf/qf_ps.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_ps.d" -MT"qpcpp/src/qf/qf_ps.o" -c -o "qpcpp/src/qf/qf_ps.o" "../qpcpp/src/qf/qf_ps.cpp"
+Finished building: ../qpcpp/src/qf/qf_actq.cpp
+ 
+Building file: ../qpcpp/src/qf/qf_qact.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_qact.d" -MT"qpcpp/src/qf/qf_qact.o" -c -o "qpcpp/src/qf/qf_qact.o" "../qpcpp/src/qf/qf_qact.cpp"
+Finished building: ../qpcpp/src/qf/qf_dyn.cpp
+ 
+Finished building: ../qpcpp/src/qf/qf_mem.cpp
+Building file: ../qpcpp/src/qf/qf_qeq.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_qeq.d" -MT"qpcpp/src/qf/qf_qeq.o" -c -o "qpcpp/src/qf/qf_qeq.o" "../qpcpp/src/qf/qf_qeq.cpp"
+ 
+Building file: ../qpcpp/src/qf/qf_qmact.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_qmact.d" -MT"qpcpp/src/qf/qf_qmact.o" -c -o "qpcpp/src/qf/qf_qmact.o" "../qpcpp/src/qf/qf_qmact.cpp"
+Finished building: ../qpcpp/src/qf/qf_qact.cpp
+ 
+Building file: ../qpcpp/src/qf/qf_time.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/src/qf/qf_time.d" -MT"qpcpp/src/qf/qf_time.o" -c -o "qpcpp/src/qf/qf_time.o" "../qpcpp/src/qf/qf_time.cpp"
+Finished building: ../qpcpp/src/qf/qf_qeq.cpp
+ 
+Building file: ../qpcpp/ports/arm-cm/qxk/gnu/qxk_port.S
+Invoking: Cross ARM GNU Assembler
+arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -x assembler-with-cpp -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -MMD -MP -MF"qpcpp/ports/arm-cm/qxk/gnu/qxk_port.d" -MT"qpcpp/ports/arm-cm/qxk/gnu/qxk_port.o" -c -o "qpcpp/ports/arm-cm/qxk/gnu/qxk_port.o" "../qpcpp/ports/arm-cm/qxk/gnu/qxk_port.S"
+Finished building: ../qpcpp/src/qf/qf_ps.cpp
+Finished building: ../qpcpp/src/qf/qf_qmact.cpp
+ 
+Building file: ../qpcpp/include/qstamp.cpp
+ 
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"qpcpp/include/qstamp.d" -MT"qpcpp/include/qstamp.o" -c -o "qpcpp/include/qstamp.o" "../qpcpp/include/qstamp.cpp"
+Building file: ../framework/source/fw.cpp
+Finished building: ../qpcpp/ports/arm-cm/qxk/gnu/qxk_port.S
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"framework/source/fw.d" -MT"framework/source/fw.o" -c -o "framework/source/fw.o" "../framework/source/fw.cpp"
+ 
+Building file: ../framework/source/fw_active.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"framework/source/fw_active.d" -MT"framework/source/fw_active.o" -c -o "framework/source/fw_active.o" "../framework/source/fw_active.cpp"
+Finished building: ../qpcpp/include/qstamp.cpp
+ 
+Building file: ../framework/source/fw_bitset.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"framework/source/fw_bitset.d" -MT"framework/source/fw_bitset.o" -c -o "framework/source/fw_bitset.o" "../framework/source/fw_bitset.cpp"
+Finished building: ../qpcpp/src/qf/qf_time.cpp
+ 
+Building file: ../framework/source/fw_defer.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"framework/source/fw_defer.d" -MT"framework/source/fw_defer.o" -c -o "framework/source/fw_defer.o" "../framework/source/fw_defer.cpp"
+Finished building: ../framework/source/fw_defer.cpp
+ 
+Building file: ../framework/source/fw_evt.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"framework/source/fw_evt.d" -MT"framework/source/fw_evt.o" -c -o "framework/source/fw_evt.o" "../framework/source/fw_evt.cpp"
+Finished building: ../framework/source/fw_bitset.cpp
+ 
+Building file: ../framework/source/fw_hsm.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"framework/source/fw_hsm.d" -MT"framework/source/fw_hsm.o" -c -o "framework/source/fw_hsm.o" "../framework/source/fw_hsm.cpp"
+Finished building: ../framework/source/fw_evt.cpp
+ 
+Building file: ../framework/source/fw_log.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"framework/source/fw_log.d" -MT"framework/source/fw_log.o" -c -o "framework/source/fw_log.o" "../framework/source/fw_log.cpp"
+Finished building: ../framework/source/fw_hsm.cpp
+ 
+Building file: ../framework/source/fw_region.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"framework/source/fw_region.d" -MT"framework/source/fw_region.o" -c -o "framework/source/fw_region.o" "../framework/source/fw_region.cpp"
+Finished building: ../framework/source/fw_active.cpp
+ 
+Building file: ../framework/source/fw_timer.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DTRACE -DSTM32F767xx -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f7xx" -I"../system/BSP/STM32F7xx_Nucleo_144" -I"../system/BSP/Components" -I../qpcpp/include -I../qpcpp/source -I../qpcpp/ports/arm-cm/qxk/gnu -I../qpcpp/src -I../framework/include -I../src/System -I../src/Console -I../src/Console/CmdInput -I../src/Console/CmdParser -I../src/Template/CompositeAct -I../src/Template/CompositeAct/CompositeReg -I../src/Template/SimpleAct -I../src/UartAct -I../src/UartAct/UartIn -I../src/UartAct/UartOut -std=gnu++11 -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -MMD -MP -MF"framework/source/fw_timer.d" -MT"framework/source/fw_timer.o" -c -o "framework/source/fw_timer.o" "../framework/source/fw_timer.cpp"
+Finished building: ../framework/source/fw.cpp
+ 
+Finished building: ../framework/source/fw_region.cpp
+ 
+Finished building: ../framework/source/fw_timer.cpp
+ 
+Finished building: ../framework/source/fw_log.cpp
+ 
+Building target: platform-stm32f767-nucleo.elf
+Invoking: Cross ARM C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m7 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"platform-stm32f767-nucleo.map" --specs=nano.specs -o "platform-stm32f767-nucleo.elf"  ./system/src/stm32f7xx/stm32f7xx_hal.o ./system/src/stm32f7xx/stm32f7xx_hal_adc.o ./system/src/stm32f7xx/stm32f7xx_hal_adc_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_can.o ./system/src/stm32f7xx/stm32f7xx_hal_cec.o ./system/src/stm32f7xx/stm32f7xx_hal_cortex.o ./system/src/stm32f7xx/stm32f7xx_hal_crc.o ./system/src/stm32f7xx/stm32f7xx_hal_crc_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_cryp.o ./system/src/stm32f7xx/stm32f7xx_hal_cryp_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_dac.o ./system/src/stm32f7xx/stm32f7xx_hal_dac_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_dcmi.o ./system/src/stm32f7xx/stm32f7xx_hal_dcmi_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_dfsdm.o ./system/src/stm32f7xx/stm32f7xx_hal_dma.o ./system/src/stm32f7xx/stm32f7xx_hal_dma2d.o ./system/src/stm32f7xx/stm32f7xx_hal_dma_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_dsi.o ./system/src/stm32f7xx/stm32f7xx_hal_eth.o ./system/src/stm32f7xx/stm32f7xx_hal_flash.o ./system/src/stm32f7xx/stm32f7xx_hal_flash_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_gpio.o ./system/src/stm32f7xx/stm32f7xx_hal_hash.o ./system/src/stm32f7xx/stm32f7xx_hal_hash_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_hcd.o ./system/src/stm32f7xx/stm32f7xx_hal_i2c.o ./system/src/stm32f7xx/stm32f7xx_hal_i2c_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_i2s.o ./system/src/stm32f7xx/stm32f7xx_hal_irda.o ./system/src/stm32f7xx/stm32f7xx_hal_iwdg.o ./system/src/stm32f7xx/stm32f7xx_hal_jpeg.o ./system/src/stm32f7xx/stm32f7xx_hal_lptim.o ./system/src/stm32f7xx/stm32f7xx_hal_ltdc.o ./system/src/stm32f7xx/stm32f7xx_hal_ltdc_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_mdios.o ./system/src/stm32f7xx/stm32f7xx_hal_msp_template.o ./system/src/stm32f7xx/stm32f7xx_hal_nand.o ./system/src/stm32f7xx/stm32f7xx_hal_nor.o ./system/src/stm32f7xx/stm32f7xx_hal_pcd.o ./system/src/stm32f7xx/stm32f7xx_hal_pcd_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_pwr.o ./system/src/stm32f7xx/stm32f7xx_hal_pwr_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_qspi.o ./system/src/stm32f7xx/stm32f7xx_hal_rcc.o ./system/src/stm32f7xx/stm32f7xx_hal_rcc_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_rng.o ./system/src/stm32f7xx/stm32f7xx_hal_rtc.o ./system/src/stm32f7xx/stm32f7xx_hal_rtc_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_sai.o ./system/src/stm32f7xx/stm32f7xx_hal_sai_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_sd.o ./system/src/stm32f7xx/stm32f7xx_hal_sdram.o ./system/src/stm32f7xx/stm32f7xx_hal_smartcard.o ./system/src/stm32f7xx/stm32f7xx_hal_smartcard_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_spdifrx.o ./system/src/stm32f7xx/stm32f7xx_hal_spi.o ./system/src/stm32f7xx/stm32f7xx_hal_sram.o ./system/src/stm32f7xx/stm32f7xx_hal_tim.o ./system/src/stm32f7xx/stm32f7xx_hal_tim_ex.o ./system/src/stm32f7xx/stm32f7xx_hal_uart.o ./system/src/stm32f7xx/stm32f7xx_hal_usart.o ./system/src/stm32f7xx/stm32f7xx_hal_wwdg.o ./system/src/stm32f7xx/stm32f7xx_ll_fmc.o ./system/src/stm32f7xx/stm32f7xx_ll_sdmmc.o ./system/src/stm32f7xx/stm32f7xx_ll_usb.o  ./system/src/newlib/_cxx.o ./system/src/newlib/_exit.o ./system/src/newlib/_sbrk.o ./system/src/newlib/_startup.o ./system/src/newlib/_syscalls.o ./system/src/newlib/assert.o  ./system/src/diag/Trace.o ./system/src/diag/trace_impl.o  ./system/src/cortexm/_initialize_hardware.o ./system/src/cortexm/_reset_hardware.o ./system/src/cortexm/exception_handlers.o  ./system/src/cmsis/startup_stm32f767xx.o ./system/src/cmsis/system_stm32f7xx.o  ./system/BSP/STM32F7xx_Nucleo_144/stm32f7xx_nucleo_144.o  ./src/UartAct/UartOut/UartOut.o  ./src/UartAct/UartIn/UartIn.o  ./src/UartAct/UartAct.o  ./src/Template/SimpleReg/SimpleReg.o  ./src/Template/SimpleAct/SimpleAct.o  ./src/Template/CompositeAct/CompositeReg/CompositeReg.o  ./src/Template/CompositeAct/CompositeAct.o  ./src/System/System.o ./src/System/SystemCmd.o  ./src/Console/CmdParser/CmdParser.o  ./src/Console/CmdInput/CmdInput.o  ./src/Console/Console.o ./src/Console/ConsoleCmd.o  ./src/_write.o ./src/bsp.o ./src/main.o ./src/periph.o ./src/stm32f7xx_it.o ./src/test.o  ./qpcpp/src/qxk/qxk.o ./qpcpp/src/qxk/qxk_mutex.o ./qpcpp/src/qxk/qxk_sema.o ./qpcpp/src/qxk/qxk_xthr.o  ./qpcpp/src/qf/qep_hsm.o ./qpcpp/src/qf/qep_msm.o ./qpcpp/src/qf/qf_act.o ./qpcpp/src/qf/qf_actq.o ./qpcpp/src/qf/qf_defer.o ./qpcpp/src/qf/qf_dyn.o ./qpcpp/src/qf/qf_mem.o ./qpcpp/src/qf/qf_ps.o ./qpcpp/src/qf/qf_qact.o ./qpcpp/src/qf/qf_qeq.o ./qpcpp/src/qf/qf_qmact.o ./qpcpp/src/qf/qf_time.o  ./qpcpp/ports/arm-cm/qxk/gnu/qxk_port.o  ./qpcpp/include/qstamp.o  ./framework/source/fw.o ./framework/source/fw_active.o ./framework/source/fw_bitset.o ./framework/source/fw_defer.o ./framework/source/fw_evt.o ./framework/source/fw_hsm.o ./framework/source/fw_log.o ./framework/source/fw_region.o ./framework/source/fw_timer.o   
+Finished building target: platform-stm32f767-nucleo.elf
+ 
+Invoking: Cross ARM GNU Create Flash Image
+arm-none-eabi-objcopy -O ihex "platform-stm32f767-nucleo.elf"  "platform-stm32f767-nucleo.hex"
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "platform-stm32f767-nucleo.elf"
+   text	   data	    bss	    dec	    hex	filename
+  53590	    224	  28348	  82162	  140f2	platform-stm32f767-nucleo.elf
+Finished building: platform-stm32f767-nucleo.siz
+ 
+Finished building: platform-stm32f767-nucleo.hex
+ 
+
+23:37:45 Build Finished (took 14s.693ms)
+
