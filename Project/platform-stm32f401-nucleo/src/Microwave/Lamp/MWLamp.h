@@ -60,8 +60,26 @@ protected:
         static QState On(MWLamp * const me, QEvt const * const e);
         static QState Off(MWLamp * const me, QEvt const * const e);
 
+// Placeholders
+#define MW_LAMP_TIMER_EVT \
+	ADD_EVT(STATE_TIMER)
+
+// Placeholders
+#define MW_LAMP_INTERNAL_EVT \
+	ADD_EVT(DONE)
+
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
+
+    enum {
+    	MW_LAMP_TIMER_EVT_START = TIMER_EVT_START(MW_LAMP),
+		MW_LAMP_TIMER_EVT
+    };
+
+    enum {
+    	MW_LAMP_INTERNAL_EVT_START = INTERNAL_EVT_START(MW_LAMP),
+		MW_LAMP_INTERNAL_EVT
+    };
 };
 
 } // namespace APP

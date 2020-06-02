@@ -66,13 +66,13 @@ enum {
 
 class MwLampOnReq : public Evt {
 public:
-    MwLampOnReq(Hsmn to, Hsmn from, Sequence seq) :
+    MwLampOnReq(Hsmn to, Hsmn from, Sequence seq = 0) :
         Evt(MW_LAMP_ON_REQ, to, from, seq) {}
 };
 
-class MwLampStopReq : public Evt {
+class MwLampOffReq : public Evt {
 public:
-    MwLampStopReq(Hsmn to, Hsmn from, Sequence seq = 0) :
+    MwLampOffReq(Hsmn to, Hsmn from, Sequence seq = 0) :
         Evt(MW_LAMP_OFF_REQ, to, from, seq) {}
 };
 

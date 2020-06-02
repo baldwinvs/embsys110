@@ -93,7 +93,7 @@ public:
     enum {
         TIMEOUT_MS = 200
     };
-    MagnetronStopReq(Hsmn to, Hsmn from, Sequence seq) :
+    MagnetronStopReq(Hsmn to, Hsmn from, Sequence seq = 0) :
         Evt(MAGNETRON_STOP_REQ, to, from, seq) {}
 };
 

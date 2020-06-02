@@ -60,8 +60,26 @@ protected:
         static QState On(Fan * const me, QEvt const * const e);
         static QState Off(Fan * const me, QEvt const * const e);
 
+#define FAN_TIMER_EVT \
+	ADD_EVT(STATE_TIMER)
+
+// Placeholders
+#define FAN_INTERNAL_EVT \
+	ADD_EVT(DONE)
+
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
+
+    enum {
+    	FAN_TIMER_EVT_START = TIMER_EVT_START(FAN),
+		FAN_TIMER_EVT
+    };
+
+    enum {
+    	FAN_INTERNAL_EVT_START = INTERNAL_EVT_START(FAN),
+		FAN_INTERNAL_EVT
+    };
+
 };
 
 } // namespace APP

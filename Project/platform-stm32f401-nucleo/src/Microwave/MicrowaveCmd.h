@@ -36,15 +36,15 @@
  * Email - admin@galliumstudio.com
  ******************************************************************************/
 
-#ifndef COMPOSITEACT_CMD_H
-#define COMPOSITEACT_CMD_H
+#ifndef MICROWAVE_CMD_H
+#define MICROWAVE_CMD_H
 
-#include "ConsoleInterface.h"
+#include "MicrowaveInterface.h"
 
 namespace APP {
 
-CmdStatus CompositeActCmd(Console &console, Evt const *e);
+CmdStatus MicrowaveCmd(Console &console, Evt const *e);
 
 } // namespace APP
 
-#endif // COMPOSITEACT_CMD_H
+#endif // MICROWAVE_CMD_H

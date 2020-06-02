@@ -66,7 +66,7 @@ static char const * const interfaceEvtName[] = {
 
 Magnetron::Magnetron() :
     Active((QStateHandler)&Magnetron::InitialPseudoState, MAGNETRON, "MAGNETRON"),
-    m_stateTimer(GetHsm().GetHsmn(),STATE_TIMER),
+    m_magnetronTimer(GetHsm().GetHsmn(), MAGNETRON_TIMER),
     m_onTime{},
     m_offTime{},
     m_remainingTime{},
@@ -98,7 +98,7 @@ QState Magnetron::Root(Magnetron * const me, QEvt const * const e) {
         case MAGNETRON_START_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
-            Evt *evt = new MagnetronStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE, GET_HSMN());
+            Evt *evt = new MagnetronStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE);
             Fw::Post(evt);
             return Q_HANDLED();
         }
@@ -159,7 +159,7 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
             MagnetronOnReq const &req = static_cast<MagnetronOnReq const &>(*e);
             me->m_pipe = req.GetPipe();
             uint32_t powerLevel{};
-            uint32_t count {me->m_pipe.Read(&powerLevel, 1)};
+            uint32_t count {me->m_pipe->Read(&powerLevel, 1)};
             if(0 == count) {
                 LOG("Could not read from magnetron pipe\n");
                 return Q_HANDLED();
@@ -172,7 +172,7 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
                 "\ton time    : %d\n"
                 "\toff time   : %d\n", powerLevel, me->m_onTime, me->m_offTime);
             //start magnetron timer
-            me->m_magnetronTimer.Start(m_onTime);
+            me->m_magnetronTimer.Start(me->m_onTime);
             return Q_TRAN(&Magnetron::On);
         }
     }
@@ -217,7 +217,7 @@ QState Magnetron::Running(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            m_history = &Magnetron::Running;
+            me->m_history = &Magnetron::Running;
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
@@ -238,7 +238,7 @@ QState Magnetron::NotRunning(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            m_history = &Magnetron::NotRunning;
+            me->m_history = &Magnetron::NotRunning;
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
@@ -268,7 +268,7 @@ QState Magnetron::Paused(Magnetron * const me, QEvt const * const e) {
         case MAGNETRON_ON_REQ: {
             EVENT(e);
             me->m_magnetronTimer.Start(me->m_remainingTime);
-            return Q_TRAN(&m_history);
+            return Q_TRAN(&me->m_history);
         }
     }
     return Q_SUPER(&Magnetron::Started);

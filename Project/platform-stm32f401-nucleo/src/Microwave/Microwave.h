@@ -47,7 +47,7 @@
 #include "Fan.h"
 #include "MWLamp.h"
 #include "Turntable.h"
-#include "MicrowaveMsgFormat.h"
+#include "MicrowaveMessageFormat.h"
 #include "MagnetronInterface.h"
 
 using namespace QP;
@@ -75,10 +75,10 @@ protected:
                 static QState SetCookTimerFinal(Microwave * const me, QEvt const * const e);
             static QState SetPowerLevel(Microwave * const me, QEvt const * const e);
             static QState SetKitchenTimer(Microwave * const me, QEvt const * const e);
-                static QState KitchenSelectHourTens(Microwave * const me, QEvt const * const me);
-                static QState KitchenSelectHourOnes(Microwave * const me, QEvt const * const me);
-                static QState KitchenSelectMinuteTens(Microwave * const me, QEvt const * const me);
-                static QState KitchenSelectMinuteOnes(Microwave * const me, QEvt const * const me);
+                static QState KitchenSelectHourTens(Microwave * const me, QEvt const * const e);
+                static QState KitchenSelectHourOnes(Microwave * const me, QEvt const * const e);
+                static QState KitchenSelectMinuteTens(Microwave * const me, QEvt const * const e);
+                static QState KitchenSelectMinuteOnes(Microwave * const me, QEvt const * const e);
             static QState DisplayTimer(Microwave * const me, QEvt const * const e);
                 static QState DisplayTimerRunning(Microwave * const me, QEvt const * const e);
                 static QState DisplayTimerPaused(Microwave * const me, QEvt const * const e);
@@ -98,12 +98,12 @@ protected:
     void SendSignal(const MicrowaveMsgFormat::Signal signal);
     void SendMessage(const MicrowaveMsgFormat::Message& message);
 
-    void UpdateClock();
+    void UpdateClock(const MicrowaveMsgFormat::Time& clock);
     void UpdatePowerLevel();
     void UpdateDisplayTime();
 
     void ShiftLeftAndInsert(MicrowaveMsgFormat::Time& time, const uint32_t digit);
-    MicrowaveMsgFormat::Time Seconds2Time(const uint32_t seconds) const;
+    MicrowaveMsgFormat::Time Seconds2Time(uint32_t seconds) const;
     uint32_t Time2Seconds(const MicrowaveMsgFormat::Time& time) const;
 
     void DecrementTimer();
@@ -113,6 +113,7 @@ protected:
     bool m_blink;
     bool m_blinkToggle;
     bool m_cook;
+    bool m_cooking;
     bool m_closed;
     MicrowaveMsgFormat::Message m_message;
     MicrowaveMsgFormat::Time m_clockTime;
@@ -125,7 +126,7 @@ protected:
 
     enum {
         MAX_POWER = 10,
-    }
+    };
     
     uint32_t m_timersUsed;
     uint32_t m_timerIndex;

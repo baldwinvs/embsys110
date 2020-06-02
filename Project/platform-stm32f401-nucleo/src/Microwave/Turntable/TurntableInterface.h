@@ -66,7 +66,7 @@ enum {
 
 class TurntableOnReq : public Evt {
 public:
-    TurntableOnReq(Hsmn to, Hsmn from, Sequence seq) :
+    TurntableOnReq(Hsmn to, Hsmn from, Sequence seq = 0) :
         Evt(TURNTABLE_ON_REQ, to, from, seq) {}
 };
 

@@ -79,6 +79,14 @@ public:
     Time(Time&&) = default;
     Time& operator=(Time&&) = default;
 
+    bool operator==(const Time& rhs)
+    {
+        return 0 == memcmp(this, &rhs, sizeof(Time));
+    }
+    bool operator!=(const Time& rhs)
+    {
+        return 0 != memcmp(this, &rhs, sizeof(Time));
+    }
     uint32_t left_tens;
     uint32_t left_ones;
     uint32_t right_tens;

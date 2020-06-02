@@ -70,7 +70,12 @@ namespace APP {
     ADD_HSM(SIMPLE_ACT, 1) \
     ADD_HSM(SIMPLE_REG, 1) \
     ADD_HSM(COMPOSITE_ACT, 1) \
-    ADD_HSM(COMPOSITE_REG, 4)
+    ADD_HSM(COMPOSITE_REG, 4) \
+	ADD_HSM(MICROWAVE, 1) \
+	ADD_HSM(MAGNETRON, 1) \
+	ADD_HSM(FAN, 1) \
+	ADD_HSM(MW_LAMP, 1) \
+	ADD_HSM(TURNTABLE, 1)
 
 #define ALIAS_HSM \
     ADD_ALIAS(CONSOLE_UART2,    CONSOLE) \
@@ -134,15 +139,10 @@ enum
     PRIO_ILI9341        = 22,
     PRIO_WIFI_ST        = 20,
     PRIO_GPIO_IN_ACT    = 16,
-    PRIO_MICROWAVE      = 11
-    PRIO_DEMO           = 10,
+    PRIO_MICROWAVE      = 11,
+	PRIO_MAGNETRON      = 10,
     PRIO_GPIO_OUT_ACT   = 9,
     PRIO_TEST_LED       = 8,
-    PRIO_AO_WASHING_MACHINE = 7,
-    PRIO_TRAFFIC        = 6,
-    PRIO_LEVEL_METER    = 5,
-    PRIO_SIMPLE_ACT     = 4,
-    PRIO_COMPOSITE_ACT  = 3
 };
 
 } // namespace APP

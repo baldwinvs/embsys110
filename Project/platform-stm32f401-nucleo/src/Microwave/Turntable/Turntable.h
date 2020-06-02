@@ -60,8 +60,26 @@ protected:
         static QState On(Turntable * const me, QEvt const * const e);
         static QState Off(Turntable * const me, QEvt const * const e);
 
+// Placeholders
+#define TURNTABLE_TIMER_EVT \
+	ADD_EVT(STATE_TIMER)
+
+// Placeholders
+#define TURNTABLE_INTERNAL_EVT \
+	ADD_EVT(DONE)
+
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
+
+    enum {
+    	TURNTABLE_EVT_START = TIMER_EVT_START(TURNTABLE),
+		TURNTABLE_TIMER_EVT
+    };
+
+    enum {
+    	TURNTABLE_INTERNAL_EVT_START = INTERNAL_EVT_START(TURNTABLE),
+		TURNTABLE_INTERNAL_EVT
+    };
 };
 
 } // namespace APP

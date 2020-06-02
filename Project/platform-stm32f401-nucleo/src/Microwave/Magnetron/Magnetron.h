@@ -67,7 +67,7 @@ protected:
 
     enum {
         CYCLE_TIME_MS = 30000,
-    }
+    };
     
     Timer m_magnetronTimer;
     uint32_t m_onTime;
@@ -81,12 +81,20 @@ protected:
 #define MAGNETRON_TIMER_EVT \
     ADD_EVT(MAGNETRON_TIMER)
 
+#define MAGNETRON_INTERNAL_EVT \
+	ADD_EVT(DONE)
+
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
 
     enum {
         MAGNETRON_TIMER_EVT_START = TIMER_EVT_START(MAGNETRON),
         MAGNETRON_TIMER_EVT
+    };
+
+    enum {
+    	MAGNETRON_INTERNAL_EVT_START = INTERNAL_EVT_START(MAGNETRON),
+		MAGNETRON_INTERNAL_EVT
     };
 };
 

@@ -49,6 +49,21 @@ namespace APP {
 #undef ADD_EVT
 #define ADD_EVT(e_) #e_,
 
+static char const * const timerEvtName[] = {
+	"FAN_TIMER_EVT_START",
+	FAN_TIMER_EVT
+};
+
+static char const * const internalEvtName[] = {
+	"FAN_INTERNAL_EVT_START",
+	FAN_INTERNAL_EVT
+};
+
+static char const * const interfaceEvtName[] = {
+	"FAN_INTERFACE_EVT_START",
+	FAN_INTERFACE_EVT
+};
+
 Fan::Fan(Hsmn hsmn, char const * name) :
     Region((QStateHandler)&Fan::InitialPseudoState, hsmn, name) {
     SET_EVT_NAME(FAN);
@@ -68,9 +83,6 @@ QState Fan::Root(Fan * const me, QEvt const * const e) {
         case Q_EXIT_SIG: {
             EVENT(e);
             return Q_HANDLED();
-        }
-        case Q_INIT_SIG: {
-            return Q_TRAN(&Fan::Stopped);
         }
         case FAN_ON_REQ: {
             EVENT(e);

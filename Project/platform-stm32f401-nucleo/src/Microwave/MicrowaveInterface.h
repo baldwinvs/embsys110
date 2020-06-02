@@ -56,6 +56,7 @@ namespace APP {
     ADD_EVT(MICROWAVE_STOP_CFM) \
     ADD_EVT(MICROWAVE_EXT_STOP_SIG) \
     ADD_EVT(MICROWAVE_EXT_START_SIG) \
+	ADD_EVT(MICROWAVE_EXT_CLOCK_SIG) \
     ADD_EVT(MICROWAVE_EXT_COOK_TIME_SIG) \
     ADD_EVT(MICROWAVE_EXT_POWER_LEVEL_SIG) \
     ADD_EVT(MICROWAVE_EXT_KITCHEN_TIMER_SIG) \
@@ -128,6 +129,12 @@ class MicrowaveExtStartSig : public Evt {
 public:
     MicrowaveExtStartSig(Hsmn to, Hsmn from, Sequence seq = 0) :
         Evt(MICROWAVE_EXT_START_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtClockSig: public Evt {
+public:
+	MicrowaveExtClockSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+		Evt(MICROWAVE_EXT_CLOCK_SIG, to, from, seq) {}
 };
 
 class MicrowaveExtCookTimeSig : public Evt {
@@ -222,12 +229,12 @@ public:
 
 class MicrowaveExtDigitSig : public Evt {
 public:
-    MicrowaveExtDigitiSig(Hsmn to, Hsmn from, Sequence seq, uint32_t digit) :
-        Evt(MICROWAVE_EXT_DIGIT_SIG, to, from, seq), m_digit(digit)) {}
+    MicrowaveExtDigitSig(Hsmn to, Hsmn from, Sequence seq, uint32_t digit) :
+        Evt(MICROWAVE_EXT_DIGIT_SIG, to, from, seq), m_digit(digit) {}
     uint32_t GetDigit() const { return m_digit; }
 private:
     uint32_t m_digit;
-}
+};
 
 class MicrowaveWifiConnReq : public Evt {
 public:

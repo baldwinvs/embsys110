@@ -49,6 +49,21 @@ namespace APP {
 #undef ADD_EVT
 #define ADD_EVT(e_) #e_,
 
+static char const * const timerEvtName[] = {
+	"TURNTABLE_TIMER_EVT_START",
+	TURNTABLE_TIMER_EVT
+};
+
+static char const * const internalEvtName[] = {
+	"TURNTABLE_INTERNAL_EVT_START",
+	TURNTABLE_INTERNAL_EVT
+};
+
+static char const * const interfaceEvtName[] = {
+	"TURNTABLE_INTERFACE_EVT_START",
+	TURNTABLE_INTERFACE_EVT
+};
+
 Turntable::Turntable(Hsmn hsmn, const char *name) :
     Region((QStateHandler)&Turntable::InitialPseudoState, hsmn, name) {
     SET_EVT_NAME(TURNTABLE);

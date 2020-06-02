@@ -74,6 +74,7 @@ Microwave::Microwave() :
     m_blink{false},
     m_blinkToggle{false},
     m_cook{false},
+	m_cooking{false},
     m_closed{true},
     m_message{},
     m_clockTime{},
@@ -86,8 +87,8 @@ Microwave::Microwave() :
     m_fan{FAN, "FAN"},
     m_lamp{MW_LAMP, "MW_LAMP"},
     m_turntable{TURNTABLE, "TURNTABLE"},
-    m_halfSecondTimer{GetHsm().GetHsmn(), IDLE_TIMER},
-    m_secondTimer{GetHsm().GetHsmn(), IDLE_TIMER},
+    m_halfSecondTimer{GetHsm().GetHsmn(), HALF_SECOND_TIMER},
+    m_secondTimer{GetHsm().GetHsmn(), SECOND_TIMER},
     m_halfSecondCounts{},
     m_magnetronPipe{m_magnetronStor, MAGNETRON_PIPE_ORDER}
     {
@@ -121,7 +122,7 @@ QState Microwave::Root(Microwave * const me, QEvt const * const e) {
         case MICROWAVE_START_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
-            Evt *evt = new MicrowaveStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE, GET_HSMN());
+            Evt *evt = new MicrowaveStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE);
             Fw::Post(evt);
             return Q_HANDLED();
         }
@@ -149,7 +150,7 @@ QState Microwave::Stopped(Microwave * const me, QEvt const * const e) {
         case MICROWAVE_START_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
-            Evt *evt = new MicrowaveStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE, GET_HSMN());
+            Evt *evt = new MicrowaveStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE);
             Fw::Post(evt);
             return Q_TRAN(&Microwave::Started);
         }
@@ -173,7 +174,7 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
 
             Evt *evt = new FanOffReq(FAN, GET_HSMN());
             me->PostSync(evt);
-            evt = new MWLampOffReq(MW_LAMP, GET_HSMN());
+            evt = new MwLampOffReq(MW_LAMP, GET_HSMN());
             me->PostSync(evt);
             evt = new TurntableOffReq(TURNTABLE, GET_HSMN());
             me->PostSync(evt);
@@ -192,13 +193,13 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
                 me->m_halfSecondCounts = 0;
             }
             if(me->m_blink) {
-                if(m_blinkToggle) {
+                if(me->m_blinkToggle) {
                     me->SendSignal(MicrowaveMsgFormat::Signal::BLINK_ON);
-                    m_blinkToggle = false;
+                    me->m_blinkToggle = false;
                 }
                 else {
                     me->SendSignal(MicrowaveMsgFormat::Signal::BLINK_OFF);
-                    m_blinkToggle = true;
+                    me->m_blinkToggle = true;
                 }
             }
             return Q_HANDLED();
@@ -440,7 +441,7 @@ QState Microwave::ClockSelectMinuteOnes(Microwave * const me, QEvt const * const
         }
         case Q_EXIT_SIG: {
             EVENT(e);
-            me->UpdateClockTime(me->m_proposedClockTime);
+            me->UpdateClock(me->m_proposedClockTime);
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_TENS);
             return Q_HANDLED();
         }
@@ -476,7 +477,7 @@ QState Microwave::SetCookTimer(Microwave * const me, QEvt const * const e) {
         case Q_ENTRY_SIG: {
             EVENT(e);
             me->m_displayTime[me->m_timerIndex].time = MicrowaveMsgFormat::Time();
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
@@ -493,7 +494,7 @@ QState Microwave::SetCookTimer(Microwave * const me, QEvt const * const e) {
 }
 
 QState Microwave::SetCookTimerInitial(Microwave * const me, QEvt const * const e) {
-    MicrowaveMsgFormat::Time &time = me->m_displayClock[me->m_timerIndex].time;
+    MicrowaveMsgFormat::Time &time = me->m_displayTime[me->m_timerIndex].time;
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -502,7 +503,7 @@ QState Microwave::SetCookTimerInitial(Microwave * const me, QEvt const * const e
         }
         case Q_EXIT_SIG: {
             EVENT(e);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_1_SIG: {
@@ -569,61 +570,61 @@ QState Microwave::SetCookTimerFinal(Microwave * const me, QEvt const * const e) 
         case MICROWAVE_EXT_DIGIT_0_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 0);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_1_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 1);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_2_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 2);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_3_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 3);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_4_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 4);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_5_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 5);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_6_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 6);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_7_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 7);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_8_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 8);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DIGIT_9_SIG: {
             EVENT(e);
             me->ShiftLeftAndInsert(time, 9);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             return Q_HANDLED();
         }
     }
@@ -730,7 +731,7 @@ QState Microwave::SetKitchenTimer(Microwave * const me, QEvt const * const e) {
             me->m_displayTime[me->m_timerIndex].time = MicrowaveMsgFormat::Time();
             ++me->m_timersUsed;
             
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_TENS);
             return Q_TRAN(&Microwave::KitchenSelectHourTens);
         }
@@ -752,7 +753,7 @@ QState Microwave::KitchenSelectHourTens(Microwave * const me, QEvt const * const
         }
         case Q_EXIT_SIG: {
             EVENT(e);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_ONES);
             return Q_HANDLED();
         }
@@ -807,7 +808,7 @@ QState Microwave::KitchenSelectHourTens(Microwave * const me, QEvt const * const
             return Q_TRAN(&Microwave::KitchenSelectHourOnes);
         }
     }
-    return Q_SUPER(&Microwave::KitchenTimer);
+    return Q_SUPER(&Microwave::SetKitchenTimer);
 }
 
 QState Microwave::KitchenSelectHourOnes(Microwave * const me, QEvt const * const e) {
@@ -815,12 +816,12 @@ QState Microwave::KitchenSelectHourOnes(Microwave * const me, QEvt const * const
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            me->m_state = MicrowaveMsgFormat::State::KITCHEN_SELEC_HOUR_ONES;
+            me->m_state = MicrowaveMsgFormat::State::KITCHEN_SELECT_HOUR_ONES;
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_RIGHT_TENS);
             return Q_HANDLED();
         }
@@ -875,10 +876,11 @@ QState Microwave::KitchenSelectHourOnes(Microwave * const me, QEvt const * const
             return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
         }
     }
-    return Q_SUPER(&Microwave::KitchenTimer);
+    return Q_SUPER(&Microwave::SetKitchenTimer);
 }
 
 QState Microwave::KitchenSelectMinuteTens(Microwave * const me, QEvt const * const e) {
+	MicrowaveMsgFormat::Time &time = me->m_displayTime[me->m_timerIndex].time;
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -887,7 +889,7 @@ QState Microwave::KitchenSelectMinuteTens(Microwave * const me, QEvt const * con
         }
         case Q_EXIT_SIG: {
             EVENT(e);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_RIGHT_ONES);
             return Q_HANDLED();
         }
@@ -942,10 +944,11 @@ QState Microwave::KitchenSelectMinuteTens(Microwave * const me, QEvt const * con
             return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
         }
     }
-    return Q_SUPER(&Microwave::KitchenTimer);
+    return Q_SUPER(&Microwave::SetKitchenTimer);
 }
 
 QState Microwave::KitchenSelectMinuteOnes(Microwave * const me, QEvt const * const e) {
+	MicrowaveMsgFormat::Time& time = me->m_displayTime[me->m_timerIndex].time;
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -954,7 +957,7 @@ QState Microwave::KitchenSelectMinuteOnes(Microwave * const me, QEvt const * con
         }
         case Q_EXIT_SIG: {
             EVENT(e);
-            me->UpdateDisplayTimer();
+            me->UpdateDisplayTime();
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_TENS);
             return Q_HANDLED();
         }
@@ -1009,14 +1012,14 @@ QState Microwave::KitchenSelectMinuteOnes(Microwave * const me, QEvt const * con
             return Q_TRAN(&Microwave::KitchenSelectHourTens);
         }
     }
-    return Q_SUPER(&Microwave::KitchenTimer);
+    return Q_SUPER(&Microwave::SetKitchenTimer);
 }
 
 QState Microwave::DisplayTimer(Microwave * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            me->m_secondsRemaining = me->Time2Seconds(me->displayTime[me->m_timerIndex].time);
+            me->m_secondsRemaining = me->Time2Seconds(me->m_displayTime[me->m_timerIndex].time);
             return Q_TRAN(&Microwave::DisplayTimerRunning);
         }
         case Q_EXIT_SIG: {
@@ -1027,7 +1030,7 @@ QState Microwave::DisplayTimer(Microwave * const me, QEvt const * const e) {
             EVENT(e);
             if(me->m_cooking) {
                 me->Add30SecondsToCookTime();    
-                UpdateDisplayTimer();
+                me->UpdateDisplayTime();
             }
             return Q_HANDLED();
         }
@@ -1041,17 +1044,17 @@ QState Microwave::DisplayTimerRunning(Microwave * const me, QEvt const * const e
             EVENT(e);
             me->m_secondTimer.Start(me->m_secondsRemaining);
             me->m_state = MicrowaveMsgFormat::State::DISPLAY_TIMER_RUNNING;
-            me->UpdateDisplayTimer();        
+            me->UpdateDisplayTime();
 
             if(me->m_cook) {
                 me->m_cooking = true;
                 //write the current power level to the magnetron pipe
-                const uint32_t count {m_magnetronPipe.Write(&displayTime[timerIndex].powerLevel, 1)};
+                const uint32_t count {me->m_magnetronPipe.Write(&me->m_displayTime[me->m_timerIndex].powerLevel, 1)};
                 if(0 == count) {
                     LOG("Write to MagnetronPipe failed\n\r");
                 }
 
-                Evt* evt = new MWLampOnReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
+                Evt* evt = new MwLampOnReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
                 me->PostSync(evt);
                 evt = new FanOnReq(FAN, GET_HSMN(), GEN_SEQ());
                 me->PostSync(evt);
@@ -1102,7 +1105,7 @@ QState Microwave::DisplayTimerPaused(Microwave * const me, QEvt const * const e)
             evt = new TurntableOffReq(TURNTABLE, GET_HSMN(), GEN_SEQ());
             me->PostSync(evt);
             if(me->m_closed) {
-                evt = new MWLampOffReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
+                evt = new MwLampOffReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
                 me->PostSync(evt);
             }
             evt = new MagnetronPauseReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
@@ -1117,7 +1120,7 @@ QState Microwave::DisplayTimerPaused(Microwave * const me, QEvt const * const e)
             EVENT(e);
             if(me->m_closed) {
                 me->m_closed = false;
-                Evt* evt = new MWLampOnReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
+                Evt* evt = new MwLampOnReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
                 me->PostSync(evt);
             }
             return Q_HANDLED();
@@ -1126,7 +1129,7 @@ QState Microwave::DisplayTimerPaused(Microwave * const me, QEvt const * const e)
             EVENT(e);
             if(!me->m_closed) {
                 me->m_closed = true;
-                Evt* evt = new MWLampOffReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
+                Evt* evt = new MwLampOffReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
                 me->PostSync(evt);
             }
             return Q_HANDLED();
@@ -1148,7 +1151,7 @@ void Microwave::SendSignal(const MicrowaveMsgFormat::Signal signal) {
 void Microwave::SendMessage(const MicrowaveMsgFormat::Message& message) {
     char buf[sizeof(MicrowaveMsgFormat::Message)];
     memcpy(buf, &message, sizeof(MicrowaveMsgFormat::Message));
-    Evt* evt = new WifiSendReq(WIFI_ST, GET_HSMN(), GEN_SEQ(), buf);
+    Evt* evt = new WifiSendReq(WIFI_ST, this->GetHsmn(), this->GenSeq(), buf);
     Fw::Post(evt);
 }
 
@@ -1161,7 +1164,7 @@ void Microwave::UpdatePowerLevel() {
     SendUpdate(MicrowaveMsgFormat::Update::POWER_LEVEL, powerLevel);
 }
 
-void Microwave::UpdateDisplayTimer() {
+void Microwave::UpdateDisplayTime() {
     const MicrowaveMsgFormat::Time &time = m_displayTime[m_timerIndex].time;
     SendUpdate(MicrowaveMsgFormat::Update::DISPLAY_TIMER, time);
 }
@@ -1173,8 +1176,8 @@ void Microwave::ShiftLeftAndInsert(MicrowaveMsgFormat::Time& time, const uint32_
     time.right_ones = digit;
 }
 
-MicrowaveMsgFormat::Time Microwave::Seconds2Time(const uint32_t seconds) const {
-    static const maxSeconds = 5999; //corresponds to a time of 99:59
+MicrowaveMsgFormat::Time Microwave::Seconds2Time(uint32_t seconds) const {
+    static const uint32_t maxSeconds = 5999; //corresponds to a time of 99:59
     if(seconds > maxSeconds) seconds = maxSeconds;
 
     uint32_t min = seconds / 60;
@@ -1204,9 +1207,9 @@ uint32_t Microwave::Time2Seconds(const MicrowaveMsgFormat::Time& time) const {
 void Microwave::DecrementTimer() {
     m_secondsRemaining -= 1;
     m_displayTime[m_timerIndex].time = Seconds2Time(m_secondsRemaining);
-    if(0 == secondsRemaining) {
+    if(0 == m_secondsRemaining) {
         m_secondTimer.Stop();
-        Evt* evt = new MagnetronOffReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
+        Evt* evt = new MagnetronOffReq(MAGNETRON, this->GetHsmn(), this->GenSeq());
         Fw::Post(evt);
         
         --m_timersUsed;
@@ -1217,14 +1220,14 @@ void Microwave::DecrementTimer() {
             m_secondsRemaining = Time2Seconds(m_displayTime[m_timerIndex].time);
             m_magnetronPipe.Write(&m_displayTime[m_timerIndex].powerLevel, 1);
             m_secondTimer.Start(m_secondsRemaining);
-            evt = new MagnetronOnReq(MAGNATRON, GET_HSMN(), GEN_SEQ());
+            evt = new MagnetronOnReq(MAGNETRON, this->GetHsmn(), this->GenSeq(), &m_magnetronPipe);
             Fw::Post(evt);
             
-            UpdateDisplayTimer();
+            UpdateDisplayTime();
         }
     }
     else {
-        UpdateDisplayTimer();
+        UpdateDisplayTime();
     }
 }
 
@@ -1257,7 +1260,7 @@ void Microwave::IncrementClock() {
         }
     }
     
-    UpdateClockTime(m_clockTime);
+    UpdateClock(m_clockTime);
 }
 
 /*

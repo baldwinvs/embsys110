@@ -86,17 +86,9 @@
 #include "WifiSt.h"
 #include "Iks01a1Thread.h"
 #include "GpioInAct.h"
-#include "CompositeAct.h"
-#include "CompositeActInterface.h"
-#include "SimpleAct.h"
-#include "SimpleActInterface.h"
-#include "Demo.h"
 #include "Ili9341Thread.h"
 #include "LedPanelThread.h"
 #include "GpioOutAct.h"
-#include "AOWashingMachine.h"
-#include "Traffic.h"
-#include "LevelMeter.h"
 #include "UartAct.h"
 #include "UartActInterface.h"
 #include "SystemInterface.h"
@@ -106,6 +98,8 @@
 #include "ConsoleInterface.h"
 #include "ConsoleCmd.h"
 #include "SystemCmd.h"
+#include "Microwave.h"
+#include "Magnetron.h"
 
 FW_DEFINE_THIS_FILE("main.cpp")
 
@@ -130,13 +124,7 @@ using namespace APP;
 static System sys;
 static Console consoleUart2(CONSOLE_UART2, "CONSOLE_UART2", "CMD_INPUT_UART2", "CMD_PARSER_UART2");
 static Console consoleUart1(CONSOLE_UART1, "CONSOLE_UART1", "CMD_INPUT_UART1", "CMD_PARSER_UART1");
-static CompositeAct compositeAct;
-static SimpleAct simpleAct;
-static Demo demo;
 static GpioOutAct gpioOutAct;
-static AOWashingMachine washingMachine;
-static Traffic traffic;
-static LevelMeter levelMeter;
 static GpioInAct gpioInAct;
 static UartAct uartAct2(UART2_ACT, "UART2_ACT", "UART2_IN", "UART2_OUT");
 static UartAct uartAct1(UART1_ACT, "UART1_ACT", "UART1_IN", "UART1_OUT");
@@ -144,6 +132,8 @@ static WifiSt wifiSt;
 static Iks01a1Thread iks01a1Thread;
 static Ili9341Thread ili9341Thread;
 static LedPanelThread ledPanelThread;
+static Microwave microwave;
+static Magnetron magnetron;
 
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
@@ -182,17 +172,17 @@ int main(void)
     Log::Off(ILI9341);
     Log::Off(IKS01A1_PRESS);
     Log::Off(PRESS_INT);
-    Log::Off(LEVEL_METER);
+//    Log::Off(LEVEL_METER);
     Log::Off(WIFI_ST);
 
     // Start active objects.
-    compositeAct.Start(PRIO_MICROWAVE);
-    simpleAct.Start(PRIO_SIMPLE_ACT);
-    demo.Start(PRIO_DEMO);
+//    compositeAct.Start(PRIO_MICROWAVE);
+//    simpleAct.Start(PRIO_SIMPLE_ACT);
+//    demo.Start(PRIO_DEMO);
     gpioOutAct.Start(PRIO_GPIO_OUT_ACT);
-    washingMachine.Start(PRIO_AO_WASHING_MACHINE);
-    traffic.Start(PRIO_TRAFFIC);
-    levelMeter.Start(PRIO_LEVEL_METER);
+//    washingMachine.Start(PRIO_AO_WASHING_MACHINE);
+//    traffic.Start(PRIO_TRAFFIC);
+//    levelMeter.Start(PRIO_LEVEL_METER);
     gpioInAct.Start(PRIO_GPIO_IN_ACT);
     uartAct2.Start(PRIO_UART2_ACT);
     uartAct1.Start(PRIO_UART1_ACT);
@@ -202,6 +192,8 @@ int main(void)
     iks01a1Thread.Start(PRIO_IKS01A1);
     ili9341Thread.Start(PRIO_ILI9341);
     ledPanelThread.Start(PRIO_LEDPANEL);
+    microwave.Start(PRIO_MICROWAVE);
+    magnetron.Start(PRIO_MAGNETRON);
     sys.Start(PRIO_SYSTEM);
 
     // Kick off the topmost active objects.

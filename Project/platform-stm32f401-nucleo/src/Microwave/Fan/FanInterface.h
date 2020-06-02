@@ -66,13 +66,13 @@ enum {
 
 class FanOnReq : public Evt {
 public:
-    FanOnReq(Hsmn to, Hsmn from, Sequence seq) :
+    FanOnReq(Hsmn to, Hsmn from, Sequence seq = 0) :
         Evt(FAN_ON_REQ, to, from, seq) {}
 };
 
 class FanOffReq : public Evt {
 public:
-    FanOffReq(Hsmn to, Hsmn from, Sequence seq) :
+    FanOffReq(Hsmn to, Hsmn from, Sequence seq = 0) :
         Evt(FAN_OFF_REQ, to, from, seq) {}
 };
 

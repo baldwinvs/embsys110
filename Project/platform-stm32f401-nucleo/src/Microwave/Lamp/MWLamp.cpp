@@ -49,9 +49,24 @@ namespace APP {
 #undef ADD_EVT
 #define ADD_EVT(e_) #e_,
 
+static char const * const timerEvtName[] = {
+	"MW_LAMP_TIMER_EVT_START",
+	MW_LAMP_TIMER_EVT
+};
+
+static char const * const internalEvtName[] = {
+	"MW_LAMP_INTERNAL_EVT_START",
+	MW_LAMP_INTERNAL_EVT
+};
+
+static char const * const interfaceEvtName[] = {
+	"MW_LAMP_INTERFACE_EVT_START",
+	MW_LAMP_INTERFACE_EVT
+};
+
 MWLamp::MWLamp(Hsmn hsmn, char const * name) :
     Region((QStateHandler)&MWLamp::InitialPseudoState, hsmn, name) {
-    SET_EVT_NAME(MWLAMP);
+    SET_EVT_NAME(MW_LAMP);
 }
 
 QState MWLamp::InitialPseudoState(MWLamp * const me, QEvt const * const e) {

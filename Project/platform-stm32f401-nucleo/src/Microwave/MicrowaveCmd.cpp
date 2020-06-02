@@ -40,8 +40,8 @@
 #include "fw_log.h"
 #include "fw_assert.h"
 #include "Console.h"
-#include "CompositeActCmd.h"
-#include "CompositeActInterface.h"
+#include "MicrowaveCmd.h"
+#include "MicrowaveInterface.h"
 
 FW_DEFINE_THIS_FILE("CompositeActCmd.cpp")
 
@@ -130,7 +130,7 @@ static CmdStatus Digit(Console &console, Evt const *e) {
             }
             uint32_t digit = STRING_TO_NUM(ind.Argv(1), 0);
             char buf[32] = {0};
-            sprintf(buf, "digit %d entered\n\r", digit);
+            sprintf(buf, "digit %lu entered\n\r", digit);
             console.PutStr(buf);
             Evt *evt = new MicrowaveExtDigitSig(MICROWAVE, hsm.GetHsmn(), hsm.GenSeq(), digit);
             Fw::Post(evt);
@@ -156,7 +156,7 @@ static CmdStatus List(Console &console, Evt const *e) {
     return console.ListCmd(e, cmdHandler, ARRAY_COUNT(cmdHandler));
 }
 
-CmdStatus CompositeActCmd(Console &console, Evt const *e) {
+CmdStatus MicrowaveCmd(Console &console, Evt const *e) {
     return console.HandleCmd(e, cmdHandler, ARRAY_COUNT(cmdHandler));
 }
 
