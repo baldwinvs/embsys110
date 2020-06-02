@@ -157,13 +157,6 @@ protected:
     uint32_t m_magnetronStor[1 << MAGNETRON_PIPE_ORDER];
     MagnetronPipe m_magnetronPipe;
 
-    enum {
-        MICROWAVE_PIPE_ORDER = 8
-    };
-
-    uint32_t m_microwaveStor[1 << MICROWAVE_PIPE_ORDER];
-    MicrowavePipe m_microwavePipe;
-
 #define MICROWAVE_TIMER_EVT \
     ADD_EVT(HALF_SECOND_TIMER) \
     ADD_EVT(SECOND_TIMER)

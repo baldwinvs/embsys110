@@ -47,10 +47,93 @@ FW_DEFINE_THIS_FILE("CompositeActCmd.cpp")
 
 namespace APP {
 
-static CmdStatus Test(Console &console, Evt const *e) {
+static CmdStatus Clock(Console &console, Evt const *e) {
     switch (e->sig) {
         case Console::CONSOLE_CMD: {
-            console.PutStr("A composite active object. Add your own commands here.\n\r");
+            console.PutStr("clock signal entered\n\r");
+            Evt *evt = new MicrowaveExtClockSig(MICROWAVE, console.GetHsmn());
+            Fw::Post(evt);
+            break;
+        }
+    }
+    return CMD_DONE;
+}
+
+static CmdStatus CookTime(Console &console, Evt const *e) {
+    switch (e->sig) {
+        case Console::CONSOLE_CMD: {
+            console.PutStr("cook time signal entered\n\r");
+            Evt *evt = new MicrowaveExtCookTimeSig(MICROWAVE, console.GetHsmn());
+            Fw::Post(evt);
+            break;
+        }
+    }
+    return CMD_DONE;
+}
+
+static CmdStatus PowerLevel(Console &console, Evt const *e) {
+    switch (e->sig) {
+        case Console::CONSOLE_CMD: {
+            console.PutStr("power level signal entered\n\r");
+            Evt *evt = new MicrowaveExtPowerLevelSig(MICROWAVE, console.GetHsmn());
+            Fw::Post(evt);
+            break;
+        }
+    }
+    return CMD_DONE;
+}
+
+static CmdStatus KitchenTimer(Console &console, Evt const *e) {
+    switch (e->sig) {
+        case Console::CONSOLE_CMD: {
+            console.PutStr("kitchen timer signal entered\n\r");
+            Evt *evt = new MicrowaveExtKitchenTimerSig(MICROWAVE, console.GetHsmn());
+            Fw::Post(evt);
+            break;
+        }
+    }
+    return CMD_DONE;
+}
+
+static CmdStatus Stop(Console &console, Evt const *e) {
+    switch (e->sig) {
+        case Console::CONSOLE_CMD: {
+            console.PutStr("stop signal entered\n\r");
+            Evt *evt = new MicrowaveExtStopSig(MICROWAVE, console.GetHsmn());
+            Fw::Post(evt);
+            break;
+        }
+    }
+    return CMD_DONE;
+}
+
+static CmdStatus Start(Console &console, Evt const *e) {
+    switch (e->sig) {
+        case Console::CONSOLE_CMD: {
+            console.PutStr("start signal entered\n\r");
+            Evt *evt = new MicrowaveExtStartSig(MICROWAVE, console.GetHsmn());
+            Fw::Post(evt);
+            break;
+        }
+    }
+    return CMD_DONE;
+}
+
+static CmdStatus Digit(Console &console, Evt const *e) {
+    Hsm &hsm = console.GetHsm();
+    switch (e->sig) {
+        case Console::CONSOLE_CMD: {
+            Console::ConsoleCmd const &ind = static_cast<Console::ConsoleCmd const &>(*e);
+            if (ind.Argc() < 2) {
+                console.PutStr("microwave digit <number 0-9>\n\r");
+                return CMD_DONE;
+            }
+            uint32_t digit = STRING_TO_NUM(ind.Argv(1), 0);
+            char buf[32] = {0};
+            sprintf(buf, "digit %d entered\n\r", digit);
+            console.PutStr(buf);
+            Evt *evt = new MicrowaveExtDigitSig(MICROWAVE, hsm.GetHsmn(), hsm.GenSeq(), digit);
+            Fw::Post(evt);
             break;
         }
     }
@@ -59,8 +142,14 @@ static CmdStatus Test(Console &console, Evt const *e) {
 
 static CmdStatus List(Console &console, Evt const *e);
 static CmdHandler const cmdHandler[] = {
-    { "test",       Test,       "Test command", 0 },
-    { "?",          List,       "List commands", 0 }
+    { "clock",         Clock,        "Clock Signal",         0 },
+    { "cook_time",     CookTime,     "Cook Time Signal",     0 },
+    { "power_level",   PowerLevel,   "Power Level Signal",   0 },
+    { "kitchen_timer", KitchenTimer, "Kitchen Timer Signal", 0 },
+    { "stop",          Stop,         "Stop Signal",          0 },
+    { "start",         Start,        "Start Signal",         0 },
+    { "digit",         Digit,        "Digit Signal",         0 },
+    { "?",             List,         "List commands",        0 }
 };
 
 static CmdStatus List(Console &console, Evt const *e) {

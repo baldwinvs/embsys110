@@ -46,6 +46,8 @@
 #include "UartAct.h"
 #include "WifiInterface.h"
 #include "WifiSt.h"
+#include "MicrowaveInterface.h"
+#include "MicrowaveMessageFormat.h"
 
 FW_DEFINE_THIS_FILE("WifiSt.cpp")
 
@@ -352,6 +354,12 @@ QState WifiSt::Connected(WifiSt * const me, QEvt const * const e) {
                     snprintf(cmd, sizeof(cmd), "at+s.sockr=0,\n\r");
                     me->Write(cmd);
                 }
+                if (strstr(buf, "+WIND:24")) {
+                    Evt *evt = new MicrowaveWifiConnReq(MICROWAVE, GET_HSMN(), GEN_SEQ());
+                    Fw::Post(evt);
+                }
+                //TODO
+                //Add handling of TCP packet in Wifi module that will send events to Microwave module
             }
             return Q_HANDLED();
         }

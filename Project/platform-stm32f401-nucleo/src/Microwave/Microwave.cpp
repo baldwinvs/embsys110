@@ -45,6 +45,7 @@
 #include "MWLampInterface.h"
 #include "TurntableInterface.h"
 #include "MagnetronInterface.h"
+#include "WifiInterface.h"
 
 FW_DEFINE_THIS_FILE("Microwave.cpp")
 
@@ -88,8 +89,7 @@ Microwave::Microwave() :
     m_halfSecondTimer{GetHsm().GetHsmn(), IDLE_TIMER},
     m_secondTimer{GetHsm().GetHsmn(), IDLE_TIMER},
     m_halfSecondCounts{},
-    m_magnetronPipe{m_magnetronStor, MAGNETRON_PIPE_ORDER},
-    m_microwavePipe{m_microwaveStor, MICROWAVE_PIPE_ORDER}
+    m_magnetronPipe{m_magnetronStor, MAGNETRON_PIPE_ORDER}
     {
         SET_EVT_NAME(MICROWAVE);
 
@@ -225,6 +225,15 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
             me->m_closed = true;
             return Q_HANDLED();
         }
+        case MICROWAVE_WIFI_CONN_REQ: {
+            EVENT(e);
+            char const *host = "192.168.0.27";
+            char const *portStr = "60002";
+            uint16_t port = STRING_TO_NUM(portStr, 0);
+            Evt *evt = new WifiConnectReq(WIFI_ST, GET_HSMN(), GEN_SEQ(), host, port);
+            Fw::Post(evt);
+            return Q_HANDLED();
+        }
     }
     return Q_SUPER(&Microwave::Root);
 }
@@ -275,11 +284,13 @@ QState Microwave::SetClock(Microwave * const me, QEvt const * const e) {
         }
         case MICROWAVE_EXT_CLOCK_SIG: {
             EVENT(e);
-            me->m_clockTime = me->m_proposedClockTime;
-            me->m_halfSecondTimer.Stop();
-            me->m_halfSecondCounts = 0;
-            me->m_halfSecondTimer.Start(HALF_SECOND_TIMEOUT_MS);\
-            me->UpdateClock(me->m_clockTime);
+            if(me->m_clockTime != me->m_proposedClockTime) {
+                me->m_clockTime = me->m_proposedClockTime;
+                me->m_halfSecondTimer.Stop();
+                me->m_halfSecondCounts = 0;
+                me->m_halfSecondTimer.Start(HALF_SECOND_TIMEOUT_MS);
+                me->UpdateClock(me->m_clockTime);
+            }
             me->m_blink = false;
             me->SendSignal(MicrowaveMsgFormat::Signal::BLINK_ON);
             me->SendSignal(MicrowaveMsgFormat::Signal::CLOCK);
@@ -318,15 +329,20 @@ QState Microwave::ClockSelectHourTens(Microwave * const me, QEvt const * const e
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_ONES);
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            time.left_tens = 0;
-            return Q_TRAN(&Microwave::ClockSelectHourOness);
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            time.left_tens = 1;
-            return Q_TRAN(&Microwave::ClockSelectHourOness);
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                case 1:
+                    time.left_tens = digit;
+                    return Q_TRAN(&Microwave::ClockSelectHourOnes);
+                default:
+                    break;
+            }
+            return Q_HANDLED();
         }
     }
     return Q_SUPER(&Microwave::SetClock);
@@ -346,74 +362,30 @@ QState Microwave::ClockSelectHourOnes(Microwave * const me, QEvt const * const e
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_RIGHT_TENS);
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            time.left_ones = 0;
-            return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            time.left_ones = 1;
-            return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            time.left_ones = 2;
-            return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            if(0 == time.left_tens) {
-                time.left_ones = 3;
-                return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-            }
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            if(0 == time.left_tens) {
-                time.left_ones = 4;
-                return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-            }
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            if(0 == time.left_tens) {
-                time.left_ones = 5;
-                return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-            }
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_6_SIG: {
-            EVENT(e);
-            if(0 == time.left_tens) {
-                time.left_ones = 6;
-                return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-            }
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_7_SIG: {
-            EVENT(e);
-            if(0 == time.left_tens) {
-                time.left_ones = 7;
-                return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-            }
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_8_SIG: {
-            EVENT(e);
-            if(0 == time.left_tens) {
-                time.left_ones = 8;
-                return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-            }
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_9_SIG: {
-            EVENT(e);
-            if(0 == time.left_tens) {
-                time.left_ones = 9;
-                return Q_TRAN(&Microwave::ClockSelectMinuteTens);
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                case 1:
+                    time.left_ones = digit;
+                    return Q_TRAN(&Microwave::ClockSelectMinuteTens);
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    if(0 == time.left_tens) {
+                        time.left_ones = digit;
+                        return Q_TRAN(&Microwave::ClockSelectMinuteTens);
+                    }
+                default:
+                    break;
             }
             return Q_HANDLED();
         }
@@ -435,35 +407,24 @@ QState Microwave::ClockSelectMinuteTens(Microwave * const me, QEvt const * const
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_RIGHT_ONES);
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            time.right_tens = 0;
-            return Q_TRAN(&Microwave::ClockSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            time.right_tens = 1;
-            return Q_TRAN(&Microwave::ClockSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            time.right_tens = 2;
-            return Q_TRAN(&Microwave::ClockSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            time.right_tens = 3;
-            return Q_TRAN(&Microwave::ClockSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            time.right_tens = 4;
-            return Q_TRAN(&Microwave::ClockSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            time.right_tens = 5;
-            return Q_TRAN(&Microwave::ClockSelectMinuteOnes);
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    time.right_tens = digit;
+                    return Q_TRAN(&Microwave::ClockSelectMinuteOnes);
+                default:
+                    break;
+            }
+            return Q_HANDLED();
         }
     }
     return Q_SUPER(&Microwave::SetClock);
@@ -483,55 +444,28 @@ QState Microwave::ClockSelectMinuteOnes(Microwave * const me, QEvt const * const
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_TENS);
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            time.right_ones = 0;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            time.right_ones = 1;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            time.right_ones = 2;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            time.right_ones = 3;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            time.right_ones = 4;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            time.right_ones = 5;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_6_SIG: {
-            EVENT(e);
-            time.right_ones = 6;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_7_SIG: {
-            EVENT(e);
-            time.right_ones = 7;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_8_SIG: {
-            EVENT(e);
-            time.right_ones = 8;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_9_SIG: {
-            EVENT(e);
-            time.right_ones = 9;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    time.right_ones = digit;
+                    return Q_TRAN(&Microwave::ClockSelectHourTens);
+                default:
+                    break;
+            }
+            return Q_HANDLED();
         }
     }
     return Q_SUPER(&Microwave::SetClock);
@@ -1111,9 +1045,11 @@ QState Microwave::DisplayTimerRunning(Microwave * const me, QEvt const * const e
 
             if(me->m_cook) {
                 me->m_cooking = true;
-                //TODO: check the return count, handle if 0?
                 //write the current power level to the magnetron pipe
-                m_magnetronPipe.Write(&displayTime[timerIndex].powerLevel, 1);
+                const uint32_t count {m_magnetronPipe.Write(&displayTime[timerIndex].powerLevel, 1)};
+                if(0 == count) {
+                    LOG("Write to MagnetronPipe failed\n\r");
+                }
 
                 Evt* evt = new MWLampOnReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
                 me->PostSync(evt);
@@ -1210,10 +1146,10 @@ void Microwave::SendSignal(const MicrowaveMsgFormat::Signal signal) {
 }
 
 void Microwave::SendMessage(const MicrowaveMsgFormat::Message& message) {
-    //TODO
-    //write to wifi module
-    m_microwavePipe.Write(&m_message, 1);
-    // inform wifi module of data received
+    char buf[sizeof(MicrowaveMsgFormat::Message)];
+    memcpy(buf, &message, sizeof(MicrowaveMsgFormat::Message));
+    Evt* evt = new WifiSendReq(WIFI_ST, GET_HSMN(), GEN_SEQ(), buf);
+    Fw::Post(evt);
 }
 
 void Microwave::UpdateClock(const MicrowaveMsgFormat::Time& clock) {

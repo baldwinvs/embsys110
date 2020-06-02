@@ -70,7 +70,9 @@ namespace APP {
     ADD_EVT(MICROWAVE_EXT_DIGIT_6_SIG) \
     ADD_EVT(MICROWAVE_EXT_DIGIT_7_SIG) \
     ADD_EVT(MICROWAVE_EXT_DIGIT_8_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_9_SIG)
+    ADD_EVT(MICROWAVE_EXT_DIGIT_9_SIG) \
+    ADD_EVT(MICROWAVE_EXT_DIGIT_SIG) \
+    ADD_EVT(MICROWAVE_WIFI_CONN_REQ)
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
@@ -83,8 +85,6 @@ enum {
 enum {
     MICROWAVE_REASON_UNSPEC = 0,
 };
-
-typedef Pipe<MicrowaveMsgFormat::Message> MicrowavePipe;
 
 class MicrowaveStartReq : public Evt {
 public:
@@ -218,6 +218,21 @@ class MicrowaveExtDigit9Sig : public Evt {
 public:
     MicrowaveExtDigit9Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
         Evt(MICROWAVE_EXT_DIGIT_9_SIG, to, from, seq) {}
+};
+
+class MicrowaveExtDigitSig : public Evt {
+public:
+    MicrowaveExtDigitiSig(Hsmn to, Hsmn from, Sequence seq, uint32_t digit) :
+        Evt(MICROWAVE_EXT_DIGIT_SIG, to, from, seq), m_digit(digit)) {}
+    uint32_t GetDigit() const { return m_digit; }
+private:
+    uint32_t m_digit;
+}
+
+class MicrowaveWifiConnReq : public Evt {
+public:
+    MicrowaveWifiConnReq(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_WIFI_CONN_REQ, to, from, seq) {}
 };
 
 } // namespace APP
