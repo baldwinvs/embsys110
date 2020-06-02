@@ -150,7 +150,7 @@ QState Microwave::Stopped(Microwave * const me, QEvt const * const e) {
         case MICROWAVE_START_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
-            Evt *evt = new MicrowaveStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE);
+            Evt *evt = new MicrowaveStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_SUCCESS);
             Fw::Post(evt);
             return Q_TRAN(&Microwave::Started);
         }

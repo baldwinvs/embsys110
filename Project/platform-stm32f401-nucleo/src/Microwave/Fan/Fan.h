@@ -60,6 +60,7 @@ protected:
         static QState On(Fan * const me, QEvt const * const e);
         static QState Off(Fan * const me, QEvt const * const e);
 
+// Placeholders
 #define FAN_TIMER_EVT \
 	ADD_EVT(STATE_TIMER)
 

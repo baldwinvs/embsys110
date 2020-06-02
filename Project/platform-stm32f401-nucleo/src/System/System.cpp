@@ -43,10 +43,10 @@
 #include "System.h"
 #include "SystemInterface.h"
 #include "GpioInInterface.h"
-#include "DemoInterface.h"
+// #include "DemoInterface.h"
 #include "GpioOutInterface.h"
-#include "SensorInterface.h"
-#include "DispInterface.h"
+// #include "SensorInterface.h"
+// #include "DispInterface.h"
 #include "WifiInterface.h"
 #include "MicrowaveInterface.h"
 #include "MagnetronInterface.h"
@@ -324,52 +324,52 @@ QState System::Starting1(System * const me, QEvt const * const e) {
         }
         case NEXT: {
             EVENT(e);
-            return Q_TRAN(&System::Starting2);
-        }
-    }
-    return Q_SUPER(&System::Starting);
-}
-
-QState System::Starting2(System * const me, QEvt const * const e) {
-    switch (e->sig) {
-        case Q_ENTRY_SIG: {
-            EVENT(e);
-            me->m_sensorDelayTimer.Start(SENSOR_DELAY_TIMEOUT_MS);
-            return Q_HANDLED();
-        }
-        case Q_EXIT_SIG: {
-            EVENT(e);
-            me->m_sensorDelayTimer.Stop();
-            return Q_HANDLED();
-        }
-        case SENSOR_DELAY_TIMER: {
-            EVENT(e);
-            me->GetHsm().ResetOutSeq();
-            Evt *evt = new SensorStartReq(IKS01A1, SYSTEM, GEN_SEQ());
-            me->GetHsm().SaveOutSeq(*evt);
-            Fw::Post(evt);
-            return Q_HANDLED();
-        }
-        case SENSOR_START_CFM: {
-            EVENT(e);
-            ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
-            bool allReceived;
-            if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
-                Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
-                me->PostSync(evt);
-            } else if (allReceived) {
-                Evt *evt = new Evt(NEXT, GET_HSMN());
-                me->PostSync(evt);
-            }
-            return Q_HANDLED();
-        }
-        case NEXT: {
-            EVENT(e);
             return Q_TRAN(&System::Starting3);
         }
     }
     return Q_SUPER(&System::Starting);
 }
+
+// QState System::Starting2(System * const me, QEvt const * const e) {
+//     switch (e->sig) {
+//         case Q_ENTRY_SIG: {
+//             EVENT(e);
+//             // me->m_sensorDelayTimer.Start(SENSOR_DELAY_TIMEOUT_MS);
+//             return Q_HANDLED();
+//         }
+//         case Q_EXIT_SIG: {
+//             EVENT(e);
+//             me->m_sensorDelayTimer.Stop();
+//             return Q_HANDLED();
+//         }
+//         case SENSOR_DELAY_TIMER: {
+//             EVENT(e);
+//             me->GetHsm().ResetOutSeq();
+//             Evt *evt = new SensorStartReq(IKS01A1, SYSTEM, GEN_SEQ());
+//             me->GetHsm().SaveOutSeq(*evt);
+//             Fw::Post(evt);
+//             return Q_HANDLED();
+//         }
+//         case SENSOR_START_CFM: {
+//             EVENT(e);
+//             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
+//             bool allReceived;
+//             if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
+//                 Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
+//                 me->PostSync(evt);
+//             } else if (allReceived) {
+//                 Evt *evt = new Evt(NEXT, GET_HSMN());
+//                 me->PostSync(evt);
+//             }
+//             return Q_HANDLED();
+//         }
+//         case NEXT: {
+//             EVENT(e);
+//             return Q_TRAN(&System::Starting3);
+//         }
+//     }
+//     return Q_SUPER(&System::Starting);
+// }
 
 QState System::Starting3(System * const me, QEvt const * const e) {
     switch (e->sig) {
@@ -498,9 +498,9 @@ QState System::Stopping2(System * const me, QEvt const * const e) {
             me->GetHsm().SaveOutSeq(*evt);
             Fw::Post(evt);
 
-            evt = new SensorStopReq(IKS01A1, SYSTEM, GEN_SEQ());
-            me->GetHsm().SaveOutSeq(*evt);
-            Fw::Post(evt);
+            // evt = new SensorStopReq(IKS01A1, SYSTEM, GEN_SEQ());
+            // me->GetHsm().SaveOutSeq(*evt);
+            // Fw::Post(evt);
 
             // USER LED pin (PA.5) is shared with TFP display SPI clock pin.
             // It must not be enabled when the TFP is used (e.g. in LevelMeter).
@@ -523,7 +523,7 @@ QState System::Stopping2(System * const me, QEvt const * const e) {
         case WIFI_STOP_CFM:
         case MICROWAVE_STOP_CFM:
 		case MAGNETRON_STOP_CFM:
-        case SENSOR_STOP_CFM:
+        // case SENSOR_STOP_CFM:
         case GPIO_OUT_STOP_CFM: {
             EVENT(e);
             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);

@@ -84,6 +84,10 @@ QState Fan::Root(Fan * const me, QEvt const * const e) {
             EVENT(e);
             return Q_HANDLED();
         }
+        case Q_INIT_SIG: {
+            EVENT(e);
+            return Q_TRAN(&Fan::Off);
+        }
         case FAN_ON_REQ: {
             EVENT(e);
             return Q_TRAN(&Fan::On);

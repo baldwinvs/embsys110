@@ -132,7 +132,8 @@ QState Magnetron::Stopped(Magnetron * const me, QEvt const * const e) {
         case MAGNETRON_START_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
-            me->GetHsm().SaveInSeq(req);
+            Evt *evt = new MagnetronStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_SUCCESS);
+            Fw::Post(evt);
             return Q_TRAN(&Magnetron::Started);
         }
     }
