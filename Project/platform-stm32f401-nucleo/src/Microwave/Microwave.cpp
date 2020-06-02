@@ -168,6 +168,13 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
             EVENT(e);
             return Q_HANDLED();
         }
+        case Q_INIT_SIG: {
+        	//TODO
+        	//although the half second timer starts here, it shouldn't be updating the clock until
+        	// the first time that the clock is set
+            me->m_halfSecondTimer.Start(HALF_SECOND_TIMEOUT_MS, Timer::PERIODIC);
+        	return Q_TRAN(&Microwave::DisplayClock);
+        }
         case MICROWAVE_STOP_REQ: {
             EVENT(e);
             Evt const & req = EVT_CAST(*e);
@@ -209,6 +216,7 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
             if(me->m_displayTime[me->m_timerIndex].time == MicrowaveMsgFormat::Time()) {
                 me->Add30SecondsToCookTime();
             }
+            me->m_cook = true;
             return Q_TRAN(&Microwave::DisplayTimer);
         }
         case MICROWAVE_EXT_STOP_SIG: {
@@ -246,13 +254,16 @@ QState Microwave::DisplayClock(Microwave * const me, QEvt const * const e) {
             me->m_state = MicrowaveMsgFormat::State::DISPLAY_CLOCK;
             me->UpdateClock(me->m_clockTime);
             me->m_blink = true;
-            me->m_halfSecondTimer.Start(HALF_SECOND_TIMEOUT_MS);
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
             me->m_blink = false;
             return Q_HANDLED();
+        }
+        case MICROWAVE_EXT_CLOCK_SIG: {
+        	EVENT(e);
+        	return Q_TRAN(&Microwave::SetClock);
         }
         case MICROWAVE_EXT_COOK_TIME_SIG: {
             EVENT(e);
@@ -277,11 +288,14 @@ QState Microwave::SetClock(Microwave * const me, QEvt const * const e) {
             me->SendSignal(MicrowaveMsgFormat::Signal::BLINK_ON);
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_TENS);
             me->m_blink = true;
-            return Q_TRAN(&Microwave::ClockSelectHourTens);
+            return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
             return Q_HANDLED();
+        }
+        case Q_INIT_SIG: {
+        	return Q_TRAN(&Microwave::ClockSelectHourTens);
         }
         case MICROWAVE_EXT_CLOCK_SIG: {
             EVENT(e);
@@ -289,7 +303,7 @@ QState Microwave::SetClock(Microwave * const me, QEvt const * const e) {
                 me->m_clockTime = me->m_proposedClockTime;
                 me->m_halfSecondTimer.Stop();
                 me->m_halfSecondCounts = 0;
-                me->m_halfSecondTimer.Start(HALF_SECOND_TIMEOUT_MS);
+                me->m_halfSecondTimer.Start(HALF_SECOND_TIMEOUT_MS, Timer::PERIODIC);
                 me->UpdateClock(me->m_clockTime);
             }
             me->m_blink = false;
@@ -371,9 +385,9 @@ QState Microwave::ClockSelectHourOnes(Microwave * const me, QEvt const * const e
             switch(digit) {
                 case 0:
                 case 1:
+                case 2:
                     time.left_ones = digit;
                     return Q_TRAN(&Microwave::ClockSelectMinuteTens);
-                case 2:
                 case 3:
                 case 4:
                 case 5:
@@ -478,11 +492,15 @@ QState Microwave::SetCookTimer(Microwave * const me, QEvt const * const e) {
             EVENT(e);
             me->m_displayTime[me->m_timerIndex].time = MicrowaveMsgFormat::Time();
             me->UpdateDisplayTime();
+            ++me->m_timersUsed;
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
             return Q_HANDLED();
+        }
+        case Q_INIT_SIG: {
+        	return Q_TRAN(&Microwave::SetCookTimerInitial);
         }
         case MICROWAVE_EXT_POWER_LEVEL_SIG: {
             EVENT(e);
@@ -506,50 +524,27 @@ QState Microwave::SetCookTimerInitial(Microwave * const me, QEvt const * const e
             me->UpdateDisplayTime();
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            time.right_ones = 1;
-            return Q_TRAN(&Microwave::SetCookTimerFinal);
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            time.right_ones = 2;
-            return Q_TRAN(&Microwave::SetCookTimerFinal);
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            time.right_ones = 3;
-            return Q_TRAN(&Microwave::SetCookTimerFinal);
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            time.right_ones = 4;
-            return Q_TRAN(&Microwave::SetCookTimerFinal);
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            time.right_ones = 5;
-            return Q_TRAN(&Microwave::SetCookTimerFinal);
-        }
-        case MICROWAVE_EXT_DIGIT_6_SIG: {
-            EVENT(e);
-            time.right_ones = 6;
-            return Q_TRAN(&Microwave::SetCookTimerFinal);
-        }
-        case MICROWAVE_EXT_DIGIT_7_SIG: {
-            EVENT(e);
-            time.right_ones = 7;
-            return Q_TRAN(&Microwave::SetCookTimerFinal);
-        }
-        case MICROWAVE_EXT_DIGIT_8_SIG: {
-            EVENT(e);
-            time.right_ones = 8;
-            return Q_TRAN(&Microwave::SetCookTimerFinal);
-        }
-        case MICROWAVE_EXT_DIGIT_9_SIG: {
-            EVENT(e);
-            time.right_ones = 9;
-            return Q_TRAN(&Microwave::SetCookTimerFinal);
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    time.right_ones = digit;
+                    return Q_TRAN(&Microwave::SetCookTimerFinal);
+                default:
+                    break;
+            }
+            return Q_HANDLED();
         }
     }
     return Q_SUPER(&Microwave::SetCookTimer);
@@ -567,64 +562,27 @@ QState Microwave::SetCookTimerFinal(Microwave * const me, QEvt const * const e) 
             EVENT(e);
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            me->ShiftLeftAndInsert(time, 0);
-            me->UpdateDisplayTime();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            me->ShiftLeftAndInsert(time, 1);
-            me->UpdateDisplayTime();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            me->ShiftLeftAndInsert(time, 2);
-            me->UpdateDisplayTime();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            me->ShiftLeftAndInsert(time, 3);
-            me->UpdateDisplayTime();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            me->ShiftLeftAndInsert(time, 4);
-            me->UpdateDisplayTime();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            me->ShiftLeftAndInsert(time, 5);
-            me->UpdateDisplayTime();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_6_SIG: {
-            EVENT(e);
-            me->ShiftLeftAndInsert(time, 6);
-            me->UpdateDisplayTime();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_7_SIG: {
-            EVENT(e);
-            me->ShiftLeftAndInsert(time, 7);
-            me->UpdateDisplayTime();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_8_SIG: {
-            EVENT(e);
-            me->ShiftLeftAndInsert(time, 8);
-            me->UpdateDisplayTime();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_9_SIG: {
-            EVENT(e);
-            me->ShiftLeftAndInsert(time, 9);
-            me->UpdateDisplayTime();
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                	me->ShiftLeftAndInsert(time, digit);
+                	me->UpdateDisplayTime();
+                default:
+                    break;
+            }
             return Q_HANDLED();
         }
     }
@@ -646,7 +604,7 @@ QState Microwave::SetPowerLevel(Microwave * const me, QEvt const * const e) {
             me->m_blink = false;
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_CLOCK_SIG: {
+        case MICROWAVE_EXT_COOK_TIME_SIG: {
             EVENT(e);
             if(me->m_timersUsed < MAX_COOK_TIMERS) {
                 me->m_timerIndex = (me->m_timerIndex + 1) % MAX_COOK_TIMERS;
@@ -655,69 +613,35 @@ QState Microwave::SetPowerLevel(Microwave * const me, QEvt const * const e) {
             }
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            if(powerLevel == 1) {
-                powerLevel = 10;
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                	if(powerLevel == 1) {
+                		powerLevel = 10;
+                	}
+                	else {
+                		powerLevel = digit;
+                	}
+                    me->UpdatePowerLevel();
+                	break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    powerLevel = digit;
+                    me->UpdatePowerLevel();
+                default:
+                    break;
             }
-            else {
-                powerLevel = 0;
-            }
-            me->UpdatePowerLevel();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            powerLevel = 1;
-            me->UpdatePowerLevel();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            powerLevel = 2;
-            me->UpdatePowerLevel();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            powerLevel = 3;
-            me->UpdatePowerLevel();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            powerLevel = 4;
-            me->UpdatePowerLevel();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            powerLevel = 5;
-            me->UpdatePowerLevel();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_6_SIG: {
-            EVENT(e);
-            powerLevel = 6;
-            me->UpdatePowerLevel();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_7_SIG: {
-            EVENT(e);
-            powerLevel = 7;
-            me->UpdatePowerLevel();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_8_SIG: {
-            EVENT(e);
-            powerLevel = 8;
-            me->UpdatePowerLevel();
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DIGIT_9_SIG: {
-            EVENT(e);
-            powerLevel = 9;
-            me->UpdatePowerLevel();
             return Q_HANDLED();
         }
     }
@@ -733,11 +657,14 @@ QState Microwave::SetKitchenTimer(Microwave * const me, QEvt const * const e) {
             
             me->UpdateDisplayTime();
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_TENS);
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
+            return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
             return Q_HANDLED();
+        }
+        case Q_INIT_SIG: {
+        	return Q_TRAN(&Microwave::KitchenSelectHourTens);
         }
     }
     return Q_SUPER(&Microwave::Started);
@@ -757,55 +684,28 @@ QState Microwave::KitchenSelectHourTens(Microwave * const me, QEvt const * const
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_ONES);
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            time.left_tens = 0;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            time.left_tens = 1;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            time.left_tens = 2;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            time.left_tens = 3;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            time.left_tens = 4;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            time.left_tens = 5;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_6_SIG: {
-            EVENT(e);
-            time.left_tens = 6;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_7_SIG: {
-            EVENT(e);
-            time.left_tens = 7;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_8_SIG: {
-            EVENT(e);
-            time.left_tens = 8;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_9_SIG: {
-            EVENT(e);
-            time.left_tens = 9;
-            return Q_TRAN(&Microwave::KitchenSelectHourOnes);
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                	time.left_tens = digit;
+                	return Q_TRAN(&Microwave::KitchenSelectHourOnes);
+                default:
+                    break;
+            }
+            return Q_HANDLED();
         }
     }
     return Q_SUPER(&Microwave::SetKitchenTimer);
@@ -825,55 +725,28 @@ QState Microwave::KitchenSelectHourOnes(Microwave * const me, QEvt const * const
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_RIGHT_TENS);
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            time.left_ones = 0;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            time.left_ones = 1;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            time.left_ones = 2;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            time.left_ones = 3;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            time.left_ones = 4;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            time.left_ones = 5;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_6_SIG: {
-            EVENT(e);
-            time.left_ones = 6;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_7_SIG: {
-            EVENT(e);
-            time.left_ones = 7;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_8_SIG: {
-            EVENT(e);
-            time.left_ones = 8;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
-        }
-        case MICROWAVE_EXT_DIGIT_9_SIG: {
-            EVENT(e);
-            time.left_ones = 9;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                	time.left_ones = digit;
+                	return Q_TRAN(&Microwave::KitchenSelectMinuteTens);
+                default:
+                    break;
+            }
+            return Q_HANDLED();
         }
     }
     return Q_SUPER(&Microwave::SetKitchenTimer);
@@ -893,55 +766,28 @@ QState Microwave::KitchenSelectMinuteTens(Microwave * const me, QEvt const * con
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_RIGHT_ONES);
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            time.right_tens = 0;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            time.right_tens = 1;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            time.right_tens = 2;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            time.right_tens = 3;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            time.right_tens = 4;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            time.right_tens = 5;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_6_SIG: {
-            EVENT(e);
-            time.right_tens = 6;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_7_SIG: {
-            EVENT(e);
-            time.right_tens = 7;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_8_SIG: {
-            EVENT(e);
-            time.right_tens = 8;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
-        }
-        case MICROWAVE_EXT_DIGIT_9_SIG: {
-            EVENT(e);
-            time.right_tens = 9;
-            return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                	time.right_tens = digit;
+                	return Q_TRAN(&Microwave::KitchenSelectMinuteOnes);
+                default:
+                    break;
+            }
+            return Q_HANDLED();
         }
     }
     return Q_SUPER(&Microwave::SetKitchenTimer);
@@ -961,55 +807,28 @@ QState Microwave::KitchenSelectMinuteOnes(Microwave * const me, QEvt const * con
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_TENS);
             return Q_HANDLED();
         }
-        case MICROWAVE_EXT_DIGIT_0_SIG: {
+        case MICROWAVE_EXT_DIGIT_SIG: {
             EVENT(e);
-            time.right_ones = 0;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_1_SIG: {
-            EVENT(e);
-            time.right_ones = 1;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_2_SIG: {
-            EVENT(e);
-            time.right_ones = 2;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_3_SIG: {
-            EVENT(e);
-            time.right_ones = 3;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_4_SIG: {
-            EVENT(e);
-            time.right_ones = 4;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_5_SIG: {
-            EVENT(e);
-            time.right_ones = 5;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_6_SIG: {
-            EVENT(e);
-            time.right_ones = 6;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_7_SIG: {
-            EVENT(e);
-            time.right_ones = 7;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_8_SIG: {
-            EVENT(e);
-            time.right_ones = 8;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
-        }
-        case MICROWAVE_EXT_DIGIT_9_SIG: {
-            EVENT(e);
-            time.right_ones = 9;
-            return Q_TRAN(&Microwave::KitchenSelectHourTens);
+            MicrowaveExtDigitSig const &req = static_cast<MicrowaveExtDigitSig const &>(*e);
+            uint32_t digit = req.GetDigit();
+
+            switch(digit) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                	time.right_ones = digit;
+                	return Q_TRAN(&Microwave::KitchenSelectHourTens);
+                default:
+                    break;
+            }
+            return Q_HANDLED();
         }
     }
     return Q_SUPER(&Microwave::SetKitchenTimer);
@@ -1020,11 +839,14 @@ QState Microwave::DisplayTimer(Microwave * const me, QEvt const * const e) {
         case Q_ENTRY_SIG: {
             EVENT(e);
             me->m_secondsRemaining = me->Time2Seconds(me->m_displayTime[me->m_timerIndex].time);
-            return Q_TRAN(&Microwave::DisplayTimerRunning);
+            return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
             return Q_HANDLED();
+        }
+        case Q_INIT_SIG: {
+        	return Q_TRAN(&Microwave::DisplayTimerRunning);
         }
         case MICROWAVE_EXT_START_SIG: {
             EVENT(e);
@@ -1042,7 +864,7 @@ QState Microwave::DisplayTimerRunning(Microwave * const me, QEvt const * const e
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            me->m_secondTimer.Start(me->m_secondsRemaining);
+            me->m_secondTimer.Start(SECOND_TIMEOUT_MS, Timer::PERIODIC);
             me->m_state = MicrowaveMsgFormat::State::DISPLAY_TIMER_RUNNING;
             me->UpdateDisplayTime();
 
@@ -1134,6 +956,13 @@ QState Microwave::DisplayTimerPaused(Microwave * const me, QEvt const * const e)
             }
             return Q_HANDLED();
         }
+        case MICROWAVE_EXT_START_SIG: {
+        	EVENT(e);
+        	if(me->m_closed) {
+        		return Q_TRAN(&Microwave::DisplayTimerRunning);
+        	}
+        	return Q_HANDLED();
+        }
     }
     return Q_SUPER(&Microwave::DisplayTimer);
 }
@@ -1209,8 +1038,10 @@ void Microwave::DecrementTimer() {
     m_displayTime[m_timerIndex].time = Seconds2Time(m_secondsRemaining);
     if(0 == m_secondsRemaining) {
         m_secondTimer.Stop();
-        Evt* evt = new MagnetronOffReq(MAGNETRON, this->GetHsmn(), this->GenSeq());
-        Fw::Post(evt);
+        if(m_cooking) {
+			Evt *evt = new MagnetronOffReq(MAGNETRON, this->GetHsmn(), this->GenSeq());
+			Fw::Post(evt);
+        }
         
         --m_timersUsed;
 
@@ -1219,8 +1050,8 @@ void Microwave::DecrementTimer() {
 
             m_secondsRemaining = Time2Seconds(m_displayTime[m_timerIndex].time);
             m_magnetronPipe.Write(&m_displayTime[m_timerIndex].powerLevel, 1);
-            m_secondTimer.Start(m_secondsRemaining);
-            evt = new MagnetronOnReq(MAGNETRON, this->GetHsmn(), this->GenSeq(), &m_magnetronPipe);
+            m_secondTimer.Start(SECOND_TIMEOUT_MS, Timer::PERIODIC);
+            Evt *evt = new MagnetronOnReq(MAGNETRON, this->GetHsmn(), this->GenSeq(), &m_magnetronPipe);
             Fw::Post(evt);
             
             UpdateDisplayTime();

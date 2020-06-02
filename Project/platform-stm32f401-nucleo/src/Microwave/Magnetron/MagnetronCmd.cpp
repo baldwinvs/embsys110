@@ -103,12 +103,25 @@ static CmdStatus Off(Console & console, Evt const *e) {
     return CMD_DONE;
 }
 
+static CmdStatus Pause(Console & console, Evt const *e) {
+	switch (e->sig) {
+	    case Console::CONSOLE_CMD: {
+	    	console.PutStr("Magnetron pause request\n\r");
+	    	Evt *evt = new MagnetronPauseReq(MAGNETRON, console.GetHsmn());
+	    	Fw::Post(evt);
+	    	break;
+	    }
+	}
+	return CMD_DONE;
+}
+
 static CmdStatus List(Console &console, Evt const *e);
 static CmdHandler const cmdHandler[] = {
     { "?",          List,       "List commands", 0 },
     { "power",      PowerLevel, "Set Power Level", 0 },
     { "on",         On,         "Turn on", 0 },
     { "off",        Off,        "Turn off", 0 },
+	{ "pause",      Pause,      "Pause", 0 }
 };
 
 static CmdStatus List(Console &console, Evt const *e) {

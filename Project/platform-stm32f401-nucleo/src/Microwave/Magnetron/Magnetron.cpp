@@ -150,6 +150,9 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
             EVENT(e);
             return Q_HANDLED();
         }
+        case Q_INIT_SIG: {
+        	return Q_TRAN(&Magnetron::Off);
+        }
         case MAGNETRON_OFF_REQ: {
             EVENT(e);
             return Q_TRAN(&Magnetron::Off);
@@ -170,8 +173,8 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
             me->m_onTime = static_cast<float>(powerLevel/10.0f) * APP::Magnetron::CYCLE_TIME_MS;
             me->m_offTime = static_cast<uint32_t>(APP::Magnetron::CYCLE_TIME_MS) - me->m_onTime;
             LOG("\tpower level: %d\n"
-                "\ton time    : %d\n"
-                "\toff time   : %d\n", powerLevel, me->m_onTime, me->m_offTime);
+                "on time    : %d\n"
+                "off time   : %d\n", powerLevel, me->m_onTime, me->m_offTime);
             //start magnetron timer
             me->m_magnetronTimer.Start(me->m_onTime);
             return Q_TRAN(&Magnetron::On);
@@ -202,7 +205,11 @@ QState Magnetron::On(Magnetron * const me, QEvt const * const e) {
         }
         case Q_EXIT_SIG: {
             EVENT(e);
+            me->m_magnetronTimer.Stop();
             return Q_HANDLED();
+        }
+        case Q_INIT_SIG: {
+        	return Q_TRAN(&Magnetron::Running);
         }
         case MAGNETRON_PAUSE_REQ: {
             EVENT(e);
@@ -227,7 +234,6 @@ QState Magnetron::Running(Magnetron * const me, QEvt const * const e) {
         }
         case MAGNETRON_TIMER: {
             EVENT(e);
-            me->m_magnetronTimer.Stop();
             me->m_magnetronTimer.Start(me->m_offTime);
             return Q_TRAN(&Magnetron::NotRunning);
         }
@@ -248,7 +254,6 @@ QState Magnetron::NotRunning(Magnetron * const me, QEvt const * const e) {
         }
         case MAGNETRON_TIMER: {
             EVENT(e);
-            me->m_magnetronTimer.Stop();
             me->m_magnetronTimer.Start(me->m_onTime);
             return Q_TRAN(&Magnetron::Running);
         }

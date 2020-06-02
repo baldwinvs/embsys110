@@ -48,12 +48,14 @@
 #include "LogCmd.h"
 #include "SystemCmd.h"
 #include "WifiStCmd.h"
-#include "DemoCmd.h"
+//#include "DemoCmd.h"
 #include "GpioOutCmd.h"
-#include "AOWashingMachineCmd.h"
-#include "TrafficCmd.h"
-#include "SimpleActCmd.h"
-#include "CompositeActCmd.h"
+//#include "AOWashingMachineCmd.h"
+//#include "TrafficCmd.h"
+//#include "SimpleActCmd.h"
+//#include "CompositeActCmd.h"
+#include "MicrowaveCmd.h"
+#include "MagnetronCmd.h"
 #include <memory>
 
 FW_DEFINE_THIS_FILE("ConsoleCmd.cpp")
@@ -222,22 +224,24 @@ static CmdStatus Perf(Console &console, Evt const *e) {
 
 static CmdStatus List(Console &console, Evt const *e);
 static CmdHandler const cmdHandler[] = {
-    { "test",       Test,       "Test function", 0 },
+//    { "test",       Test,       "Test function", 0 },
     { "assert",     Assert,     "Trigger assert", 0 },
     { "hsm",        Hsm,        "List all HSMs", 0 },
     { "state",      State,      "List HSM states", 0 },
     { "log",        LogCmd,     "Log control", 0 },
-    { "timer",      Timer,      "Timer test function", 0 },
-    { "fib",        Fibonacci,  "Fibonacci generator", 0 },
+//    { "timer",      Timer,      "Timer test function", 0 },
+//    { "fib",        Fibonacci,  "Fibonacci generator", 0 },
     { "sys",        SystemCmd,  "System", 0 },
     { "wifi",       WifiStCmd,  "Wifi(stm32) control", 0 },
-    { "demo",       DemoCmd,    "Demo from Psicc", 0 },
+//    { "demo",       DemoCmd,    "Demo from Psicc", 0 },
     { "gpio",       GpioOutCmd, "GPIO output control", 0 },
-    { "wash",       AOWashingMachineCmd, "Washing machine", 0 },
-    { "traffic",    TrafficCmd, "Traffic light", 0 },
-    { "perf",       Perf,       "Performance demo", 0 },
-    { "simp",       SimpleActCmd,    "Template/SimpleAct testing", 0 },
-    { "comp",       CompositeActCmd, "Template/CompositeAct testing", 0 },
+//    { "wash",       AOWashingMachineCmd, "Washing machine", 0 },
+//    { "traffic",    TrafficCmd, "Traffic light", 0 },
+//    { "perf",       Perf,       "Performance demo", 0 },
+//    { "simp",       SimpleActCmd,    "Template/SimpleAct testing", 0 },
+//    { "comp",       CompositeActCmd, "Template/CompositeAct testing", 0 },
+	{ "microwave",  MicrowaveCmd, "Microwave", 0 },
+	{ "magnetron",  MagnetronCmd, "Magnetron", 0 },
     { "?",          List,       "List commands", 0 },
 };
 
