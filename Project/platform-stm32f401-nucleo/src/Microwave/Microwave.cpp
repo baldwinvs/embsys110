@@ -227,11 +227,15 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
         case MICROWAVE_EXT_DOOR_OPEN_SIG: {
             EVENT(e);
             me->m_closed = false;
+            Evt* evt = new MwLampOnReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
+            me->PostSync(evt);
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_DOOR_CLOSED_SIG: {
             EVENT(e);
             me->m_closed = true;
+            Evt* evt = new MwLampOffReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
+            me->PostSync(evt);
             return Q_HANDLED();
         }
         case MICROWAVE_WIFI_CONN_REQ: {
@@ -838,11 +842,15 @@ QState Microwave::DisplayTimer(Microwave * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
+            me->m_timerIndex = 0;
             me->m_secondsRemaining = me->Time2Seconds(me->m_displayTime[me->m_timerIndex].time);
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
+            Evt *evt = new MagnetronOffReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
+            me->m_timerIndex = 0;
+            Fw::Post(evt);
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
@@ -855,6 +863,10 @@ QState Microwave::DisplayTimer(Microwave * const me, QEvt const * const e) {
                 me->UpdateDisplayTime();
             }
             return Q_HANDLED();
+        }
+        case DONE: {
+            EVENT(e);
+            return Q_TRAN(&Microwave::DisplayClock);
         }
     }
     return Q_SUPER(&Microwave::Started);
@@ -889,7 +901,17 @@ QState Microwave::DisplayTimerRunning(Microwave * const me, QEvt const * const e
         }
         case Q_EXIT_SIG: {
             EVENT(e);
+            me->m_secondTimer.Stop();
             me->m_cooking = false;
+
+            Evt* evt = new FanOffReq(FAN, GET_HSMN(), GEN_SEQ());
+            me->PostSync(evt);
+            evt = new TurntableOffReq(TURNTABLE, GET_HSMN(), GEN_SEQ());
+            me->PostSync(evt);
+            if(me->m_closed) {
+                evt = new MwLampOffReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
+                me->PostSync(evt);
+            }
             return Q_HANDLED();
         }
         case SECOND_TIMER: {
@@ -898,7 +920,8 @@ QState Microwave::DisplayTimerRunning(Microwave * const me, QEvt const * const e
 
             if(me->m_secondsRemaining == 0) {
                 //all timers done, transition back to DisplayClock
-                return Q_TRAN(&Microwave::DisplayClock);
+                Evt *evt = new Evt(DONE, GET_HSMN());
+                Fw::Post(evt);
             }
             return Q_HANDLED();
         }
@@ -919,41 +942,14 @@ QState Microwave::DisplayTimerPaused(Microwave * const me, QEvt const * const e)
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            me->m_secondTimer.Stop();
             me->m_state = MicrowaveMsgFormat::State::DISPLAY_TIMER_PAUSED;
 
-            Evt* evt = new FanOffReq(FAN, GET_HSMN(), GEN_SEQ());
-            me->PostSync(evt);
-            evt = new TurntableOffReq(TURNTABLE, GET_HSMN(), GEN_SEQ());
-            me->PostSync(evt);
-            if(me->m_closed) {
-                evt = new MwLampOffReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
-                me->PostSync(evt);
-            }
-            evt = new MagnetronPauseReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
+            Evt *evt = new MagnetronPauseReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
             Fw::Post(evt);
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DOOR_OPEN_SIG: {
-            EVENT(e);
-            if(me->m_closed) {
-                me->m_closed = false;
-                Evt* evt = new MwLampOnReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
-                me->PostSync(evt);
-            }
-            return Q_HANDLED();
-        }
-        case MICROWAVE_EXT_DOOR_CLOSED_SIG: {
-            EVENT(e);
-            if(!me->m_closed) {
-                me->m_closed = true;
-                Evt* evt = new MwLampOffReq(MW_LAMP, GET_HSMN(), GEN_SEQ());
-                me->PostSync(evt);
-            }
             return Q_HANDLED();
         }
         case MICROWAVE_EXT_START_SIG: {
