@@ -152,7 +152,6 @@ valign=top</panel_attributes>
       <h>60</h>
     </coordinates>
     <panel_attributes>MAGNETRON_TIMER/
-stop magnetronTimer,
 start magnetronTimer(onTime)
 style=wordwrap</panel_attributes>
     <additional_attributes/>
@@ -166,7 +165,6 @@ style=wordwrap</panel_attributes>
       <h>60</h>
     </coordinates>
     <panel_attributes>MAGNETRON_TIMER/
-stop magnetronTimer,
 start magnetronTimer(offTime)
 style=wordwrap</panel_attributes>
     <additional_attributes/>
@@ -181,9 +179,10 @@ style=wordwrap</panel_attributes>
     </coordinates>
     <panel_attributes>MAGNETRON_ON_REQ[magnetronPipe read count &gt; 0]/
 get powerLevel from magnetronPipe
-onTime = powerLevel/10 * cycleTime,
-offTime = cycleTime - onTime,
-start magnetronTimer(onTime)
+if(0 &lt; powerLevel &lt; 10)
+  (onTime = powerLevel/10 * cycleTime,
+  offTime = cycleTime - onTime,
+  start magnetronTimer(onTime))
 style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>
@@ -302,8 +301,9 @@ valign=top</panel_attributes>
       <h>70</h>
     </coordinates>
     <panel_attributes>MAGNETRON_PAUSE_REQ/
-get remaining time,
-stop magnetronTimer
+if(0 &lt; powerLevel &lt; 10)
+    (get remaining time,
+     stop magnetronTimer)
 style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>
@@ -311,12 +311,13 @@ style=wordwrap</panel_attributes>
     <id>Text</id>
     <coordinates>
       <x>1120</x>
-      <y>340</y>
-      <w>240</w>
-      <h>50</h>
+      <y>320</y>
+      <w>280</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>MAGNETRON_ON_REQ/
-start magnetronTimer(remaining)
+if(0 &lt; powerLevel &lt; 10)
+    (start magnetronTimer(remaining))
 style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>

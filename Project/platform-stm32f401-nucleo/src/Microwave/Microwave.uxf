@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>4</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>748</x>
-      <y>272</y>
-      <w>184</w>
-      <h>12</h>
+      <x>1182</x>
+      <y>390</y>
+      <w>204</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>440.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>320.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>844</x>
-      <y>256</y>
-      <w>80</w>
-      <h>20</h>
+      <x>1254</x>
+      <y>366</y>
+      <w>120</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>COOK_TIMER/
 send Signal::COOK_TIME
@@ -28,10 +28,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>944</x>
-      <y>464</y>
-      <w>12</w>
-      <h>48</h>
+      <x>1404</x>
+      <y>678</y>
+      <w>18</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
@@ -39,10 +39,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1112</x>
-      <y>464</y>
-      <w>12</w>
-      <h>48</h>
+      <x>1656</x>
+      <y>678</y>
+      <w>18</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
@@ -50,10 +50,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>864</x>
-      <y>468</y>
-      <w>84</w>
-      <h>36</h>
+      <x>1284</x>
+      <y>684</y>
+      <w>126</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>POWER_LEVEL/
 send Signal::POWER_LEVEL
@@ -64,34 +64,37 @@ valign=center</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>792</y>
-      <w>68</w>
-      <h>24</h>
+      <x>528</x>
+      <y>1146</y>
+      <w>180</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>150.0;40.0;150.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>280.0;50.0;280.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>364</x>
-      <y>784</y>
-      <w>56</w>
-      <h>12</h>
+      <x>540</x>
+      <y>1086</y>
+      <w>306</w>
+      <h>66</h>
     </coordinates>
-    <panel_attributes>START
-style=wordwrap
-halign=center</panel_attributes>
+    <panel_attributes>START/ if(displayTime[timerIndex].time = 00:00)
+                  (Add30SecondsToCookTime(),
+                   cook = true)
+              if(state = SET_POWER_LEVEL or SET_COOK_TIMER_FINAL)
+                  (cook = true)
+style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>364</x>
-      <y>156</y>
-      <w>784</w>
-      <h>1004</h>
+      <x>534</x>
+      <y>216</y>
+      <w>1176</w>
+      <h>1506</h>
     </coordinates>
     <panel_attributes>Started
 --
@@ -107,34 +110,36 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>272</y>
-      <w>60</w>
-      <h>12</h>
+      <x>528</x>
+      <y>390</y>
+      <w>162</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>250.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>364</x>
-      <y>264</y>
-      <w>48</w>
-      <h>12</h>
+      <x>534</x>
+      <y>396</y>
+      <w>144</w>
+      <h>48</h>
     </coordinates>
-    <panel_attributes>STOP
-style=wordwrap
-halign=center</panel_attributes>
+    <panel_attributes>STOP/ clear timers,
+            clear power level data,
+            timersUsed = 0,
+            timerIndex = 0
+style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>908</x>
-      <y>1028</y>
-      <w>164</w>
-      <h>120</h>
+      <x>1350</x>
+      <y>1524</y>
+      <w>246</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>Fan root
 --
@@ -144,10 +149,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>916</x>
-      <y>1096</y>
-      <w>36</w>
-      <h>44</h>
+      <x>1362</x>
+      <y>1626</y>
+      <w>54</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>Off
 --
@@ -157,10 +162,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>1028</x>
-      <y>1096</y>
-      <w>36</w>
-      <h>44</h>
+      <x>1530</x>
+      <y>1626</y>
+      <w>54</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>On
 --
@@ -170,10 +175,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>948</x>
-      <y>1124</y>
-      <w>88</w>
-      <h>12</h>
+      <x>1410</x>
+      <y>1668</y>
+      <w>132</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
@@ -181,10 +186,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>948</x>
-      <y>1104</y>
-      <w>88</w>
-      <h>12</h>
+      <x>1410</x>
+      <y>1638</y>
+      <w>132</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
@@ -192,10 +197,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>952</x>
-      <y>1096</y>
-      <w>76</w>
-      <h>12</h>
+      <x>1416</x>
+      <y>1626</y>
+      <w>114</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>FAN_ON_REQ
 style=wordwrap
@@ -205,10 +210,10 @@ halign=center</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>952</x>
-      <y>1116</y>
-      <w>76</w>
-      <h>12</h>
+      <x>1416</x>
+      <y>1656</y>
+      <w>114</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>FAN_OFF_REQ
 style=wordwrap
@@ -218,10 +223,10 @@ halign=center</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>656</x>
-      <y>1028</y>
-      <w>164</w>
-      <h>120</h>
+      <x>972</x>
+      <y>1524</y>
+      <w>246</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>Lamp root
 --
@@ -231,10 +236,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>664</x>
-      <y>1096</y>
-      <w>36</w>
-      <h>44</h>
+      <x>984</x>
+      <y>1626</y>
+      <w>54</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>Off
 --
@@ -244,10 +249,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>772</x>
-      <y>1096</y>
-      <w>36</w>
-      <h>44</h>
+      <x>1146</x>
+      <y>1626</y>
+      <w>54</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>On
 --
@@ -257,10 +262,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>696</x>
-      <y>1124</y>
-      <w>84</w>
-      <h>12</h>
+      <x>1032</x>
+      <y>1668</y>
+      <w>126</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;190.0;10.0</additional_attributes>
@@ -268,10 +273,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>696</x>
-      <y>1104</y>
-      <w>84</w>
-      <h>12</h>
+      <x>1032</x>
+      <y>1638</y>
+      <w>126</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>190.0;10.0;10.0;10.0</additional_attributes>
@@ -279,10 +284,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>700</x>
-      <y>1096</y>
-      <w>76</w>
-      <h>12</h>
+      <x>1038</x>
+      <y>1626</y>
+      <w>114</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>LAMP_ON_REQ
 style=wordwrap
@@ -292,10 +297,10 @@ halign=center</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>700</x>
-      <y>1116</y>
-      <w>76</w>
-      <h>12</h>
+      <x>1038</x>
+      <y>1656</y>
+      <w>114</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>LAMP_OFF_REQ
 style=wordwrap
@@ -305,10 +310,10 @@ halign=center</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>1004</y>
-      <w>796</w>
-      <h>12</h>
+      <x>528</x>
+      <y>1488</y>
+      <w>1194</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>1970.0;10.0;10.0;10.0</additional_attributes>
@@ -316,10 +321,10 @@ halign=center</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>412</x>
-      <y>1096</y>
-      <w>36</w>
-      <h>44</h>
+      <x>606</x>
+      <y>1626</y>
+      <w>54</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>Off
 --
@@ -329,10 +334,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>524</x>
-      <y>1096</y>
-      <w>36</w>
-      <h>44</h>
+      <x>774</x>
+      <y>1626</y>
+      <w>54</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>On
 --
@@ -342,10 +347,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>444</x>
-      <y>1124</y>
-      <w>88</w>
-      <h>12</h>
+      <x>654</x>
+      <y>1668</y>
+      <w>132</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
@@ -353,10 +358,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>444</x>
-      <y>1104</y>
-      <w>88</w>
-      <h>12</h>
+      <x>654</x>
+      <y>1638</y>
+      <w>132</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
@@ -364,10 +369,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>448</x>
-      <y>1096</y>
-      <w>76</w>
-      <h>12</h>
+      <x>660</x>
+      <y>1626</y>
+      <w>114</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>TURNTABLE_ON_REQ
 style=wordwrap
@@ -377,10 +382,10 @@ halign=center</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>448</x>
-      <y>1116</y>
-      <w>76</w>
-      <h>12</h>
+      <x>660</x>
+      <y>1656</y>
+      <w>114</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>TURNTABLE_OFF_REQ
 style=wordwrap
@@ -390,10 +395,10 @@ halign=center</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>432</x>
-      <y>1076</y>
-      <w>8</w>
-      <h>8</h>
+      <x>636</x>
+      <y>1596</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -401,10 +406,10 @@ halign=center</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>432</x>
-      <y>1080</y>
-      <w>12</w>
-      <h>24</h>
+      <x>636</x>
+      <y>1602</y>
+      <w>18</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
@@ -412,10 +417,10 @@ halign=center</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>404</x>
-      <y>1028</y>
-      <w>164</w>
-      <h>120</h>
+      <x>594</x>
+      <y>1524</y>
+      <w>246</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>Turntable root
 --
@@ -425,21 +430,21 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>748</x>
-      <y>640</y>
-      <w>164</w>
-      <h>12</h>
+      <x>1182</x>
+      <y>942</y>
+      <w>174</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>390.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>270.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>772</x>
-      <y>632</y>
-      <w>132</w>
-      <h>12</h>
+      <x>1146</x>
+      <y>930</y>
+      <w>198</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>KITCHEN_TIMER
 style=wordwrap
@@ -449,10 +454,10 @@ halign=center</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>860</x>
-      <y>1008</y>
-      <w>12</w>
-      <h>160</h>
+      <x>1278</x>
+      <y>1494</y>
+      <w>18</w>
+      <h>240</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;380.0;10.0;10.0</additional_attributes>
@@ -460,10 +465,10 @@ halign=center</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>608</x>
-      <y>1008</y>
-      <w>12</w>
-      <h>160</h>
+      <x>900</x>
+      <y>1494</y>
+      <w>18</w>
+      <h>240</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;380.0;10.0;10.0</additional_attributes>
@@ -471,10 +476,10 @@ halign=center</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>692</x>
-      <y>60</y>
-      <w>144</w>
-      <h>52</h>
+      <x>1026</x>
+      <y>72</y>
+      <w>216</w>
+      <h>78</h>
     </coordinates>
     <panel_attributes>Stopped
 --
@@ -486,10 +491,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>832</x>
-      <y>76</y>
-      <w>84</w>
-      <h>88</h>
+      <x>1236</x>
+      <y>96</y>
+      <w>126</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;190.0;10.0;190.0;200.0</additional_attributes>
@@ -497,10 +502,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>616</x>
-      <y>76</y>
-      <w>84</w>
-      <h>88</h>
+      <x>912</x>
+      <y>96</y>
+      <w>126</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;200.0;10.0;10.0;190.0;10.0</additional_attributes>
@@ -508,10 +513,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>344</x>
-      <y>12</y>
-      <w>824</w>
-      <h>1172</h>
+      <x>504</x>
+      <y>0</y>
+      <w>1236</w>
+      <h>1758</h>
     </coordinates>
     <panel_attributes>Microwave::root
 --
@@ -523,10 +528,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>912</x>
-      <y>92</y>
-      <w>104</w>
-      <h>28</h>
+      <x>1356</x>
+      <y>120</y>
+      <w>156</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>MICROWAVE_STOP_REQ/
 ^MAGNETRON_OFF_REQ, ^TURNTABLE_OFF_REQ,
@@ -537,10 +542,10 @@ MICROWAVE_STOP_CFM(SUCCESS)</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>508</x>
-      <y>108</y>
-      <w>108</w>
-      <h>28</h>
+      <x>750</x>
+      <y>144</y>
+      <w>162</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>MICROWAVE_START_REQ/
 MICROWAVE_START_CFM(SUCCESS)</panel_attributes>
@@ -549,16 +554,14 @@ MICROWAVE_START_CFM(SUCCESS)</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>924</x>
-      <y>504</y>
-      <w>208</w>
-      <h>88</h>
+      <x>1374</x>
+      <y>738</y>
+      <w>312</w>
+      <h>138</h>
     </coordinates>
     <panel_attributes>SetPowerLevel
 --
-entry/ displayTime[timerIndex].powerLevel = 10,
-          blink = true
-          send Update::POWER_LEVEL with displayTime[timerIndex].powerLevel
+entry/ blink = true          
 
 exit/ blink = false
 
@@ -568,6 +571,8 @@ DIGIT_0_9/ if(powerLevel == 1 and DIGIT_0)(
                         powerLevel = DIGIT_#)
                     send Update::POWER_LEVEL with
                       displayTime[timerIndex].powerLevel
+STATE_REQ/ send State with state,
+                       send Update::POWER_LEVEL with powerLevel
 valign=top
 style=wordwrap</panel_attributes>
     <additional_attributes/>
@@ -575,10 +580,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>424</x>
-      <y>320</y>
-      <w>204</w>
-      <h>324</h>
+      <x>696</x>
+      <y>408</y>
+      <w>306</w>
+      <h>540</h>
     </coordinates>
     <panel_attributes>SetClock
 --
@@ -587,16 +592,18 @@ entry/ proposedClockTime = clockTime
           send Signal::BLINK_ON,
           send Signal::MOD_LEFT_TENS,
           blink = true
+STATE_REQ/ send State with state,
+                       send Update::CLOCK with proposedClock
 valign=top</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>572</x>
-      <y>288</y>
-      <w>32</w>
-      <h>12</h>
+      <x>924</x>
+      <y>360</y>
+      <w>48</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>CLOCK
 style=wordwrap
@@ -606,10 +613,10 @@ halign=center</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>584</x>
-      <y>300</y>
-      <w>12</w>
-      <h>28</h>
+      <x>942</x>
+      <y>378</y>
+      <w>18</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
@@ -617,10 +624,10 @@ halign=center</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>556</x>
-      <y>352</y>
-      <w>12</w>
-      <h>28</h>
+      <x>894</x>
+      <y>510</y>
+      <w>18</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
@@ -628,10 +635,10 @@ halign=center</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>436</x>
-      <y>372</y>
-      <w>156</w>
-      <h>40</h>
+      <x>714</x>
+      <y>540</y>
+      <w>234</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>ClockSelectHourTens
 --
@@ -644,10 +651,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>556</x>
-      <y>352</y>
-      <w>8</w>
-      <h>8</h>
+      <x>894</x>
+      <y>510</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -655,10 +662,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>556</x>
-      <y>408</y>
-      <w>12</w>
-      <h>40</h>
+      <x>894</x>
+      <y>594</y>
+      <w>18</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
@@ -666,10 +673,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>436</x>
-      <y>440</y>
-      <w>156</w>
-      <h>40</h>
+      <x>714</x>
+      <y>642</y>
+      <w>234</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>ClockSelectHourOnes
 --
@@ -682,10 +689,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>440</x>
-      <y>412</y>
-      <w>120</w>
-      <h>28</h>
+      <x>720</x>
+      <y>600</y>
+      <w>180</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>DIGIT_0, DIGIT_1/
 proposedClock.leftTens = DIGIT
@@ -695,10 +702,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>436</x>
-      <y>508</y>
-      <w>156</w>
-      <h>40</h>
+      <x>714</x>
+      <y>744</y>
+      <w>234</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>ClockSelectMinuteTens
 --
@@ -711,10 +718,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>556</x>
-      <y>476</y>
-      <w>12</w>
-      <h>40</h>
+      <x>894</x>
+      <y>696</y>
+      <w>18</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
@@ -722,10 +729,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>440</x>
-      <y>480</y>
-      <w>120</w>
-      <h>28</h>
+      <x>720</x>
+      <y>702</y>
+      <w>180</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>DIGIT_0_2, DIGIT_3_9[proposedClock.hourTens == 0]/
 proposedClock.leftOnes = DIGIT
@@ -735,10 +742,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>436</x>
-      <y>576</y>
-      <w>156</w>
-      <h>40</h>
+      <x>714</x>
+      <y>846</y>
+      <w>234</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>ClockSelectMinuteOnes
 --
@@ -751,10 +758,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>556</x>
-      <y>544</y>
-      <w>12</w>
-      <h>40</h>
+      <x>894</x>
+      <y>798</y>
+      <w>18</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
@@ -762,10 +769,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>440</x>
-      <y>548</y>
-      <w>120</w>
-      <h>28</h>
+      <x>720</x>
+      <y>804</y>
+      <w>180</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>DIGIT_0_5/
 proposedClock.rightTens = DIGIT
@@ -775,10 +782,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>556</x>
-      <y>384</y>
-      <w>60</w>
-      <h>256</h>
+      <x>894</x>
+      <y>558</y>
+      <w>90</w>
+      <h>384</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>90.0;10.0;130.0;10.0;130.0;620.0;10.0;620.0;10.0;580.0</additional_attributes>
@@ -786,10 +793,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>440</x>
-      <y>616</y>
-      <w>120</w>
-      <h>28</h>
+      <x>720</x>
+      <y>906</y>
+      <w>180</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>DIGIT_0_9/
 proposedClock.rightOnes = DIGIT
@@ -799,10 +806,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>584</x>
-      <y>300</y>
-      <w>8</w>
-      <h>8</h>
+      <x>942</x>
+      <y>378</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -810,10 +817,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>624</x>
-      <y>368</y>
-      <w>136</w>
-      <h>12</h>
+      <x>996</x>
+      <y>534</y>
+      <w>204</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>320.0;10.0;10.0;10.0</additional_attributes>
@@ -821,10 +828,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>628</x>
-      <y>320</y>
-      <w>124</w>
-      <h>52</h>
+      <x>1002</x>
+      <y>462</y>
+      <w>186</w>
+      <h>78</h>
     </coordinates>
     <panel_attributes>CLOCK/ clockTime = proposedClockTime,
               stop halfSecondTimer,
@@ -839,10 +846,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>624</x>
-      <y>420</y>
-      <w>136</w>
-      <h>12</h>
+      <x>996</x>
+      <y>612</y>
+      <w>204</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>320.0;10.0;10.0;10.0</additional_attributes>
@@ -850,10 +857,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>628</x>
-      <y>396</y>
-      <w>124</w>
-      <h>28</h>
+      <x>1002</x>
+      <y>576</y>
+      <w>186</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>STOP/ send Update::CLOCK with clockTime,
             blink = false, send Signal::BLINK_ON
@@ -864,10 +871,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>412</x>
-      <y>252</y>
-      <w>340</w>
-      <h>404</h>
+      <x>678</x>
+      <y>306</y>
+      <w>510</w>
+      <h>660</h>
     </coordinates>
     <panel_attributes>DisplayClock
 --
@@ -876,16 +883,18 @@ entry/ send Update::CLOCK with clock,
           start halfSecondTimer,
           set state = State::DISPLAY_CLOCK
 exit/ blink = false
+STATE_REQ/ send State with state,
+                       send Update::CLOCK with clockTime
 valign=top</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>688</x>
-      <y>864</y>
-      <w>188</w>
-      <h>104</h>
+      <x>1020</x>
+      <y>1308</y>
+      <w>282</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>DisplayTimerPaused
 --
@@ -899,10 +908,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>596</x>
-      <y>876</y>
-      <w>100</w>
-      <h>12</h>
+      <x>882</x>
+      <y>1326</y>
+      <w>150</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;230.0;10.0</additional_attributes>
@@ -910,10 +919,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>596</x>
-      <y>892</y>
-      <w>100</w>
-      <h>12</h>
+      <x>882</x>
+      <y>1350</y>
+      <w>150</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>230.0;10.0;10.0;10.0</additional_attributes>
@@ -921,10 +930,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>600</x>
-      <y>868</y>
-      <w>88</w>
-      <h>12</h>
+      <x>888</x>
+      <y>1314</y>
+      <w>132</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>START[closed]
 style=wordwrap
@@ -934,10 +943,10 @@ halign=center</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>600</x>
-      <y>884</y>
-      <w>88</w>
-      <h>12</h>
+      <x>888</x>
+      <y>1338</y>
+      <w>132</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>STOP
 style=wordwrap
@@ -947,10 +956,10 @@ halign=center</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>596</x>
-      <y>912</y>
-      <w>100</w>
-      <h>12</h>
+      <x>882</x>
+      <y>1392</y>
+      <w>150</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>230.0;10.0;10.0;10.0</additional_attributes>
@@ -958,12 +967,13 @@ halign=center</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>600</x>
-      <y>904</y>
-      <w>88</w>
-      <h>12</h>
+      <x>888</x>
+      <y>1368</y>
+      <w>132</w>
+      <h>30</h>
     </coordinates>
-    <panel_attributes>OPEN/ closed = false
+    <panel_attributes>OPEN/ closed = false,
+                 ^LAMP_ON_REQ
 style=wordwrap
 halign=center</panel_attributes>
     <additional_attributes/>
@@ -971,63 +981,68 @@ halign=center</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>592</x>
-      <y>788</y>
-      <w>84</w>
-      <h>28</h>
+      <x>876</x>
+      <y>1140</y>
+      <w>126</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>190.0;50.0;190.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+    <additional_attributes>190.0;60.0;190.0;10.0;10.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>592</x>
-      <y>780</y>
-      <w>84</w>
-      <h>12</h>
+      <x>882</x>
+      <y>1122</y>
+      <w>126</w>
+      <h>30</h>
     </coordinates>
-    <panel_attributes>START[cooking]/ add30Sec()
-style=wordwrap
-halign=center</panel_attributes>
+    <panel_attributes>START[cooking]/
+Add30SecondsToCookTime()
+style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>384</x>
-      <y>808</y>
-      <w>500</w>
-      <h>168</h>
+      <x>564</x>
+      <y>1176</y>
+      <w>750</w>
+      <h>300</h>
     </coordinates>
     <panel_attributes>DisplayTimer
 --
 entry/ timerIndex = 0,
           secondsRemaining = time2Seconds(displayTimer[timerIndex].timer)
-exit/ ^MAGNETRON_OFF_REQ, timerIndex = 0
+exit/ if(cook)(^MAGNETRON_OFF_REQ, cook = false), timerIndex = 0,
+        reset power levels to MAX_POWER
+STATE_REQ/ send State with state,
+                       send Update::DISPLAY_TIMER with displayTime[timerIndex].time
+                       send Update::POWER_LEVEL with displayTime[timerIndex].powerLevel
 valign=top</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>392</x>
-      <y>864</y>
-      <w>208</w>
-      <h>104</h>
+      <x>576</x>
+      <y>1308</y>
+      <w>312</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>DisplayTimerRunning
 --
 entry/ start secondTimer(secondsRemaining),
           set state = State::DISPLAY_TIMER_RUNNING,
           send Update::DISPLAY_TIMER with displayTimer[timerIndex].timer,
+          send Update::POWER_LEVEL with displayTimer[timerIndex].powerLevel,
           if(cook) (cooking = true,
                write displayTimer[timerIndex].powerLevel into magnetronPipe,
                ^LAMP_ON_REQ, ^TURNTABLE_ON_REQ,
                ^FAN_ON_REQ, ^MAGNETRON_ON_REQ)
 exit/ stop secondTimer, cooking = false
-        ^FAN_OFF_REQ, ^TURNTABLE_OFF_REQ,
-        if(closed)(^LAMP_OFF_REQ)
+        if(cook)(^FAN_OFF_REQ, ^TURNTABLE_OFF_REQ,
+                     ^LAMP_OFF_REQ)
 
 SECOND_TIMER/ DecrementTimer()
 valign=top
@@ -1037,21 +1052,21 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>456</x>
-      <y>652</y>
-      <w>12</w>
-      <h>164</h>
+      <x>1140</x>
+      <y>960</y>
+      <w>18</w>
+      <h>228</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;390.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;360.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>460</x>
-      <y>688</y>
-      <w>44</w>
-      <h>12</h>
+      <x>1080</x>
+      <y>996</y>
+      <w>66</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>DONE
 style=wordwrap
@@ -1061,31 +1076,30 @@ halign=center</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>924</x>
-      <y>216</y>
-      <w>208</w>
-      <h>252</h>
+      <x>1374</x>
+      <y>306</y>
+      <w>312</w>
+      <h>378</h>
     </coordinates>
     <panel_attributes>SetCookTimer
 --
-entry/ displayTime[timerIndex].left_tens = 0,
-          displayTime[timerIndex].left_ones = 0,
-          displayTime[timerIndex].right_tens = 0,
-          displayTime[timerIndex].right_ones = 0,
+entry/ displayTime[timerIndex].time.clear(),
+          displayTime[timerIndex].powerLevel = 10,
           ++timersUsed,
-          send Update::DISPLAY_TIMER with displayTime[timerIndex].time
-
-valign=top
-group=16</panel_attributes>
+          send Update::DISPLAY_TIMER with displayTime[timerIndex].time,
+          send Update::POWER_LEVEL with displayTime[timerIndex].powerLevel
+STATE_REQ/ send State with state,
+                       send Update::DISPLAY_TIMER with displayTime[timerIndex].time
+valign=top</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>932</x>
-      <y>292</y>
-      <w>192</w>
-      <h>56</h>
+      <x>1386</x>
+      <y>432</y>
+      <w>288</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>SetCookTimerInitial
 --
@@ -1094,17 +1108,16 @@ set state = State::SET_COOK_TIMER_INITIAL
 
 exit/
 send Update::DISPLAY_TIMER with displayTime[timerIndex].time
-valign=top
-group=16</panel_attributes>
+valign=top</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>932</x>
-      <y>384</y>
-      <w>192</w>
-      <h>76</h>
+      <x>1386</x>
+      <y>558</y>
+      <w>288</w>
+      <h>114</h>
     </coordinates>
     <panel_attributes>SetCookTimerFinal
 --
@@ -1117,67 +1130,62 @@ displayTime[timerIndex].left_ones = displayTime[timerIndex].right_tens,
 displayTime[timerIndex].right_tens = displayTime[timerIndex].right_ones,
 displayTime[timerIndex].right_ones = DIGIT,
 send Update::DISPLAY_TIMER with displayTime[timerIndex].time
-valign=top
-group=16</panel_attributes>
+valign=top</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1104</x>
-      <y>344</y>
-      <w>12</w>
-      <h>48</h>
+      <x>1644</x>
+      <y>510</y>
+      <w>18</w>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-group=16</panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>932</x>
-      <y>348</y>
-      <w>172</w>
+      <x>1386</x>
+      <y>522</y>
+      <w>258</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>DIGIT_1_9/
 displayTime[timerIndex].right_ones = DIGIT
-style=wordwrap
-group=16</panel_attributes>
+style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1104</x>
-      <y>276</y>
-      <w>12</w>
-      <h>24</h>
+      <x>1644</x>
+      <y>408</y>
+      <w>18</w>
+      <h>36</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-group=16</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>1104</x>
-      <y>272</y>
-      <w>8</w>
-      <h>8</h>
+      <x>1644</x>
+      <y>402</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
-    <panel_attributes>type=initial
-group=16</panel_attributes>
+    <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1004</x>
-      <y>468</y>
-      <w>112</w>
-      <h>36</h>
+      <x>1494</x>
+      <y>684</y>
+      <w>168</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>COOK_TIME[timersUsed &lt; maxTimers]/
 increment timerIndex
@@ -1187,42 +1195,12 @@ valign=center</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Text</id>
-    <coordinates>
-      <x>116</x>
-      <y>508</y>
-      <w>224</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>*TODO*
---
-Have a Signal that is for sending the current state and any related information.
-For example:
-  The app sends a state request to the board while the board is in
-  the SetPowerLevel state.
-  The board replies with:
-      a message stating the state that it is in
-      a message with the current power level
-
-This needs to be handled in the following states:
-DisplayClock
-SetClock
-SetCookTimer
-SetPowerLevel
-SetKitchenTimer
-DisplayTimer
-
-valign=top
-fg=red</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>1052</x>
-      <y>676</y>
-      <w>12</w>
-      <h>28</h>
+      <x>1566</x>
+      <y>996</y>
+      <w>18</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
@@ -1230,10 +1208,10 @@ fg=red</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>912</x>
-      <y>696</y>
-      <w>180</w>
-      <h>40</h>
+      <x>1356</x>
+      <y>1026</y>
+      <w>270</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>KitchenSelectMinuteTens
 --
@@ -1246,10 +1224,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>1052</x>
-      <y>676</y>
-      <w>8</w>
-      <h>8</h>
+      <x>1566</x>
+      <y>996</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -1257,10 +1235,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1052</x>
-      <y>732</y>
-      <w>12</w>
-      <h>40</h>
+      <x>1566</x>
+      <y>1080</y>
+      <w>18</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
@@ -1268,10 +1246,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>912</x>
-      <y>764</y>
-      <w>180</w>
-      <h>40</h>
+      <x>1356</x>
+      <y>1128</y>
+      <w>270</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>KitchenSelectMinuteOnes
 --
@@ -1284,10 +1262,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>916</x>
-      <y>736</y>
-      <w>140</w>
-      <h>28</h>
+      <x>1362</x>
+      <y>1086</y>
+      <w>210</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>DIGIT_0_9/
 displayTimer[timerIndex].leftTens = DIGIT
@@ -1297,10 +1275,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>912</x>
-      <y>832</y>
-      <w>180</w>
-      <h>40</h>
+      <x>1356</x>
+      <y>1230</y>
+      <w>270</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>KitchenSelectSecondTens
 --
@@ -1313,10 +1291,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1052</x>
-      <y>800</y>
-      <w>12</w>
-      <h>40</h>
+      <x>1566</x>
+      <y>1182</y>
+      <w>18</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
@@ -1324,10 +1302,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>916</x>
-      <y>804</y>
-      <w>140</w>
-      <h>28</h>
+      <x>1362</x>
+      <y>1188</y>
+      <w>210</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>DIGIT_0_9/
 displayTimer[timerIndex].leftOnes = DIGIT
@@ -1337,10 +1315,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>912</x>
-      <y>900</y>
-      <w>180</w>
-      <h>40</h>
+      <x>1356</x>
+      <y>1332</y>
+      <w>270</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>KitchenSelectSecondOnes
 --
@@ -1353,10 +1331,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1052</x>
-      <y>868</y>
-      <w>12</w>
-      <h>40</h>
+      <x>1566</x>
+      <y>1284</y>
+      <w>18</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
@@ -1364,10 +1342,10 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>916</x>
-      <y>872</y>
-      <w>140</w>
-      <h>28</h>
+      <x>1362</x>
+      <y>1290</y>
+      <w>210</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>DIGIT_0_9/
 displayTimer[timerIndex].rightTens = DIGIT
@@ -1377,10 +1355,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>916</x>
-      <y>940</y>
-      <w>140</w>
-      <h>28</h>
+      <x>1362</x>
+      <y>1392</y>
+      <w>210</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>DIGIT_0_9/
 displayTimer[timerIndex].rightOnes = DIGIT
@@ -1390,10 +1368,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1052</x>
-      <y>708</y>
-      <w>64</w>
-      <h>256</h>
+      <x>1566</x>
+      <y>1044</y>
+      <w>96</w>
+      <h>384</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>100.0;10.0;140.0;10.0;140.0;620.0;10.0;620.0;10.0;580.0</additional_attributes>
@@ -1401,30 +1379,29 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>904</x>
-      <y>612</y>
-      <w>228</w>
-      <h>356</h>
+      <x>1344</x>
+      <y>900</y>
+      <w>342</w>
+      <h>534</h>
     </coordinates>
     <panel_attributes>SetKitchenTimer
 --
-entry/ displayTimer[timerIndex].leftTens = 0,
-          displayTimer[timerIndex].leftOnes = 0,
-          displayTimer[timerIndex].rightTens = 0,
-          displayTimer[timerIndex].rightOnes = 0,
+entry/ displayTimer[timerIndex].time.clear()
           ++timersUsed
           send Update::DISPLAY_TIMER with displayTimer[timerIndex],
           send Signal::MOD_LEFT_TENS
+STATE_REQ/ send State with state,
+                       send Update::DISPLAY_TIMER with displayTime[timerIndex].time
 valign=top</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>684</x>
-      <y>1076</y>
-      <w>8</w>
-      <h>8</h>
+      <x>1014</x>
+      <y>1596</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -1432,10 +1409,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>684</x>
-      <y>1080</y>
-      <w>12</w>
-      <h>24</h>
+      <x>1014</x>
+      <y>1602</y>
+      <w>18</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
@@ -1443,10 +1420,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>936</x>
-      <y>1076</y>
-      <w>8</w>
-      <h>8</h>
+      <x>1392</x>
+      <y>1596</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -1454,10 +1431,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>936</x>
-      <y>1080</y>
-      <w>12</w>
-      <h>24</h>
+      <x>1392</x>
+      <y>1602</y>
+      <w>18</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
@@ -1465,10 +1442,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>572</x>
-      <y>844</y>
-      <w>8</w>
-      <h>8</h>
+      <x>846</x>
+      <y>1278</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -1476,10 +1453,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>572</x>
-      <y>848</y>
-      <w>12</w>
-      <h>24</h>
+      <x>846</x>
+      <y>1284</y>
+      <w>18</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
@@ -1487,10 +1464,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>724</x>
-      <y>232</y>
-      <w>8</w>
-      <h>8</h>
+      <x>1146</x>
+      <y>276</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -1498,10 +1475,10 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>724</x>
-      <y>236</y>
-      <w>12</w>
-      <h>24</h>
+      <x>1146</x>
+      <y>282</y>
+      <w>18</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
@@ -1509,10 +1486,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>812</x>
-      <y>40</y>
-      <w>8</w>
-      <h>8</h>
+      <x>1206</x>
+      <y>42</y>
+      <w>12</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -1520,12 +1497,53 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>812</x>
-      <y>44</y>
-      <w>12</w>
-      <h>24</h>
+      <x>1206</x>
+      <y>48</y>
+      <w>18</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>846</x>
+      <y>960</y>
+      <w>18</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;360.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>606</x>
+      <y>990</y>
+      <w>246</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>DIGIT_1_6/ displayTime[timerIndex].time = DIGIT-minute(s),
+                    cook = true
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>174</x>
+      <y>756</y>
+      <w>336</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>*TODO*
+--
+Don't start the blinking signal WITHIN the DisplayClock
+state until the clock is set.
+
+valign=top
+fg=red</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
