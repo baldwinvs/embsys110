@@ -70,6 +70,7 @@ Magnetron::Magnetron() :
     m_onTime{},
     m_offTime{},
     m_remainingTime{},
+	m_powerLevel{},
     m_pipe{nullptr},
     m_history{nullptr}
     {
@@ -144,7 +145,7 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            return Q_TRAN(&Magnetron::Off);
+            return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
@@ -155,6 +156,7 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
         }
         case MAGNETRON_OFF_REQ: {
             EVENT(e);
+            me->m_magnetronTimer.Stop();
             return Q_TRAN(&Magnetron::Off);
         }
         case MAGNETRON_ON_REQ: {
@@ -162,22 +164,32 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
             //get data from pipe
             MagnetronOnReq const &req = static_cast<MagnetronOnReq const &>(*e);
             me->m_pipe = req.GetPipe();
-            uint32_t powerLevel{};
-            uint32_t count {me->m_pipe->Read(&powerLevel, 1)};
+            uint32_t count {me->m_pipe->Read(&me->m_powerLevel, 1)};
             if(0 == count) {
                 LOG("Could not read from magnetron pipe\n");
                 return Q_HANDLED();
             }
 
-            //calculate on/off times
-            me->m_onTime = static_cast<float>(powerLevel/10.0f) * APP::Magnetron::CYCLE_TIME_MS;
-            me->m_offTime = static_cast<uint32_t>(APP::Magnetron::CYCLE_TIME_MS) - me->m_onTime;
-            LOG("\tpower level: %d\n"
-                "on time    : %d\n"
-                "off time   : %d\n", powerLevel, me->m_onTime, me->m_offTime);
-            //start magnetron timer
-            me->m_magnetronTimer.Start(me->m_onTime);
-            return Q_TRAN(&Magnetron::On);
+            if(MIN_POWER == me->m_powerLevel) {
+            	// Go to the NotRunning state, but don't start the timer; it should
+            	// never transition to Running.
+            	return Q_TRAN(&Magnetron::NotRunning);
+            }
+            else if(MAX_POWER == me->m_powerLevel) {
+            	// Go to the Running state, but don't start the timer; it should
+            	// never transition to NotRunning.
+            	return Q_TRAN(&Magnetron::Running);
+            }
+            else {
+				//calculate on/off times
+				me->m_onTime = static_cast<float>(me->m_powerLevel/10.0f) * APP::Magnetron::CYCLE_TIME_MS;
+				me->m_offTime = static_cast<uint32_t>(APP::Magnetron::CYCLE_TIME_MS) - me->m_onTime;
+				LOG("[p=%d],[on=%d],[off=%d]\n\r", me->m_powerLevel, me->m_onTime, me->m_offTime);
+				//start magnetron timer
+				me->m_magnetronTimer.Start(me->m_onTime);
+				return Q_TRAN(&Magnetron::On);
+            }
+            return Q_HANDLED();
         }
     }
     return Q_SUPER(&Magnetron::Root);
@@ -201,11 +213,10 @@ QState Magnetron::On(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
-            return Q_TRAN(&Magnetron::Running);
+            return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
-            me->m_magnetronTimer.Stop();
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
@@ -213,8 +224,10 @@ QState Magnetron::On(Magnetron * const me, QEvt const * const e) {
         }
         case MAGNETRON_PAUSE_REQ: {
             EVENT(e);
-            me->m_remainingTime = me->m_magnetronTimer.currCtr();
-            me->m_magnetronTimer.Stop();
+            if(MIN_POWER < me->m_powerLevel && me->m_powerLevel < MAX_POWER) {
+            	me->m_remainingTime = me->m_magnetronTimer.currCtr();
+            	me->m_magnetronTimer.Stop();
+            }
             return Q_TRAN(&Magnetron::Paused);
         }
     }
@@ -273,8 +286,10 @@ QState Magnetron::Paused(Magnetron * const me, QEvt const * const e) {
         }
         case MAGNETRON_ON_REQ: {
             EVENT(e);
-            me->m_magnetronTimer.Start(me->m_remainingTime);
-            return Q_TRAN(&me->m_history);
+            if(MIN_POWER < me->m_powerLevel && me->m_powerLevel < MAX_POWER) {
+            	me->m_magnetronTimer.Start(me->m_remainingTime);
+            }
+            return Q_TRAN(me->m_history);
         }
     }
     return Q_SUPER(&Magnetron::Started);

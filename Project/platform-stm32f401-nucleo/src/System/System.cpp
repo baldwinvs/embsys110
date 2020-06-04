@@ -45,8 +45,8 @@
 #include "GpioInInterface.h"
 // #include "DemoInterface.h"
 #include "GpioOutInterface.h"
-// #include "SensorInterface.h"
-// #include "DispInterface.h"
+//#include "SensorInterface.h"
+//#include "DispInterface.h"
 #include "WifiInterface.h"
 #include "MicrowaveInterface.h"
 #include "MagnetronInterface.h"
@@ -250,21 +250,6 @@ QState System::Starting1(System * const me, QEvt const * const e) {
         case Q_ENTRY_SIG: {
             EVENT(e);
             me->GetHsm().ResetOutSeq();
-//            Evt *evt = new CompositeActStartReq(COMPOSITE_ACT, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
-
-//            evt = new SimpleActStartReq(SIMPLE_ACT, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
-
-//            evt = new DemoStartReq(DEMO, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
-
-//            evt = new WashStartReq(AO_WASHING_MACHINE, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
 
 #ifdef ENABLE_TRAFFIC
             evt = new TrafficStartReq(TRAFFIC, SYSTEM, GEN_SEQ());
@@ -290,9 +275,9 @@ QState System::Starting1(System * const me, QEvt const * const e) {
 
             // USER LED pin (PA.5) is shared with TFP display SPI clock pin.
             // It must not be enabled when the TFP is used (e.g. in LevelMeter).
-            //evt = new GpioOutStartReq(USER_LED, SYSTEM, GEN_SEQ());
-            //me->GetHsm().SaveOutSeq(*evt);
-            //Fw::Post(evt);
+            evt = new GpioOutStartReq(USER_LED, SYSTEM, GEN_SEQ());
+            me->GetHsm().SaveOutSeq(*evt);
+            Fw::Post(evt);
 
             // Additional LED pin. It requires additional hardware.
             //evt = new GpioOutStartReq(TEST_LED, SYSTEM, GEN_SEQ());
@@ -498,9 +483,9 @@ QState System::Stopping2(System * const me, QEvt const * const e) {
             me->GetHsm().SaveOutSeq(*evt);
             Fw::Post(evt);
 
-            // evt = new SensorStopReq(IKS01A1, SYSTEM, GEN_SEQ());
-            // me->GetHsm().SaveOutSeq(*evt);
-            // Fw::Post(evt);
+//            evt = new SensorStopReq(IKS01A1, SYSTEM, GEN_SEQ());
+//            me->GetHsm().SaveOutSeq(*evt);
+//            Fw::Post(evt);
 
             // USER LED pin (PA.5) is shared with TFP display SPI clock pin.
             // It must not be enabled when the TFP is used (e.g. in LevelMeter).
@@ -522,8 +507,8 @@ QState System::Stopping2(System * const me, QEvt const * const e) {
         case GPIO_IN_STOP_CFM:
         case WIFI_STOP_CFM:
         case MICROWAVE_STOP_CFM:
-		case MAGNETRON_STOP_CFM:
-        // case SENSOR_STOP_CFM:
+        case MAGNETRON_STOP_CFM:
+//        case SENSOR_STOP_CFM:
         case GPIO_OUT_STOP_CFM: {
             EVENT(e);
             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);

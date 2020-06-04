@@ -73,6 +73,13 @@ protected:
     uint32_t m_onTime;
     uint32_t m_offTime;
     uint32_t m_remainingTime;
+
+    enum {
+    	MIN_POWER = 0,
+		MAX_POWER = 10,
+    };
+
+    uint32_t m_powerLevel;
     MagnetronPipe* m_pipe;
     
     // m_history is a function pointer used for saving the previous state.

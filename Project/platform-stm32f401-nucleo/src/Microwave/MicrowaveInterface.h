@@ -62,17 +62,8 @@ namespace APP {
     ADD_EVT(MICROWAVE_EXT_KITCHEN_TIMER_SIG) \
     ADD_EVT(MICROWAVE_EXT_DOOR_OPEN_SIG) \
     ADD_EVT(MICROWAVE_EXT_DOOR_CLOSED_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_0_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_1_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_2_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_3_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_4_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_5_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_6_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_7_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_8_SIG) \
-    ADD_EVT(MICROWAVE_EXT_DIGIT_9_SIG) \
     ADD_EVT(MICROWAVE_EXT_DIGIT_SIG) \
+	ADD_EVT(MICROWAVE_EXT_STATE_REQ_SIG) \
     ADD_EVT(MICROWAVE_WIFI_CONN_REQ)
 
 #undef ADD_EVT
@@ -167,66 +158,6 @@ public:
         Evt(MICROWAVE_EXT_DOOR_CLOSED_SIG, to, from, seq) {}
 };
 
-class MicrowaveExtDigit0Sig : public Evt {
-public:
-    MicrowaveExtDigit0Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_0_SIG, to, from, seq) {}
-};
-
-class MicrowaveExtDigit1Sig : public Evt {
-public:
-    MicrowaveExtDigit1Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_1_SIG, to, from, seq) {}
-};
-
-class MicrowaveExtDigit2Sig : public Evt {
-public:
-    MicrowaveExtDigit2Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_2_SIG, to, from, seq) {}
-};
-
-class MicrowaveExtDigit3Sig : public Evt {
-public:
-    MicrowaveExtDigit3Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_3_SIG, to, from, seq) {}
-};
-
-class MicrowaveExtDigit4Sig : public Evt {
-public:
-    MicrowaveExtDigit4Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_4_SIG, to, from, seq) {}
-};
-
-class MicrowaveExtDigit5Sig : public Evt {
-public:
-    MicrowaveExtDigit5Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_5_SIG, to, from, seq) {}
-};
-
-class MicrowaveExtDigit6Sig : public Evt {
-public:
-    MicrowaveExtDigit6Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_6_SIG, to, from, seq) {}
-};
-
-class MicrowaveExtDigit7Sig : public Evt {
-public:
-    MicrowaveExtDigit7Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_7_SIG, to, from, seq) {}
-};
-
-class MicrowaveExtDigit8Sig : public Evt {
-public:
-    MicrowaveExtDigit8Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_8_SIG, to, from, seq) {}
-};
-
-class MicrowaveExtDigit9Sig : public Evt {
-public:
-    MicrowaveExtDigit9Sig(Hsmn to, Hsmn from, Sequence seq = 0) :
-        Evt(MICROWAVE_EXT_DIGIT_9_SIG, to, from, seq) {}
-};
-
 class MicrowaveExtDigitSig : public Evt {
 public:
     MicrowaveExtDigitSig(Hsmn to, Hsmn from, Sequence seq, uint32_t digit) :
@@ -234,6 +165,12 @@ public:
     uint32_t GetDigit() const { return m_digit; }
 private:
     uint32_t m_digit;
+};
+
+class MicrowaveExtStateReqSig : public Evt {
+public:
+	MicrowaveExtStateReqSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+		Evt(MICROWAVE_EXT_STATE_REQ_SIG, to, from, seq) {}
 };
 
 class MicrowaveWifiConnReq : public Evt {

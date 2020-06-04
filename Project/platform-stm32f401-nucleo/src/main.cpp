@@ -84,16 +84,16 @@
 #include "Console.h"
 #include "System.h"
 #include "WifiSt.h"
-// #include "Iks01a1Thread.h"
+//#include "Iks01a1Thread.h"
 #include "GpioInAct.h"
-// #include "Ili9341Thread.h"
-// #include "LedPanelThread.h"
+//#include "Ili9341Thread.h"
+//#include "LedPanelThread.h"
 #include "GpioOutAct.h"
 #include "UartAct.h"
 #include "UartActInterface.h"
 #include "SystemInterface.h"
 #include "WifiInterface.h"
-// #include "SensorInterface.h"
+//#include "SensorInterface.h"
 #include "GpioInInterface.h"
 #include "ConsoleInterface.h"
 #include "ConsoleCmd.h"
@@ -129,9 +129,9 @@ static GpioInAct gpioInAct;
 static UartAct uartAct2(UART2_ACT, "UART2_ACT", "UART2_IN", "UART2_OUT");
 static UartAct uartAct1(UART1_ACT, "UART1_ACT", "UART1_IN", "UART1_OUT");
 static WifiSt wifiSt;
-// static Iks01a1Thread iks01a1Thread;
-// static Ili9341Thread ili9341Thread;
-// static LedPanelThread ledPanelThread;
+//static Iks01a1Thread iks01a1Thread;
+//static Ili9341Thread ili9341Thread;
+//static LedPanelThread ledPanelThread;
 static Microwave microwave;
 static Magnetron magnetron;
 
@@ -176,22 +176,13 @@ int main(void)
     Log::Off(WIFI_ST);
 
     // Start active objects.
-//    compositeAct.Start(PRIO_MICROWAVE);
-//    simpleAct.Start(PRIO_SIMPLE_ACT);
-//    demo.Start(PRIO_DEMO);
     gpioOutAct.Start(PRIO_GPIO_OUT_ACT);
-//    washingMachine.Start(PRIO_AO_WASHING_MACHINE);
-//    traffic.Start(PRIO_TRAFFIC);
-//    levelMeter.Start(PRIO_LEVEL_METER);
     gpioInAct.Start(PRIO_GPIO_IN_ACT);
     uartAct2.Start(PRIO_UART2_ACT);
     uartAct1.Start(PRIO_UART1_ACT);
     consoleUart2.Start(PRIO_CONSOLE_UART2);
     consoleUart1.Start(PRIO_CONSOLE_UART1);
     wifiSt.Start(PRIO_WIFI_ST);
-    // iks01a1Thread.Start(PRIO_IKS01A1);
-    // ili9341Thread.Start(PRIO_ILI9341);
-    // ledPanelThread.Start(PRIO_LEDPANEL);
     microwave.Start(PRIO_MICROWAVE);
     magnetron.Start(PRIO_MAGNETRON);
     sys.Start(PRIO_SYSTEM);

@@ -319,6 +319,19 @@ QState WifiSt::Disconnected(WifiSt * const me, QEvt const * const e) {
             EVENT(e);
             return Q_HANDLED();
         }
+        case UART_IN_DATA_IND: {
+            char buf[100];
+            while(uint32_t len = me->m_inFifo.Read(reinterpret_cast<uint8_t *>(buf), sizeof(buf)-1)) {
+                FW_ASSERT(len < sizeof(buf));
+                buf[len] = 0;
+                LOG("Received: %s", buf);
+                if (strstr(buf, "+WIND:24")) {
+                    Evt *evt = new MicrowaveWifiConnReq(MICROWAVE, GET_HSMN(), GEN_SEQ());
+                    Fw::Post(evt);
+                }
+            }
+            return Q_HANDLED();
+        }
     }
     return Q_SUPER(&WifiSt::Normal);
 }
@@ -353,10 +366,6 @@ QState WifiSt::Connected(WifiSt * const me, QEvt const * const e) {
                     char cmd[100];
                     snprintf(cmd, sizeof(cmd), "at+s.sockr=0,\n\r");
                     me->Write(cmd);
-                }
-                if (strstr(buf, "+WIND:24")) {
-                    Evt *evt = new MicrowaveWifiConnReq(MICROWAVE, GET_HSMN(), GEN_SEQ());
-                    Fw::Post(evt);
                 }
                 //TODO
                 //Add handling of TCP packet in Wifi module that will send events to Microwave module

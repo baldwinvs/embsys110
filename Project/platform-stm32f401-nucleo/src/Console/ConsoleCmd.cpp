@@ -48,12 +48,7 @@
 #include "LogCmd.h"
 #include "SystemCmd.h"
 #include "WifiStCmd.h"
-//#include "DemoCmd.h"
 #include "GpioOutCmd.h"
-//#include "AOWashingMachineCmd.h"
-//#include "TrafficCmd.h"
-//#include "SimpleActCmd.h"
-//#include "CompositeActCmd.h"
 #include "MicrowaveCmd.h"
 #include "MagnetronCmd.h"
 #include <memory>
@@ -61,24 +56,6 @@
 FW_DEFINE_THIS_FILE("ConsoleCmd.cpp")
 
 namespace APP {
-
-static CmdStatus Test(Console &console, Evt const *e) {
-    switch (e->sig) {
-        case Console::CONSOLE_CMD: {
-            Console::ConsoleCmd const &ind = static_cast<Console::ConsoleCmd const &>(*e);
-            console.PutStr("ConsoleCmd Test\n\r");
-            console.Print("Command = %s\n\r", ind.Argv(0));
-            if (ind.Argc() > 1) {
-                console.Print("%d arguments:\n\r", ind.Argc() - 1);
-                for (uint32_t i = 1; i < ind.Argc(); i++) {
-                    console.Print("[%d] %s\n\r", i, ind.Argv(i));
-                }
-            }
-            break;
-        }
-    }
-    return CMD_DONE;
-}
 
 static CmdStatus Assert(Console &console, Evt const *e) {
     switch (e->sig) {
@@ -141,108 +118,18 @@ static CmdStatus State(Console &console, Evt const *e) {
     return CMD_CONTINUE;
 }
 
-static CmdStatus Timer(Console &console, Evt const *e) {
-    switch (e->sig) {
-        case Console::CONSOLE_CMD: {
-            Console::ConsoleCmd const &ind = static_cast<Console::ConsoleCmd const &>(*e);
-            if (ind.Argc() < 2) {
-                console.PutStr("timer period_ms - timer test\n\r");
-                return CMD_DONE;
-            }
-            uint32_t period = STRING_TO_NUM(ind.Argv(1), 0);
-            console.Print("period = %d\n\r", period);
-            console.GetTimer().Start(period, Timer::PERIODIC);
-            console.Var(0) = 0;
-            break;
-        }
-        case Console::CONSOLE_TIMER: {
-            console.Print("timeout %d\n\r", console.Var(0)++);
-            break;
-        }
-    }
-    return CMD_CONTINUE;
-}
-
-CmdStatus Fibonacci(Console &console, Evt const *e) {
-    uint32_t &prev2 = console.Var(0);
-    uint32_t &prev1 = console.Var(1);
-    uint32_t &count = console.Var(2);
-    switch (e->sig) {
-        case Console::CONSOLE_CMD: {
-            prev2 = 1;
-            prev1 = 1;
-            count = 0;
-            console.Print("[%d] %d\n\r", count++, prev2);
-            console.Print("[%d] %d\n\r", count++, prev1);
-            break;
-        }
-        case UART_OUT_EMPTY_IND: {
-            while (1) {
-                uint32_t curr = prev2 + prev1;
-                prev2 = prev1;
-                prev1 = curr;
-                uint32_t result = console.Print("[%d] %lu\n\r", count, curr);
-                if (result == 0) {
-                    break;
-                }
-                if (++count > 45) {
-                    prev2 = 1;
-                    prev1 = 1;
-                    count = 2;
-                }
-            }
-            break;
-        }
-    }
-    return CMD_CONTINUE;
-}
-
-static CmdStatus Perf(Console &console, Evt const *e) {
-    switch (e->sig) {
-        case Console::CONSOLE_CMD: {
-            uint32_t startMs = GetSystemMs();
-            const uint32_t TEST_CNT = 100000;
-            const uint16_t TEST_SIZE = 32;
-            for (uint32_t i = 0; i < TEST_CNT; i++) {
-                QEvt *evt = QF::newX_(TEST_SIZE, 0, 0);
-                evt->sig = i;
-                QF::gc(evt);
-            }
-            console.Print("Elapsed time with QF = %d\n\r", GetSystemMs() - startMs);
-
-            startMs = GetSystemMs();
-            for (uint32_t i = 0; i < TEST_CNT; i++) {
-                auto evt = std::make_shared<QEvt>(0);
-                evt->sig = i;
-            }
-            console.Print("Elapsed time with new = %d\n\r", GetSystemMs() - startMs);
-            break;
-        }
-    }
-    return CMD_DONE;
-}
-
 static CmdStatus List(Console &console, Evt const *e);
 static CmdHandler const cmdHandler[] = {
-//    { "test",       Test,       "Test function", 0 },
-    { "assert",     Assert,     "Trigger assert", 0 },
-    { "hsm",        Hsm,        "List all HSMs", 0 },
-    { "state",      State,      "List HSM states", 0 },
-    { "log",        LogCmd,     "Log control", 0 },
-//    { "timer",      Timer,      "Timer test function", 0 },
-//    { "fib",        Fibonacci,  "Fibonacci generator", 0 },
-    { "sys",        SystemCmd,  "System", 0 },
-    { "wifi",       WifiStCmd,  "Wifi(stm32) control", 0 },
-//    { "demo",       DemoCmd,    "Demo from Psicc", 0 },
-    { "gpio",       GpioOutCmd, "GPIO output control", 0 },
-//    { "wash",       AOWashingMachineCmd, "Washing machine", 0 },
-//    { "traffic",    TrafficCmd, "Traffic light", 0 },
-//    { "perf",       Perf,       "Performance demo", 0 },
-//    { "simp",       SimpleActCmd,    "Template/SimpleAct testing", 0 },
-//    { "comp",       CompositeActCmd, "Template/CompositeAct testing", 0 },
-	{ "microwave",  MicrowaveCmd, "Microwave", 0 },
-	{ "magnetron",  MagnetronCmd, "Magnetron", 0 },
-    { "?",          List,       "List commands", 0 },
+    { "assert",     Assert,       "Trigger assert",      0 },
+    { "hsm",        Hsm,          "List all HSMs",       0 },
+    { "state",      State,        "List HSM states",     0 },
+    { "log",        LogCmd,       "Log control",         0 },
+    { "sys",        SystemCmd,    "System",              0 },
+    { "wifi",       WifiStCmd,    "Wifi(stm32) control", 0 },
+    { "gpio",       GpioOutCmd,   "GPIO output control", 0 },
+	{ "mw",         MicrowaveCmd, "Microwave",           0 },
+	{ "magnetron",  MagnetronCmd, "Magnetron",           0 },
+    { "?",          List,         "List commands",       0 },
 };
 
 static CmdStatus List(Console &console, Evt const *e) {

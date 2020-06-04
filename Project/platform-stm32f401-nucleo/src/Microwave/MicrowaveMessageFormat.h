@@ -59,6 +59,7 @@ enum class Signal : uint32_t {
     MOD_LEFT_ONES   = 0x20080000,
     MOD_RIGHT_TENS  = 0x20100000,
     MOD_RIGHT_ONES  = 0x20200000,
+	STATE_REQUEST   = 0x20400000
 };
 
 enum class Update : uint32_t {
@@ -86,6 +87,13 @@ public:
     bool operator!=(const Time& rhs)
     {
         return 0 != memcmp(this, &rhs, sizeof(Time));
+    }
+    void clear()
+    {
+    	left_tens = 0;
+    	left_ones = 0;
+    	right_tens = 0;
+    	right_ones = 0;
     }
     uint32_t left_tens;
     uint32_t left_ones;
