@@ -73,6 +73,7 @@ Microwave::Microwave() :
     Active((QStateHandler)&Microwave::InitialPseudoState, MICROWAVE, "MICROWAVE"),
     m_blink{false},
     m_blinkToggle{false},
+	m_clockInitialized{false},
     m_cook{false},
 	m_cooking{false},
     m_closed{true},
@@ -555,6 +556,7 @@ QState Microwave::SetCookTimer(Microwave * const me, QEvt const * const e) {
             me->m_state = MicrowaveMsgFormat::State::SET_COOK_TIMER;
             me->m_displayTime[me->m_timerIndex].time.clear();
             me->UpdateDisplayTime();
+            me->UpdatePowerLevel();
             ++me->m_timersUsed;
             return Q_HANDLED();
         }
@@ -928,6 +930,10 @@ QState Microwave::DisplayTimer(Microwave * const me, QEvt const * const e) {
             EVENT(e);
             //NOTE: The Magnetron actually gets requested to turn off when m_secondsRemaining
             //		goes to zero within Microwave::DecrementTimer(); no need to also do it here.
+            if(me->m_secondsRemaining > 0 && me->m_cook) {
+            	Evt* evt = new MagnetronOffReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
+            	Fw::Post(evt);
+            }
 
             //reset the cook flag
             me->m_cook = false;
@@ -958,6 +964,7 @@ QState Microwave::DisplayTimer(Microwave * const me, QEvt const * const e) {
         }
         case DONE: {
             EVENT(e);
+            me->SendSignal(MicrowaveMsgFormat::Signal::CLOCK);
             return Q_TRAN(&Microwave::DisplayClock);
         }
     }

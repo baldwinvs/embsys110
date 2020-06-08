@@ -108,6 +108,7 @@ protected:
 
     bool m_blink;
     bool m_blinkToggle;
+    bool m_clockInitialized;
     bool m_cook;
     bool m_cooking;
     bool m_closed;
