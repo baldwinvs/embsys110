@@ -53,6 +53,87 @@ FW_DEFINE_THIS_FILE("WifiSt.cpp")
 
 namespace APP {
 
+static void handleSignal(const MicrowaveMsgFormat::Message& message, Hsmn to, Hsmn from, Sequence seq) {
+	using namespace MicrowaveMsgFormat;
+
+	Evt *evt{nullptr};
+	switch(message.signal) {
+		case Signal::CLOCK: {
+			evt = new MicrowaveExtClockSig(to, from, seq);
+		}
+			break;
+		case Signal::COOK_TIME: {
+			evt = new MicrowaveExtCookTimeSig(to, from, seq);
+		}
+			break;
+		case Signal::POWER_LEVEL: {
+			evt = new MicrowaveExtPowerLevelSig(to, from, seq);
+		}
+			break;
+		case Signal::KITCHEN_TIMER: {
+			evt = new MicrowaveExtKitchenTimerSig(to, from, seq);
+		}
+			break;
+		case Signal::STOP: {
+			evt = new MicrowaveExtStopSig(to, from, seq);
+		}
+			break;
+		case Signal::START: {
+			evt = new MicrowaveExtStartSig(to, from, seq);
+		}
+			break;
+		case Signal::DIGIT_0: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 0);
+		}
+			break;
+		case Signal::DIGIT_1: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 1);
+		}
+			break;
+		case Signal::DIGIT_2: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 2);
+		}
+			break;
+		case Signal::DIGIT_3: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 3);
+		}
+			break;
+		case Signal::DIGIT_4: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 4);
+		}
+			break;
+		case Signal::DIGIT_5: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 5);
+		}
+			break;
+		case Signal::DIGIT_6: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 6);
+		}
+			break;
+		case Signal::DIGIT_7: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 7);
+		}
+		break;
+		case Signal::DIGIT_8: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 8);
+		}
+			break;
+		case Signal::DIGIT_9: {
+			evt = new MicrowaveExtDigitSig(to, from, seq, 9);
+		}
+			break;
+		case Signal::STATE_REQUEST: {
+			evt = new MicrowaveExtStateReqSig(to, from, seq);
+		}
+			break;
+		default:
+			break;
+	}
+	if(evt != nullptr) {
+		Fw::Post(evt);
+	}
+}
+
 void WifiSt::Write(char *const atCmd) {
     FW_ASSERT(atCmd);
     FW_ASSERT(m_outIfHsmn != HSM_UNDEF);
@@ -367,8 +448,21 @@ QState WifiSt::Connected(WifiSt * const me, QEvt const * const e) {
                     snprintf(cmd, sizeof(cmd), "at+s.sockr=0,\n\r");
                     me->Write(cmd);
                 }
-                //TODO
-                //Add handling of TCP packet in Wifi module that will send events to Microwave module
+                char * tmp = strstr(buf, "vedM");
+                if(NULL != tmp) {
+                	MicrowaveMsgFormat::Message message(tmp);
+
+					MicrowaveMsgFormat::Type type = static_cast<MicrowaveMsgFormat::Type>(static_cast<uint32_t>(message.state) >> 24);
+					switch (type) {
+					case MicrowaveMsgFormat::Type::SIGNAL:
+						handleSignal(message, MICROWAVE, GET_HSMN(), GEN_SEQ());
+						break;
+					default:
+						//no states ever come from the app
+						//no updates ever come from the app
+						break;
+					}
+                }
             }
             return Q_HANDLED();
         }

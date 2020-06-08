@@ -88,14 +88,10 @@ protected:
         uint32_t powerLevel;
     };
 
-    template<typename Data>
-    void SendUpdate(const MicrowaveMsgFormat::Update update, const Data& data) {
-        m_message.update = update;
-        memcpy(m_message.data, &data, sizeof(data));
-        SendMessage(m_message);
-    }
     void SendState(const MicrowaveMsgFormat::State state);
     void SendSignal(const MicrowaveMsgFormat::Signal signal);
+    void SendUpdatePowerLevel(const uint32_t powerLevel);
+    void SendUpdateTime(const MicrowaveMsgFormat::Update update, const MicrowaveMsgFormat::Time& time);
     void SendMessage(const MicrowaveMsgFormat::Message& message);
 
     void UpdateClock(const MicrowaveMsgFormat::Time& clock);
