@@ -225,6 +225,7 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
                me->m_state == MicrowaveMsgFormat::State::SET_COOK_TIMER) {
             	me->m_cook = true;
             }
+            me->SendSignal(MicrowaveMsgFormat::Signal::START);
             return Q_TRAN(&Microwave::DisplayTimer);
         }
         case MICROWAVE_EXT_STOP_SIG: {
@@ -238,6 +239,7 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
             	//reset power levels
             	me->m_displayTime[i].powerLevel = MAX_POWER;
             }
+            me->SendSignal(MicrowaveMsgFormat::Signal::STOP);
             return Q_TRAN(&Microwave::DisplayClock);
         }
         case MICROWAVE_EXT_DOOR_OPEN_SIG: {
@@ -273,7 +275,9 @@ QState Microwave::DisplayClock(Microwave * const me, QEvt const * const e) {
             EVENT(e);
             me->m_state = MicrowaveMsgFormat::State::DISPLAY_CLOCK;
             me->UpdateClock(me->m_clockTime);
-            me->m_blink = true;
+            if(me->m_clockInitialized) {
+                me->m_blink = true;
+            }
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
@@ -283,6 +287,7 @@ QState Microwave::DisplayClock(Microwave * const me, QEvt const * const e) {
         }
         case MICROWAVE_EXT_CLOCK_SIG: {
         	EVENT(e);
+            me->SendSignal(MicrowaveMsgFormat::Signal::CLOCK);
         	return Q_TRAN(&Microwave::SetClock);
         }
         case MICROWAVE_EXT_COOK_TIME_SIG: {
@@ -310,6 +315,7 @@ QState Microwave::DisplayClock(Microwave * const me, QEvt const * const e) {
                 case 6:
                     time.left_ones = digit;
                     me->m_cook = true;
+                    me->SendSignal(MicrowaveMsgFormat::Signal::START);
                     return Q_TRAN(&Microwave::DisplayTimer);
                 default:
                     break;
@@ -356,6 +362,7 @@ QState Microwave::SetClock(Microwave * const me, QEvt const * const e) {
             me->m_blink = false;
             me->SendSignal(MicrowaveMsgFormat::Signal::BLINK_ON);
             me->SendSignal(MicrowaveMsgFormat::Signal::CLOCK);
+            me->m_clockInitialized = true;
             me->m_blink = true;
             return Q_TRAN(&Microwave::DisplayClock);
         }
@@ -365,7 +372,9 @@ QState Microwave::SetClock(Microwave * const me, QEvt const * const e) {
             me->m_blink = false;
             me->SendSignal(MicrowaveMsgFormat::Signal::BLINK_ON);
             me->SendSignal(MicrowaveMsgFormat::Signal::CLOCK);
-            me->m_blink = true;
+            if(me->m_clockInitialized) {
+                me->m_blink = true;
+            }
             return Q_TRAN(&Microwave::DisplayClock);
         }
         case MICROWAVE_EXT_START_SIG: {
