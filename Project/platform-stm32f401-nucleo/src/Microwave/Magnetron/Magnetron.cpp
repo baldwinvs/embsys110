@@ -41,6 +41,8 @@
 #include "fw_assert.h"
 #include "MagnetronInterface.h"
 #include "Magnetron.h"
+#include "GpioOutInterface.h"
+#include "GpioOut.h"
 
 FW_DEFINE_THIS_FILE("Magnetron.cpp")
 
@@ -178,6 +180,9 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
             else if(MAX_POWER == me->m_powerLevel) {
             	// Go to the Running state, but don't start the timer; it should
             	// never transition to NotRunning.
+            	Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), MAX_POWER - 1);
+            	Fw::Post(evt);
+
             	return Q_TRAN(&Magnetron::Running);
             }
             else {
@@ -185,6 +190,10 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
 				me->m_onTime = static_cast<float>(me->m_powerLevel/10.0f) * APP::Magnetron::CYCLE_TIME_MS;
 				me->m_offTime = static_cast<uint32_t>(APP::Magnetron::CYCLE_TIME_MS) - me->m_onTime;
 				LOG("[p=%d],[on=%d],[off=%d]\n\r", me->m_powerLevel, me->m_onTime, me->m_offTime);
+
+				Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), me->m_powerLevel - 1);
+				Fw::Post(evt);
+
 				//start magnetron timer
 				me->m_magnetronTimer.Start(me->m_onTime);
 				return Q_TRAN(&Magnetron::On);
@@ -243,6 +252,8 @@ QState Magnetron::Running(Magnetron * const me, QEvt const * const e) {
         }
         case Q_EXIT_SIG: {
             EVENT(e);
+            Evt *evt = new GpioOutOffReq(GPIO_OUT, GET_HSMN(), GEN_SEQ());
+            Fw::Post(evt);
             return Q_HANDLED();
         }
         case MAGNETRON_TIMER: {

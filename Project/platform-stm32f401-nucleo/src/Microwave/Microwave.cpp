@@ -47,6 +47,8 @@
 #include "MagnetronInterface.h"
 #include "WifiInterface.h"
 
+#include <algorithm>
+
 FW_DEFINE_THIS_FILE("Microwave.cpp")
 
 namespace APP {
@@ -198,11 +200,13 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
         }
         case HALF_SECOND_TIMER: {
             //EVENT(e);
-            if(++me->m_halfSecondCounts == HALF_SECOND_COUNTS_PER_MINUTE) {
-                LOG("HALF_SECOND_TIMER, IncrementClock()");
-                me->IncrementClock();
-                me->m_halfSecondCounts = 0;
-            }
+        	if(me->m_clockInitialized) {
+        		if(++me->m_halfSecondCounts == HALF_SECOND_COUNTS_PER_MINUTE) {
+        			LOG("HALF_SECOND_TIMER, IncrementClock()");
+        			me->IncrementClock();
+        			me->m_halfSecondCounts = 0;
+        		}
+        	}
             if(me->m_blink) {
                 if(me->m_blinkToggle) {
                     me->SendSignal(MicrowaveMsgFormat::Signal::BLINK_ON);
@@ -237,6 +241,7 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
             	//clear timers that may have been populated when
             	//setting a cook time
             	me->m_displayTime[i].time.clear();
+            	me->m_secondsRemaining = 0;
             	//reset power levels
             	me->m_displayTime[i].powerLevel = MAX_POWER;
             }
@@ -734,10 +739,12 @@ QState Microwave::SetKitchenTimer(Microwave * const me, QEvt const * const e) {
             
             me->UpdateDisplayTime();
             me->SendSignal(MicrowaveMsgFormat::Signal::MOD_LEFT_TENS);
+            me->m_blink = true;
             return Q_HANDLED();
         }
         case Q_EXIT_SIG: {
             EVENT(e);
+            me->m_blink = false;
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
@@ -962,6 +969,13 @@ QState Microwave::DisplayTimer(Microwave * const me, QEvt const * const e) {
         	me->UpdatePowerLevel();
         	return Q_HANDLED();
         }
+        case MICROWAVE_EXT_POWER_LEVEL_SIG: {
+        	EVENT(e);
+        	if(me->m_cook) {
+        		me->SendSignal(MicrowaveMsgFormat::Signal::POWER_LEVEL);
+        	}
+        	return Q_HANDLED();
+        }
         case DONE: {
             EVENT(e);
             me->SendSignal(MicrowaveMsgFormat::Signal::CLOCK);
@@ -1092,8 +1106,13 @@ void Microwave::SendUpdateTime(const MicrowaveMsgFormat::Update update, const Mi
 }
 
 void Microwave::SendMessage(const MicrowaveMsgFormat::Message& message) {
-    char buf[sizeof(MicrowaveMsgFormat::Message)];
-    memcpy(buf, &message, sizeof(MicrowaveMsgFormat::Message));
+	using namespace MicrowaveMsgFormat;
+
+    char buf[sizeof(Message) + 1];
+    buf[sizeof(Message)] = '\0';
+
+	Message msg {ByteSwapMessage(message)};
+    memcpy(buf, &msg, sizeof(Message));
     Evt* evt = new WifiSendReq(WIFI_ST, this->GetHsmn(), this->GenSeq(), buf);
     Fw::Post(evt);
 }
@@ -1120,8 +1139,7 @@ void Microwave::ShiftLeftAndInsert(MicrowaveMsgFormat::Time& time, const uint32_
 }
 
 MicrowaveMsgFormat::Time Microwave::Seconds2Time(uint32_t seconds) const {
-    static const uint32_t maxSeconds = 5999; //corresponds to a time of 99:59
-    if(seconds > maxSeconds) seconds = maxSeconds;
+    if(seconds > MAX_SECONDS) seconds = MAX_SECONDS;
 
     uint32_t min = seconds / 60;
     uint32_t sec = seconds % 60;
@@ -1144,7 +1162,7 @@ uint32_t Microwave::Time2Seconds(const MicrowaveMsgFormat::Time& time) const {
     min += time.left_ones;
     min += (time.left_tens * 10);
 
-    return (60 * min) + sec;
+    return std::min<uint32_t>(MAX_SECONDS, (60 * min) + sec);
 }
 
 void Microwave::DecrementTimer() {
@@ -1173,6 +1191,7 @@ void Microwave::DecrementTimer() {
             Fw::Post(evt);
             
             UpdateDisplayTime();
+            UpdatePowerLevel();
         }
     }
     else {

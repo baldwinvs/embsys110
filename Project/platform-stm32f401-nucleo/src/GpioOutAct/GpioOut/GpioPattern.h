@@ -40,7 +40,7 @@ public:
 class GpioPatternSet {
 public:
     enum {
-        COUNT = 4
+        COUNT = 10
     };
     uint32_t m_count;               // Number of patterns in use.
     GpioPattern m_pattern[COUNT];    // Array of patterns. Used ones start from index 0.
@@ -58,6 +58,7 @@ public:
 };
 
 extern GpioPatternSet const TEST_GPIO_PATTERN_SET;
+extern GpioPatternSet const MAGNETRON_PATTERN_SET;
 
 } // namespace APP
 

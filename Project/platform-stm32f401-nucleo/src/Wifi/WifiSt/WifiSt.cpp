@@ -448,11 +448,12 @@ QState WifiSt::Connected(WifiSt * const me, QEvt const * const e) {
                     snprintf(cmd, sizeof(cmd), "at+s.sockr=0,\n\r");
                     me->Write(cmd);
                 }
-                char * tmp = strstr(buf, "vedM");
+                char * tmp = strstr(buf, "Mdev");
                 if(NULL != tmp) {
-                	MicrowaveMsgFormat::Message message(tmp);
+                	using namespace MicrowaveMsgFormat;
+                	Message message {ByteSwapMessage(Message(tmp))};
 
-					MicrowaveMsgFormat::Type type = static_cast<MicrowaveMsgFormat::Type>(static_cast<uint32_t>(message.state) >> 24);
+					Type type = static_cast<Type>(static_cast<uint32_t>(message.state) >> 24);
 					switch (type) {
 					case MicrowaveMsgFormat::Type::SIGNAL:
 						handleSignal(message, MICROWAVE, GET_HSMN(), GEN_SEQ());
