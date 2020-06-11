@@ -43,25 +43,13 @@
 #include "System.h"
 #include "SystemInterface.h"
 #include "GpioInInterface.h"
-// #include "DemoInterface.h"
 #include "GpioOutInterface.h"
-//#include "SensorInterface.h"
-//#include "DispInterface.h"
 #include "WifiInterface.h"
 #include "MicrowaveInterface.h"
 #include "MagnetronInterface.h"
 #include "bsp.h"
 #include <vector>
 #include <memory>
-
-// Compile options to enable demo application.
-// Only one of the following can be enabled at a time.
-//#define ENABLE_TRAFFIC
-//#define ENABLE_LEVEL_METER
-
-#if (defined(ENABLE_TRAFFIC) && defined(ENABLE_LEVEL_METER))
-#error ENABLE_TRAFFIC and ENABLE_LEVEL_METER cannot be both defined
-#endif
 
 FW_DEFINE_THIS_FILE("System.cpp")
 
@@ -90,7 +78,6 @@ static char const * const interfaceEvtName[] = {
 System::System() :
     Active((QStateHandler)&System::InitialPseudoState, SYSTEM, "SYSTEM"), m_maxIdleCnt(0), m_cpuUtilPercent(0),
     m_stateTimer(GetHsm().GetHsmn(), STATE_TIMER), m_idleCntTimer(GetHsm().GetHsmn(), IDLE_CNT_TIMER),
-    m_sensorDelayTimer(GetHsm().GetHsmn(), SENSOR_DELAY_TIMER),
     m_testTimer(GetHsm().GetHsmn(), TEST_TIMER) {
     SET_EVT_NAME(SYSTEM);
 }
@@ -251,12 +238,6 @@ QState System::Starting1(System * const me, QEvt const * const e) {
             EVENT(e);
             me->GetHsm().ResetOutSeq();
 
-#ifdef ENABLE_TRAFFIC
-            evt = new TrafficStartReq(TRAFFIC, SYSTEM, GEN_SEQ());
-            me->GetHsm().SaveOutSeq(*evt);
-            Fw::Post(evt);
-#endif
-
             Evt *evt = new GpioInStartReq(USER_BTN, SYSTEM, GEN_SEQ());
             me->GetHsm().SaveOutSeq(*evt);
             Fw::Post(evt);
@@ -266,16 +247,6 @@ QState System::Starting1(System * const me, QEvt const * const e) {
             Fw::Post(evt);
 
             evt = new MicrowaveStartReq(MICROWAVE, SYSTEM, GEN_SEQ());
-            me->GetHsm().SaveOutSeq(*evt);
-            Fw::Post(evt);
-
-            evt = new MagnetronStartReq(MAGNETRON, SYSTEM, GEN_SEQ());
-            me->GetHsm().SaveOutSeq(*evt);
-            Fw::Post(evt);
-
-            // USER LED pin (PA.5) is shared with TFP display SPI clock pin.
-            // It must not be enabled when the TFP is used (e.g. in LevelMeter).
-            evt = new GpioOutStartReq(USER_LED, SYSTEM, GEN_SEQ());
             me->GetHsm().SaveOutSeq(*evt);
             Fw::Post(evt);
 
@@ -292,9 +263,7 @@ QState System::Starting1(System * const me, QEvt const * const e) {
         }
         case GPIO_IN_START_CFM:
         case WIFI_START_CFM:
-        case MICROWAVE_START_CFM:
-        case MAGNETRON_START_CFM:
-        case GPIO_OUT_START_CFM: {
+        case MICROWAVE_START_CFM: {
             EVENT(e);
             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
             bool allReceived;
@@ -302,80 +271,14 @@ QState System::Starting1(System * const me, QEvt const * const e) {
                 Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
                 me->PostSync(evt);
             } else if (allReceived) {
-                Evt *evt = new Evt(NEXT, GET_HSMN());
+                Evt *evt = new Evt(DONE, GET_HSMN());
                 me->PostSync(evt);
             }
             return Q_HANDLED();
         }
-        case NEXT: {
+        case DONE: {
             EVENT(e);
-            return Q_TRAN(&System::Starting3);
-        }
-    }
-    return Q_SUPER(&System::Starting);
-}
-
-// QState System::Starting2(System * const me, QEvt const * const e) {
-//     switch (e->sig) {
-//         case Q_ENTRY_SIG: {
-//             EVENT(e);
-//             // me->m_sensorDelayTimer.Start(SENSOR_DELAY_TIMEOUT_MS);
-//             return Q_HANDLED();
-//         }
-//         case Q_EXIT_SIG: {
-//             EVENT(e);
-//             me->m_sensorDelayTimer.Stop();
-//             return Q_HANDLED();
-//         }
-//         case SENSOR_DELAY_TIMER: {
-//             EVENT(e);
-//             me->GetHsm().ResetOutSeq();
-//             Evt *evt = new SensorStartReq(IKS01A1, SYSTEM, GEN_SEQ());
-//             me->GetHsm().SaveOutSeq(*evt);
-//             Fw::Post(evt);
-//             return Q_HANDLED();
-//         }
-//         case SENSOR_START_CFM: {
-//             EVENT(e);
-//             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
-//             bool allReceived;
-//             if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
-//                 Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
-//                 me->PostSync(evt);
-//             } else if (allReceived) {
-//                 Evt *evt = new Evt(NEXT, GET_HSMN());
-//                 me->PostSync(evt);
-//             }
-//             return Q_HANDLED();
-//         }
-//         case NEXT: {
-//             EVENT(e);
-//             return Q_TRAN(&System::Starting3);
-//         }
-//     }
-//     return Q_SUPER(&System::Starting);
-// }
-
-QState System::Starting3(System * const me, QEvt const * const e) {
-    switch (e->sig) {
-        case Q_ENTRY_SIG: {
-            EVENT(e);
-            Evt *evt;
-#ifdef ENABLE_LEVEL_METER
-            me->GetHsm().ResetOutSeq();
-            evt = new LevelMeterStartReq(LEVEL_METER, SYSTEM, GEN_SEQ());
-            me->GetHsm().SaveOutSeq(*evt);
-            Fw::Post(evt);
-            return Q_HANDLED();
-#else
-            evt = new Evt(DONE, GET_HSMN());
-            me->PostSync(evt);
-            return Q_HANDLED();
-#endif
-        }
-        case Q_EXIT_SIG: {
-            EVENT(e);
-            return Q_HANDLED();
+            return Q_TRAN(&System::Started);
         }
     }
     return Q_SUPER(&System::Starting);
@@ -427,45 +330,6 @@ QState System::Stopping1(System * const me, QEvt const * const e) {
         case Q_ENTRY_SIG: {
             EVENT(e);
             me->GetHsm().ResetOutSeq();
-            return Q_HANDLED();
-        }
-        case Q_EXIT_SIG: {
-            EVENT(e);
-            return Q_HANDLED();
-        }
-        case NEXT: {
-            EVENT(e);
-            return Q_TRAN(&System::Stopping2);
-        }
-    }
-    return Q_SUPER(&System::Stopping);
-}
-
-QState System::Stopping2(System * const me, QEvt const * const e) {
-    switch (e->sig) {
-        case Q_ENTRY_SIG: {
-            EVENT(e);
-            me->GetHsm().ResetOutSeq();
-
-//            Evt *evt = new CompositeActStopReq(COMPOSITE_ACT, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
-//
-//            evt = new SimpleActStopReq(SIMPLE_ACT, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
-//
-//            evt = new DemoStopReq(DEMO, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
-//
-//            evt = new WashStopReq(AO_WASHING_MACHINE, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
-//
-//            evt = new TrafficStopReq(TRAFFIC, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
 
             Evt *evt = new GpioInStopReq(USER_BTN, SYSTEM, GEN_SEQ());
             me->GetHsm().SaveOutSeq(*evt);
@@ -476,20 +340,6 @@ QState System::Stopping2(System * const me, QEvt const * const e) {
             Fw::Post(evt);
 
             evt = new MicrowaveStopReq(MICROWAVE, SYSTEM, GEN_SEQ());
-            me->GetHsm().SaveOutSeq(*evt);
-            Fw::Post(evt);
-
-            evt = new MagnetronStopReq(MAGNETRON, SYSTEM, GEN_SEQ());
-            me->GetHsm().SaveOutSeq(*evt);
-            Fw::Post(evt);
-
-//            evt = new SensorStopReq(IKS01A1, SYSTEM, GEN_SEQ());
-//            me->GetHsm().SaveOutSeq(*evt);
-//            Fw::Post(evt);
-
-            // USER LED pin (PA.5) is shared with TFP display SPI clock pin.
-            // It must not be enabled when the TFP is used (e.g. in LevelMeter).
-            evt = new GpioOutStopReq(USER_LED, SYSTEM, GEN_SEQ());
             me->GetHsm().SaveOutSeq(*evt);
             Fw::Post(evt);
 
@@ -506,10 +356,7 @@ QState System::Stopping2(System * const me, QEvt const * const e) {
         }
         case GPIO_IN_STOP_CFM:
         case WIFI_STOP_CFM:
-        case MICROWAVE_STOP_CFM:
-        case MAGNETRON_STOP_CFM:
-//        case SENSOR_STOP_CFM:
-        case GPIO_OUT_STOP_CFM: {
+        case MICROWAVE_STOP_CFM: {
             EVENT(e);
             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
             bool allReceived;

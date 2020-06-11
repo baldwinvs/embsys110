@@ -68,6 +68,7 @@ static char const * const interfaceEvtName[] = {
 
 Magnetron::Magnetron() :
     Active((QStateHandler)&Magnetron::InitialPseudoState, MAGNETRON, "MAGNETRON"),
+    m_stateTimer(GetHsm().GetHsmn(), STATE_TIMER),
     m_magnetronTimer(GetHsm().GetHsmn(), MAGNETRON_TIMER),
     m_onTime{},
     m_offTime{},
@@ -101,7 +102,7 @@ QState Magnetron::Root(Magnetron * const me, QEvt const * const e) {
         case MAGNETRON_START_REQ: {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
-            Evt *evt = new MagnetronStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE);
+            Evt *evt = new MagnetronStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_STATE, GET_HSMN());
             Fw::Post(evt);
             return Q_HANDLED();
         }
@@ -109,7 +110,7 @@ QState Magnetron::Root(Magnetron * const me, QEvt const * const e) {
             EVENT(e);
             Evt const &req = EVT_CAST(*e);
             me->GetHsm().SaveInSeq(req);
-            return Q_TRAN(&Magnetron::Stopped);
+            return Q_TRAN(&Magnetron::Stopping);
         }
     }
     return Q_SUPER(&QHsm::top);
@@ -134,10 +135,119 @@ QState Magnetron::Stopped(Magnetron * const me, QEvt const * const e) {
         }
         case MAGNETRON_START_REQ: {
             EVENT(e);
-            Evt const &req = EVT_CAST(*e);
-            Evt *evt = new MagnetronStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_SUCCESS);
+            MagnetronStartReq const &req = static_cast<MagnetronStartReq const &>(*e);
+            me->GetHsm().SaveInSeq(req);
+            return Q_TRAN(&Magnetron::Starting);
+        }
+    }
+    return Q_SUPER(&Magnetron::Root);
+}
+
+QState Starting(Magnetron * const me, QEvt const * const e) {
+    switch (e->sig) {
+        case Q_ENTRY_SIG: {
+            EVENT(e);
+            uint32_t timeout = MagnetronStartReq::TIMEOUT_MS;
+            FW_ASSERT(timeout > GpioOutStartReq::TIMEOUT_MS);
+            me->m_stateTimer.Start(timeout);
+            me->GetHsm().ResetOutSeq();
+            Evt *evt = new GpioOutStartReq(GPIO_OUT, GET_HSMN(), GEN_SEQ());
+            me->GetHsm().SaveOutSeq(*evt);
+            Fw::Post(evt);
+            return Q_HANDLED();
+        }
+        case Q_EXIT_SIG: {
+            EVENT(e);
+            me->m_stateTimer.Stop();
+            me->GetHsm().ClearInSeq();
+            return Q_HANDLED();
+        }
+        case GPIO_OUT_START_CFM: {
+            EVENT(e);
+            ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
+            bool allReceived;
+            if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
+                Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
+                me->PostSync(evt);
+            } else if (allReceived) {
+                Evt *evt = new Evt(DONE, GET_HSMN());
+                me->PostSync(evt);
+            }
+            return Q_HANDLED();
+        }
+        case FAILED:
+        case STATE_TIMER: {
+            EVENT(e);
+            Evt *evt;
+            if (e->sig == FAILED) {
+                ErrorEvt const &failed = ERROR_EVT_CAST(*e);
+                evt = new MagnetronStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(),
+                                            failed.GetError(), failed.GetOrigin(), failed.GetReason());
+            } else {
+                evt = new MagnetronStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_TIMEOUT, GET_HSMN());
+            }
+            Fw::Post(evt);
+            return Q_TRAN(&Magnetron::Stopping);
+        }
+        case DONE: {
+            EVENT(e);
+            Evt *evt = new MagnetronStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_SUCCESS);
             Fw::Post(evt);
             return Q_TRAN(&Magnetron::Started);
+        }
+    }
+    return Q_SUPER(&Magnetron::Root);
+}
+
+QState Stopping(Magnetron * const me, QEvt const * const e) {
+    switch (e->sig) {
+        case Q_ENTRY_SIG: {
+            EVENT(e);
+            uint32_t timeout = MagnetronStopReq::TIMEOUT_MS;
+            FW_ASSERT(timeout > GpioOutStopReq::TIMEOUT_MS);
+            me->m_stateTimer.Start(timeout);
+            me->GetHsm().ResetOutSeq();
+            Evt *evt = new GpioOutStopReq(GPIO_OUT, GET_HSMN(), GEN_SEQ());
+            me->GetHsm().SaveOutSeq(*evt);
+            Fw::Post(evt);
+            return Q_HANDLED();
+        }
+        case Q_EXIT_SIG: {
+            EVENT(e);
+            me->m_stateTimer.Stop();
+            me->GetHsm().ClearInSeq();
+            me->GetHsm().Recall();
+            return Q_HANDLED();
+        }
+        case MAGNETRON_STOP_REQ: {
+            EVENT(e);
+            me->GetHsm().Defer(e);
+            return Q_HANDLED();
+        }
+        case GPIO_OUT_STOP_CFM: {
+            EVENT(e);
+            ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
+            bool allReceived;
+            if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
+                Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
+            } else if (allReceived) {
+                Evt *evt = new Evt(DONE, GET_HSMN());
+                me->PostSync(evt);
+            }
+            return Q_HANDLED();
+        }
+        case FAILED:
+        case STATE_TIMER: {
+            EVENT(e);
+            FW_ASSERT(0);
+            // Will not reach here.
+            return Q_HANDLED();
+        }
+        case DONE: {
+            EVENT(e);
+            Evt *evt = new MagnetronStopCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_SUCCESS);
+            Fw::Post(evt);
+            return Q_TRAN(&Magnetron::Stopped);
         }
     }
     return Q_SUPER(&Magnetron::Root);

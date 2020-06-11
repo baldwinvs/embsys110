@@ -58,6 +58,8 @@ protected:
     static QState InitialPseudoState(Magnetron * const me, QEvt const * const e);
     static QState Root(Magnetron * const me, QEvt const * const e);
         static QState Stopped(Magnetron * const me, QEvt const * const e);
+        static QState Starting(Magnetron * const me, QEvt const * const e);
+        static QState Stopping(Magnetron * const me, QEvt const * const e);
         static QState Started(Magnetron * const me, QEvt const * const e);
             static QState Off(Magnetron * const me, QEvt const * const e);
             static QState On(Magnetron * const me, QEvt const * const e);
@@ -69,6 +71,7 @@ protected:
         CYCLE_TIME_MS = 30000,
     };
     
+    Timer m_stateTimer;
     Timer m_magnetronTimer;
     uint32_t m_onTime;
     uint32_t m_offTime;
@@ -86,10 +89,12 @@ protected:
     QState (*m_history) (Magnetron * const me, QEvt const * const e);
 
 #define MAGNETRON_TIMER_EVT \
+    ADD_EVT(STATE_TIMER) \
     ADD_EVT(MAGNETRON_TIMER)
 
 #define MAGNETRON_INTERNAL_EVT \
-	ADD_EVT(DONE)
+	ADD_EVT(DONE) \
+    ADD_EVT(FAILED)
 
 #undef ADD_EVT
 #define ADD_EVT(e_) e_,
@@ -102,6 +107,12 @@ protected:
     enum {
     	MAGNETRON_INTERNAL_EVT_START = INTERNAL_EVT_START(MAGNETRON),
 		MAGNETRON_INTERNAL_EVT
+    };
+
+    class Failed : public ErrorEvt {
+    public:
+        Failed(Hsmn hsmn, Error error, Hsmn origin, Reason reason) :
+            ErrorEvt(FAILED, hsmn, hsmn, 0, error, origin, reason) {}
     };
 };
 

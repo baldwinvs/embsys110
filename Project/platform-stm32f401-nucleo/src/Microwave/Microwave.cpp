@@ -92,6 +92,7 @@ Microwave::Microwave() :
     m_turntable{TURNTABLE, "TURNTABLE"},
     m_halfSecondTimer{GetHsm().GetHsmn(), HALF_SECOND_TIMER},
     m_secondTimer{GetHsm().GetHsmn(), SECOND_TIMER},
+    m_stateTimer{GetHsm().GetHsmn(), STATE_TIMER},
     m_halfSecondCounts{},
     m_magnetronPipe{m_magnetronStor, MAGNETRON_PIPE_ORDER}
     {
@@ -129,6 +130,12 @@ QState Microwave::Root(Microwave * const me, QEvt const * const e) {
             Fw::Post(evt);
             return Q_HANDLED();
         }
+        case MICROWAVE_STOP_REQ: {
+            EVENT(e);
+            Evt const &req = EVT_CAST(*e);
+            me->GetHsm().SaveInSeq(req);
+            return Q_TRAN(&Microwave::Stopping);
+        }
     }
     return Q_SUPER(&QHsm::top);
 }
@@ -152,10 +159,121 @@ QState Microwave::Stopped(Microwave * const me, QEvt const * const e) {
         }
         case MICROWAVE_START_REQ: {
             EVENT(e);
-            Evt const &req = EVT_CAST(*e);
-            Evt *evt = new MicrowaveStartCfm(req.GetFrom(), GET_HSMN(), req.GetSeq(), ERROR_SUCCESS);
+            MicrowaveStartReq const &req = static_cast<MicrowaveStartReq const &>(*e);
+            me->GetHsm().SaveInSeq(req);
+            return Q_TRAN(&Microwave::Starting);
+        }
+    }
+    return Q_SUPER(&Microwave::Root);
+}
+
+QState Microwave::Starting(Microwave * const me, QEvt const * const e) {
+    switch (e->sig) {
+        case Q_ENTRY_SIG: {
+            EVENT(e);
+            uint32_t timeout = MicrowaveStartReq::TIMEOUT_MS;
+            FW_ASSERT(timeout > MagnetronStartReq::TIMEOUT_MS);
+            me->m_stateTimer.Start(timeout);
+            me->GetHsm().ResetOutSeq();
+            Evt *evt = new MagnetronStartReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
+            me->GetHsm().SaveOutSeq(*evt);
+            Fw::Post(evt);
+            return Q_HANDLED();
+        }
+        case Q_EXIT_SIG: {
+            EVENT(e);
+            me->m_stateTimer.Stop();
+            me->GetHsm().ClearInSeq();
+            return Q_HANDLED();
+        }
+        case MAGNETRON_START_CFM: {
+            EVENT(e);
+            ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
+            bool allReceived;
+            if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
+                Evt *evt = new Failed(GET_HSMN(), cfm.GetERror(), cfm.GetOrigin(), cfm.GetReason());
+                me->PostSync(evt);
+            } else if (allReceived) {
+                Evt *evt = new Evt(DONE, GET_HSMN());
+                me->PostSync(evt);
+            }
+            return Q_HANDLED();
+        }
+        case FAILED:
+        case STATE_TIMER: {
+            EVENT(e);
+            Evt *evt;
+            if (e->sig == FAILED) {
+                ErrorEvt const &failed = ERROR_EVT_CAST(*e);
+                evt = new MicrowaveStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(),
+                                            failed.GetError(), failed.GetOrigin(), failed.GetReason());
+            } else {
+                evt = new MicrowaveStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_TIMEOUT, GET_HSMN());
+            }
+            Fw::Post(evt);
+            return Q_TRAN(&Microwave::Stopping);
+        }
+        case DONE: {
+            EVENT(e);
+            Evt *evt = new MagnetronStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_SUCCESS);
             Fw::Post(evt);
             return Q_TRAN(&Microwave::Started);
+        }
+    }
+    return Q_SUPER(&Microwave::Root);
+}
+
+QState Microwave::Stopping(Microwave * const me, QEvt const * const e) {
+    switch (e->sig) {
+        case Q_ENTRY_SIG: {
+            EVENT(e);
+            uint32_t timeout = MicrowaveStopReq::TIMEOUT_MS;
+            FW_ASSERT(timeout > MagnetronStopReq::TIMEOUT_MS);
+            me->m_stateTimer.Start(timeout);
+            me->GetHsm().ResetOutSeq();
+            Evt *evt = new MagnetronStopReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
+            me->GetHsm().SaveOutSeq(*evt);
+            Fw::Post(evt);
+            return Q_HANDLED();
+            return Q_HANDLED();
+        }
+        case Q_EXIT_SIG: {
+            EVENT(e);
+            me->m_stateTimer.Stop();
+            me->GetHsm().ClearInSeq();
+            me->GetHsm().Recall();
+            return Q_HANDLED();
+        }
+        case MICROWAVE_STOP_REQ: {
+            EVENT(e);
+            me->GetHsm().Defer(e);
+            return Q_HANDLED();
+        }
+        case MAGNETRON_STOP_CFM: {
+            EVENT(e);
+            ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
+            bool allReceived;
+            if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
+                Evt *evt = new Failed(GET_HSMN(), cfm.GetERror(), cfm.GetOrigin(), cfm.GetReason());
+                me->PostSync(evt);
+            } else if (allReceived) {
+                Evt *evt = new Evt(DONE, GET_HSMN());
+                me->PostSync(evt);
+            }
+            return Q_HANDLED();
+        }
+        case FAILED:
+        case STATE_TIMER: {
+            EVENT(e);
+            FW_ASSERT(0);
+            // Will not reach here.
+            return Q_HANDLED();
+        }
+        case DONE: {
+            EVENT(e);
+            Evt *evt = new MicrowaveStopCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_SUCCESS);
+            Fw::Post(evt);
+            return Q_TRAN(&Microwave::Stopped);
         }
     }
     return Q_SUPER(&Microwave::Root);

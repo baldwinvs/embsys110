@@ -63,6 +63,8 @@ protected:
     static QState InitialPseudoState(Microwave * const me, QEvt const * const e);
     static QState Root(Microwave * const me, QEvt const * const e);
         static QState Stopped(Microwave * const me, QEvt const * const e);
+        static QState Starting(Microwave * const me, QEvt const * const e);
+        static QState Stopping(Microwave * const me, QEvt const * const e);
         static QState Started(Microwave * const me, QEvt const * const e);
             static QState DisplayClock(Microwave * const me, QEvt const * const e);
                 static QState SetClock(Microwave * const me, QEvt const * const e);
@@ -145,6 +147,7 @@ protected:
 
     Timer m_halfSecondTimer;
     Timer m_secondTimer;
+    Timer m_stateTimer;
 
     enum {
         HALF_SECOND_COUNTS_PER_MINUTE = 120,
@@ -161,7 +164,8 @@ protected:
 
 #define MICROWAVE_TIMER_EVT \
     ADD_EVT(HALF_SECOND_TIMER) \
-    ADD_EVT(SECOND_TIMER)
+    ADD_EVT(SECOND_TIMER) \
+    ADD_EVT(STATE_TIMER)
 
 #define MICROWAVE_INTERNAL_EVT \
     ADD_EVT(DONE) \

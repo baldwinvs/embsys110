@@ -61,11 +61,8 @@ protected:
         static QState Starting(System * const me, QEvt const * const e);
             static QState Prestarting(System * const me, QEvt const * const e);
             static QState Starting1(System * const me, QEvt const * const e);
-            static QState Starting2(System * const me, QEvt const * const e);
-            static QState Starting3(System * const me, QEvt const * const e);
         static QState Stopping(System * const me, QEvt const * const e);
             static QState Stopping1(System * const me, QEvt const * const e);
-            static QState Stopping2(System * const me, QEvt const * const e);
         static QState Started(System * const me, QEvt const * const e);
 
 
