@@ -71,20 +71,17 @@ protected:
 
     Timer m_stateTimer;
     Timer m_idleCntTimer;
-    Timer m_sensorDelayTimer;
     Timer m_testTimer;
 
     enum {
         IDLE_CNT_INIT_TIMEOUT_MS = 200,
         IDLE_CNT_POLL_TIMEOUT_MS = 2000,
-        SENSOR_DELAY_TIMEOUT_MS = 200,
     };
 
 
 #define SYSTEM_TIMER_EVT \
     ADD_EVT(STATE_TIMER) \
     ADD_EVT(IDLE_CNT_TIMER) \
-    ADD_EVT(SENSOR_DELAY_TIMER) \
     ADD_EVT(TEST_TIMER)
 
 #define SYSTEM_INTERNAL_EVT \

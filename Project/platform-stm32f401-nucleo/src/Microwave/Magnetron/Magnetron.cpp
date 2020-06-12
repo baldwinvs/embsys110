@@ -143,7 +143,7 @@ QState Magnetron::Stopped(Magnetron * const me, QEvt const * const e) {
     return Q_SUPER(&Magnetron::Root);
 }
 
-QState Starting(Magnetron * const me, QEvt const * const e) {
+QState Magnetron::Starting(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -199,7 +199,7 @@ QState Starting(Magnetron * const me, QEvt const * const e) {
     return Q_SUPER(&Magnetron::Root);
 }
 
-QState Stopping(Magnetron * const me, QEvt const * const e) {
+QState Magnetron::Stopping(Magnetron * const me, QEvt const * const e) {
     switch (e->sig) {
         case Q_ENTRY_SIG: {
             EVENT(e);
@@ -407,8 +407,13 @@ QState Magnetron::Paused(Magnetron * const me, QEvt const * const e) {
         }
         case MAGNETRON_ON_REQ: {
             EVENT(e);
-            if(MIN_POWER < me->m_powerLevel && me->m_powerLevel < MAX_POWER) {
-            	me->m_magnetronTimer.Start(me->m_remainingTime);
+            if(MIN_POWER < me->m_powerLevel) {
+            	if(me->m_powerLevel < MAX_POWER) {
+            		me->m_magnetronTimer.Start(me->m_remainingTime);
+            	}
+
+				Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), me->m_powerLevel - 1);
+				Fw::Post(evt);
             }
             return Q_TRAN(me->m_history);
         }

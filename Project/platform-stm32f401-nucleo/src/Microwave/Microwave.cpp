@@ -191,7 +191,7 @@ QState Microwave::Starting(Microwave * const me, QEvt const * const e) {
             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
             bool allReceived;
             if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
-                Evt *evt = new Failed(GET_HSMN(), cfm.GetERror(), cfm.GetOrigin(), cfm.GetReason());
+                Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
                 me->PostSync(evt);
             } else if (allReceived) {
                 Evt *evt = new Evt(DONE, GET_HSMN());
@@ -215,7 +215,7 @@ QState Microwave::Starting(Microwave * const me, QEvt const * const e) {
         }
         case DONE: {
             EVENT(e);
-            Evt *evt = new MagnetronStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_SUCCESS);
+            Evt *evt = new MicrowaveStartCfm(me->GetHsm().GetInHsmn(), GET_HSMN(), me->GetHsm().GetInSeq(), ERROR_SUCCESS);
             Fw::Post(evt);
             return Q_TRAN(&Microwave::Started);
         }
@@ -254,7 +254,7 @@ QState Microwave::Stopping(Microwave * const me, QEvt const * const e) {
             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
             bool allReceived;
             if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
-                Evt *evt = new Failed(GET_HSMN(), cfm.GetERror(), cfm.GetOrigin(), cfm.GetReason());
+                Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
                 me->PostSync(evt);
             } else if (allReceived) {
                 Evt *evt = new Evt(DONE, GET_HSMN());
@@ -1148,8 +1148,12 @@ QState Microwave::DisplayTimerRunning(Microwave * const me, QEvt const * const e
             return Q_HANDLED();
         }
         case SECOND_TIMER: {
-            EVENT(e);
             me->DecrementTimer();
+
+            using namespace MicrowaveMsgFormat;
+            Time& time = me->m_displayTime[me->m_timerIndex].time;
+            LOG("DisplayTimerRunning SECOND_TIMER - %01d%01d:%01d%01d remaining",
+            		time.left_tens, time.left_ones, time.right_tens, time.right_ones);
 
             if(me->m_secondsRemaining == 0) {
                 //all timers done, transition back to DisplayClock

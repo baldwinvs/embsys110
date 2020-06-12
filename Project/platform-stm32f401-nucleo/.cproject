@@ -73,16 +73,6 @@
 									<listOptionValue builtIn="false" value="&quot;../qpcpp/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../qpcpp/src&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../framework/include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/X_NUCLEO_IKS01A1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/Common&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/hts221&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lis3mdl&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lps25hb&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lsm6ds0&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lps22hb&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lsm303agr&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lsm6ds3&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lsm6dsl&quot;"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.389306771" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEBUG"/>
@@ -115,36 +105,6 @@
 									<listOptionValue builtIn="false" value="&quot;../src/Wifi/WifiSt&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../src/GpioOutAct&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../src/GpioOutAct/GpioOut&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Disp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Disp/Adafruit&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Disp/Adafruit/Fonts&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Disp/Ili9341&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Disp/LedPanel&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/Iks01a1AccelGyro&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/Iks01a1HumidTemp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/Iks01a1Mag&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/Iks01a1Press&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/X_NUCLEO_IKS01A1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/Common&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/hts221&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lis3mdl&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lps22hb&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lps25hb&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lsm303agr&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lsm6ds0&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lsm6ds3&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Sensor/Iks01a1/BSP/Components/lsm6dsl&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Demo&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/AOWashingMachine&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Traffic&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Traffic/Lamp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/LevelMeter&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Template/CompositeAct&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Template/CompositeAct/CompositeReg&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Template/SimpleAct&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../src/Template/SimpleReg&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../src/UartAct&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../src/UartAct/UartIn&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../src/UartAct/UartOut&quot;"/>
@@ -317,7 +277,7 @@
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="framework"/>
 						<entry excluding="src/qv|src/qk|src/qs" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="qpcpp"/>
-						<entry excluding="Sensor/Iks01a2" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry excluding="Template|Sensor|LevelMeter|Disp|Demo|AOWashingMachine|Traffic|Sensor/Iks01a2" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry excluding="BSP/Components|src/stm32f4xx/stm32f4xx_hal_timebase_tim_template.c|src/stm32f4xx/stm32f4xx_hal_timebase_rtc_wakeup_template.c|src/stm32f4xx/stm32f4xx_hal_timebase_rtc_alarm_template.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
 					</sourceEntries>
 				</configuration>
@@ -444,7 +404,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry excluding="Template|Sensor|LevelMeter|Disp|Demo|AOWashingMachine|Traffic" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
 					</sourceEntries>
 				</configuration>

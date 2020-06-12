@@ -73,8 +73,6 @@
 #include "qpcpp.h"
 #include "app_hsmn.h"
 #include "UartAct.h"
-#include "Iks01a1.h"
-#include "Ili9341.h"
 #include "GpioIn.h"
 #include "fw_log.h"
 
@@ -266,68 +264,86 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin) {
 // Sensor Iks01a1
 extern "C" void I2C1_EV_IRQHandler(void)
 {
+#if 0
     QXK_ISR_ENTRY();
     HAL_I2C_EV_IRQHandler(Iks01a1::GetHal());
     QXK_ISR_EXIT();
+#endif
 }
 // Sensor Iks01a1
 extern "C" void I2C1_ER_IRQHandler(void)
 {
+#if 0
     QXK_ISR_ENTRY();
     HAL_I2C_ER_IRQHandler(Iks01a1::GetHal());
     QXK_ISR_EXIT();
+#endif
 }
 
 void HAL_I2C_MemTxCpltCallback(I2C_HandleTypeDef *hal) {
+#if 0
     if (hal == Iks01a1::GetHal()) {
         Iks01a1::SignalI2cSem();
     }
+#endif
 }
 
 void HAL_I2C_MemRxCpltCallback(I2C_HandleTypeDef *hal) {
+#if 0
     if (hal == Iks01a1::GetHal()) {
         Iks01a1::SignalI2cSem();
     }
+#endif
 }
 
 // ILI9341 LCD.
 // Must be declared as extern "C" in header.
 extern "C" void SPI1_IRQHandler(void)
 {
+#if 0
     QXK_ISR_ENTRY();
     HAL_SPI_IRQHandler(Ili9341::GetHal());
     QXK_ISR_EXIT();
+#endif
 }
 
 // SPI1 TX DMA
 // Must be declared as extern "C" in header.
 extern "C" void DMA2_Stream3_IRQHandler(void) {
+#if 0
     QXK_ISR_ENTRY();
     SPI_HandleTypeDef *hal = Ili9341::GetHal();
     HAL_DMA_IRQHandler(hal->hdmatx);
     QXK_ISR_EXIT();
+#endif
 }
 
 // SPI1 RX DMA
 // Must be declared as extern "C" in header.
 extern "C" void DMA2_Stream2_IRQHandler(void) {
+#if 0
     QXK_ISR_ENTRY();
     SPI_HandleTypeDef *hal = Ili9341::GetHal();
     HAL_DMA_IRQHandler(hal->hdmarx);
     QXK_ISR_EXIT();
+#endif
 }
 
 
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hal) {
+#if 0
     if (hal == Ili9341::GetHal()) {
         Ili9341::SignalSpiSem();
     }
+#endif
 }
 
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hal) {
+#if 0
     if (hal == Ili9341::GetHal()) {
         Ili9341::SignalSpiSem();
     }
+#endif
 }
 
 /* USER CODE END 1 */

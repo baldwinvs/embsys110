@@ -122,11 +122,6 @@ Hsmn GpioIn::GetHsmn(uint16_t pin) {
 
 GpioIn::Config const GpioIn::CONFIG[] = {
     { USER_BTN,        GPIOC, GPIO_PIN_13, false },
-    { ACCEL_GYRO_INT,  GPIOB, GPIO_PIN_5,  true },
-    { MAG_INT,         GPIOC, GPIO_PIN_1,  true },
-    { MAG_DRDY,        GPIOC, GPIO_PIN_0,  true },
-    { HUMID_TEMP_DRDY, GPIOB, GPIO_PIN_10, true },
-    { PRESS_INT,       GPIOB, GPIO_PIN_4,  true },
 };
 
 void GpioIn::InitGpio() {

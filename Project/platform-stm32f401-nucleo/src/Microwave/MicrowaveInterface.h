@@ -81,7 +81,7 @@ enum {
 class MicrowaveStartReq : public Evt {
 public:
     enum {
-        TIMEOUT_MS = 200
+        TIMEOUT_MS = 500
     };
     MicrowaveStartReq(Hsmn to, Hsmn from, Sequence seq) :
         Evt(MICROWAVE_START_REQ, to, from, seq) {}
@@ -97,7 +97,7 @@ public:
 class MicrowaveStopReq : public Evt {
 public:
     enum {
-        TIMEOUT_MS = 200
+        TIMEOUT_MS = 500
     };
     MicrowaveStopReq(Hsmn to, Hsmn from, Sequence seq) :
         Evt(MICROWAVE_STOP_REQ, to, from, seq) {}

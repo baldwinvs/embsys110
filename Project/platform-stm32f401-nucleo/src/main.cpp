@@ -168,12 +168,9 @@ int main(void)
     Log::Off(CMD_PARSER_UART1);
     Log::Off(CONSOLE_UART2);
     Log::Off(CONSOLE_UART1);
-    Log::Off(ACCEL_GYRO_INT);
-    Log::Off(ILI9341);
-    Log::Off(IKS01A1_PRESS);
-    Log::Off(PRESS_INT);
-    Log::Off(LEVEL_METER);
     Log::Off(WIFI_ST);
+    Log::Off(GPIO_IN);
+    Log::Off(GPIO_OUT);
 
     // Start active objects.
     gpioOutAct.Start(PRIO_GPIO_OUT_ACT);
