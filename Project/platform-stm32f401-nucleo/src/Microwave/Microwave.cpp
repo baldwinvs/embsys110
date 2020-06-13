@@ -239,7 +239,7 @@ QState Microwave::Stopping(Microwave * const me, QEvt const * const e) {
             evt = new TurntableOffReq(TURNTABLE, GET_HSMN());
             me->PostSync(evt);
 
-            Evt *evt = new MagnetronStopReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
+            evt = new MagnetronStopReq(MAGNETRON, GET_HSMN(), GEN_SEQ());
             me->GetHsm().SaveOutSeq(*evt);
             Fw::Post(evt);
             return Q_HANDLED();
@@ -302,7 +302,7 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
         }
         case HALF_SECOND_TIMER: {
             //EVENT(e);
-            if(me->m_clockInitialized && (++me->m_halfSecondCounts == HALF_SECOND_COUNTS_PER_MINUTE)) 
+            if(me->m_clockInitialized && (++me->m_halfSecondCounts == HALF_SECOND_COUNTS_PER_MINUTE)) {
                     LOG("HALF_SECOND_TIMER, IncrementClock()");
                     me->IncrementClock();
                     me->m_halfSecondCounts = 0;
@@ -341,7 +341,6 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
                 //clear timers that may have been populated when
                 //setting a cook time
                 me->m_displayTime[i].time.clear();
-                me->m_secondsRemaining = 0;
                 //reset power levels
                 me->m_displayTime[i].powerLevel = MAX_POWER;
             }
@@ -1046,6 +1045,8 @@ QState Microwave::DisplayTimer(Microwave * const me, QEvt const * const e) {
 
             //reset the cook flag
             me->m_cook = false;
+            //incase the stop button was pressed to cancel the timer, reset seconds remaining
+            me->m_secondsRemaining = 0;
             me->m_timerIndex = 0;
             //reset power levels
             for(int i = 0; i < MAX_COOK_TIMERS; ++i) {

@@ -49,7 +49,6 @@ FW_DEFINE_THIS_FILE("MagnetronCmd.cpp")
 namespace APP {
 
 static uint32_t powerLevelStor[1];
-static bool pipeFilled{false};
 MagnetronPipe pipe(powerLevelStor, 1);
 
 static CmdStatus PowerLevel(Console &console, Evt const *e) {
@@ -66,7 +65,6 @@ static CmdStatus PowerLevel(Console &console, Evt const *e) {
                 console.PutStr("Pipe::Write unsuccessful\n\r");
                 return CMD_DONE;
             }
-            pipeFilled = true;
         }
     }
     return CMD_DONE;
@@ -76,15 +74,9 @@ static CmdStatus On(Console & console, Evt const *e) {
 	Hsm& hsm = console.GetHsm();
     switch (e->sig) {
         case Console::CONSOLE_CMD: {
-            if(pipeFilled) {
-                console.PutStr("Magnetron power-on request\n\r");
-                Evt *evt = new MagnetronOnReq(MAGNETRON, hsm.GetHsmn(), hsm.GenSeq(), &pipe);
-                Fw::Post(evt);
-                pipeFilled = false; //assuming that it was read correctly
-            }
-            else {
-                console.PutStr("No record of power level being set\n\r");
-            }
+            console.PutStr("Magnetron power-on request\n\r");
+            Evt *evt = new MagnetronOnReq(MAGNETRON, hsm.GetHsmn(), hsm.GenSeq(), &pipe);
+            Fw::Post(evt);
             break;
         }
     }

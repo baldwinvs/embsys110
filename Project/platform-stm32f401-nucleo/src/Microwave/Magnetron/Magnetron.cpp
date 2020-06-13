@@ -230,6 +230,7 @@ QState Magnetron::Stopping(Magnetron * const me, QEvt const * const e) {
             bool allReceived;
             if (!me->GetHsm().HandleCfmRsp(cfm, allReceived)) {
                 Evt *evt = new Failed(GET_HSMN(), cfm.GetError(), cfm.GetOrigin(), cfm.GetReason());
+                Fw::Post(evt);
             } else if (allReceived) {
                 Evt *evt = new Evt(DONE, GET_HSMN());
                 me->PostSync(evt);
@@ -403,6 +404,9 @@ QState Magnetron::Paused(Magnetron * const me, QEvt const * const e) {
                 if(me->m_powerLevel < MAX_POWER) {
                     me->m_magnetronTimer.Start(me->m_remainingTime);
                 }
+                //read from pipe and discard results
+                uint32_t discard{};
+                me->m_pipe->Read(&discard, 1);
 
                 if(&Magnetron::Running == me->m_history) {
                     Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), me->m_powerLevel - 1);
