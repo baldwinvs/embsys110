@@ -298,6 +298,7 @@ QState Microwave::Started(Microwave * const me, QEvt const * const e) {
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
+            me->m_halfSecondTimer.Start(HALF_SECOND_TIMEOUT_MS, Timer::PERIODIC);
             return Q_TRAN(&Microwave::DisplayClock);
         }
         case HALF_SECOND_TIMER: {
