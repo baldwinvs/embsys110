@@ -133,7 +133,6 @@ valign=top</panel_attributes>
     </coordinates>
     <panel_attributes>STOP/ clear timers,
             clear power level data,
-            secondsRemaining = 0,
             timersUsed = 0,
             timerIndex = 0,
             send Signal::STOP
@@ -970,12 +969,12 @@ style=wordwrap</panel_attributes>
       <w>875</w>
       <h>350</h>
     </coordinates>
-    <panel_attributes>DisplayTimer
+    <panel_attributes> DisplayTimer
 --
 entry/ set state = State::DISPLAY_TIMER, timerIndex = 0,
           secondsRemaining = time2Seconds(displayTimer[timerIndex].timer)
 exit/ if(secondsRemaining &gt; 0 &amp;&amp; cook)(^MAGNETRON_OFF_REQ),
-        cook = false, timerIndex = 0,
+        cook = false, timerIndex = 0, secondsRemaining = 0,
         reset power levels to MAX_POWER
 STATE_REQ/ send State with state,
                        send Update::DISPLAY_TIMER with displayTime[timerIndex].time
