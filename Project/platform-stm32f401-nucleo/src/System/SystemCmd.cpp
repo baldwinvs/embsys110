@@ -69,7 +69,7 @@ static CmdStatus Start(Console &console, Evt const *e) {
         case SYSTEM_START_CFM: {
             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
             console.PrintErrorEvt(&cfm);
-        	return CMD_DONE;
+            return CMD_DONE;
         }
     }
     return CMD_CONTINUE;
@@ -87,7 +87,7 @@ static CmdStatus Stop(Console &console, Evt const *e) {
         case SYSTEM_STOP_CFM: {
             ErrorEvt const &cfm = ERROR_EVT_CAST(*e);
             console.PrintErrorEvt(&cfm);
-        	return CMD_DONE;
+            return CMD_DONE;
         }
     }
     return CMD_CONTINUE;

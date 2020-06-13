@@ -127,8 +127,8 @@ static CmdHandler const cmdHandler[] = {
     { "sys",        SystemCmd,    "System",              0 },
     { "wifi",       WifiStCmd,    "Wifi(stm32) control", 0 },
     { "gpio",       GpioOutCmd,   "GPIO output control", 0 },
-	{ "mw",         MicrowaveCmd, "Microwave",           0 },
-	{ "magnetron",  MagnetronCmd, "Magnetron",           0 },
+    { "mw",         MicrowaveCmd, "Microwave",           0 },
+    { "magnetron",  MagnetronCmd, "Magnetron",           0 },
     { "?",          List,         "List commands",       0 },
 };
 

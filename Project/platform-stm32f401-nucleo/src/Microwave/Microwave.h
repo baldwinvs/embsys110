@@ -103,7 +103,7 @@ protected:
     void ShiftLeftAndInsert(MicrowaveMsgFormat::Time& time, const uint32_t digit);
 
     enum {
-    	MAX_SECONDS = 5999	// corresponds to 99 minutes 59 seconds
+        MAX_SECONDS = 5999  // corresponds to 99 minutes 59 seconds
     };
     MicrowaveMsgFormat::Time Seconds2Time(uint32_t seconds) const;
     uint32_t Time2Seconds(const MicrowaveMsgFormat::Time& time) const;

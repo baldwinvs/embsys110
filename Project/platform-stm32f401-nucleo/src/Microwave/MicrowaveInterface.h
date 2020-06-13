@@ -56,14 +56,14 @@ namespace APP {
     ADD_EVT(MICROWAVE_STOP_CFM) \
     ADD_EVT(MICROWAVE_EXT_STOP_SIG) \
     ADD_EVT(MICROWAVE_EXT_START_SIG) \
-	ADD_EVT(MICROWAVE_EXT_CLOCK_SIG) \
+    ADD_EVT(MICROWAVE_EXT_CLOCK_SIG) \
     ADD_EVT(MICROWAVE_EXT_COOK_TIME_SIG) \
     ADD_EVT(MICROWAVE_EXT_POWER_LEVEL_SIG) \
     ADD_EVT(MICROWAVE_EXT_KITCHEN_TIMER_SIG) \
     ADD_EVT(MICROWAVE_EXT_DOOR_OPEN_SIG) \
     ADD_EVT(MICROWAVE_EXT_DOOR_CLOSED_SIG) \
     ADD_EVT(MICROWAVE_EXT_DIGIT_SIG) \
-	ADD_EVT(MICROWAVE_EXT_STATE_REQ_SIG) \
+    ADD_EVT(MICROWAVE_EXT_STATE_REQ_SIG) \
     ADD_EVT(MICROWAVE_WIFI_CONN_REQ)
 
 #undef ADD_EVT
@@ -124,8 +124,8 @@ public:
 
 class MicrowaveExtClockSig: public Evt {
 public:
-	MicrowaveExtClockSig(Hsmn to, Hsmn from, Sequence seq = 0) :
-		Evt(MICROWAVE_EXT_CLOCK_SIG, to, from, seq) {}
+    MicrowaveExtClockSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_CLOCK_SIG, to, from, seq) {}
 };
 
 class MicrowaveExtCookTimeSig : public Evt {
@@ -169,8 +169,8 @@ private:
 
 class MicrowaveExtStateReqSig : public Evt {
 public:
-	MicrowaveExtStateReqSig(Hsmn to, Hsmn from, Sequence seq = 0) :
-		Evt(MICROWAVE_EXT_STATE_REQ_SIG, to, from, seq) {}
+    MicrowaveExtStateReqSig(Hsmn to, Hsmn from, Sequence seq = 0) :
+        Evt(MICROWAVE_EXT_STATE_REQ_SIG, to, from, seq) {}
 };
 
 class MicrowaveWifiConnReq : public Evt {

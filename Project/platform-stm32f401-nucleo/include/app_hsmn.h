@@ -56,11 +56,11 @@ namespace APP {
     ADD_HSM(GPIO_IN, 6) \
     ADD_HSM(GPIO_OUT_ACT, 1) \
     ADD_HSM(GPIO_OUT, 1) \
-	ADD_HSM(MICROWAVE, 1) \
-	ADD_HSM(MAGNETRON, 1) \
-	ADD_HSM(FAN, 1) \
-	ADD_HSM(MW_LAMP, 1) \
-	ADD_HSM(TURNTABLE, 1)
+    ADD_HSM(MICROWAVE, 1) \
+    ADD_HSM(MAGNETRON, 1) \
+    ADD_HSM(FAN, 1) \
+    ADD_HSM(MW_LAMP, 1) \
+    ADD_HSM(TURNTABLE, 1)
 
 #define ALIAS_HSM \
     ADD_ALIAS(CONSOLE_UART2,    CONSOLE) \
@@ -103,7 +103,7 @@ enum
     PRIO_WIFI_ST        = 20,
     PRIO_GPIO_IN_ACT    = 16,
     PRIO_MICROWAVE      = 11,
-	PRIO_MAGNETRON      = 10,
+    PRIO_MAGNETRON      = 10,
     PRIO_GPIO_OUT_ACT   = 9,
 };
 

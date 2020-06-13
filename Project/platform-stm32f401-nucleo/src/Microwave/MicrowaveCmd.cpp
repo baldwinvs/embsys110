@@ -96,15 +96,15 @@ static CmdStatus KitchenTimer(Console &console, Evt const *e) {
 }
 
 static CmdStatus StateRequest(Console &console, Evt const *e) {
-	switch (e->sig) {
-	    case Console::CONSOLE_CMD: {
-	    	console.PutStr("current state requested\n\r");
-	    	Evt *evt = new MicrowaveExtStateReqSig(MICROWAVE, console.GetHsmn());
-	    	Fw::Post(evt);
-	    	break;
-	    }
-	}
-	return CMD_DONE;
+    switch (e->sig) {
+        case Console::CONSOLE_CMD: {
+            console.PutStr("current state requested\n\r");
+            Evt *evt = new MicrowaveExtStateReqSig(MICROWAVE, console.GetHsmn());
+            Fw::Post(evt);
+            break;
+        }
+}
+    return CMD_DONE;
 }
 
 static CmdStatus Stop(Console &console, Evt const *e) {
@@ -158,7 +158,7 @@ static CmdHandler const cmdHandler[] = {
     { "cook_time",     CookTime,     "Cook Time Signal",     0 },
     { "power_level",   PowerLevel,   "Power Level Signal",   0 },
     { "kitchen_timer", KitchenTimer, "Kitchen Timer Signal", 0 },
-	{ "state_req",     StateRequest, "State Request",        0 },
+    { "state_req",     StateRequest, "State Request",        0 },
     { "stop",          Stop,         "Stop Signal",          0 },
     { "start",         Start,        "Start Signal",         0 },
     { "digit",         Digit,        "Digit Signal",         0 },

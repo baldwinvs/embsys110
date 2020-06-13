@@ -73,7 +73,7 @@ Magnetron::Magnetron() :
     m_onTime{},
     m_offTime{},
     m_remainingTime{},
-	m_powerLevel{},
+    m_powerLevel{},
     m_pipe{nullptr},
     m_history{nullptr}
     {
@@ -264,7 +264,7 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
-        	return Q_TRAN(&Magnetron::Off);
+            return Q_TRAN(&Magnetron::Off);
         }
         case MAGNETRON_OFF_REQ: {
             EVENT(e);
@@ -282,33 +282,20 @@ QState Magnetron::Started(Magnetron * const me, QEvt const * const e) {
                 return Q_HANDLED();
             }
 
-            if(MIN_POWER == me->m_powerLevel) {
-            	// Go to the NotRunning state, but don't start the timer; it should
-            	// never transition to Running.
-            	return Q_TRAN(&Magnetron::NotRunning);
-            }
-            else if(MAX_POWER == me->m_powerLevel) {
-            	// Go to the Running state, but don't start the timer; it should
-            	// never transition to NotRunning.
-            	Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), MAX_POWER - 1);
-            	Fw::Post(evt);
+            if(me->m_powerLevel > MIN_POWER) {
+                if(me->m_powerLevel < MAX_POWER) {
+                    //calculate on/off times
+                    me->m_onTime = static_cast<float>(me->m_powerLevel/10.0f) * APP::Magnetron::CYCLE_TIME_MS;
+                    me->m_offTime = static_cast<uint32_t>(APP::Magnetron::CYCLE_TIME_MS) - me->m_onTime;
+                    LOG("[p=%d],[on=%d],[off=%d]\n\r", me->m_powerLevel, me->m_onTime, me->m_offTime);
 
-            	return Q_TRAN(&Magnetron::Running);
+                    //start magnetron timer
+                    me->m_magnetronTimer.Start(me->m_onTime);
+                }
+                Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), me->m_powerLevel - 1);
+                Fw::Post(evt);
             }
-            else {
-				//calculate on/off times
-				me->m_onTime = static_cast<float>(me->m_powerLevel/10.0f) * APP::Magnetron::CYCLE_TIME_MS;
-				me->m_offTime = static_cast<uint32_t>(APP::Magnetron::CYCLE_TIME_MS) - me->m_onTime;
-				LOG("[p=%d],[on=%d],[off=%d]\n\r", me->m_powerLevel, me->m_onTime, me->m_offTime);
-
-				Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), me->m_powerLevel - 1);
-				Fw::Post(evt);
-
-				//start magnetron timer
-				me->m_magnetronTimer.Start(me->m_onTime);
-				return Q_TRAN(&Magnetron::On);
-            }
-            return Q_HANDLED();
+            return Q_TRAN(&Magnetron::On);
         }
     }
     return Q_SUPER(&Magnetron::Root);
@@ -339,13 +326,16 @@ QState Magnetron::On(Magnetron * const me, QEvt const * const e) {
             return Q_HANDLED();
         }
         case Q_INIT_SIG: {
-        	return Q_TRAN(&Magnetron::Running);
+            if(MIN_POWER == me->m_powerLevel) {
+                return Q_TRAN(&Magnetron::NotRunning);
+            }
+            return Q_TRAN(&Magnetron::Running);
         }
         case MAGNETRON_PAUSE_REQ: {
             EVENT(e);
             if(MIN_POWER < me->m_powerLevel && me->m_powerLevel < MAX_POWER) {
-            	me->m_remainingTime = me->m_magnetronTimer.currCtr();
-            	me->m_magnetronTimer.Stop();
+                me->m_remainingTime = me->m_magnetronTimer.currCtr();
+                me->m_magnetronTimer.Stop();
             }
             return Q_TRAN(&Magnetron::Paused);
         }
@@ -389,6 +379,8 @@ QState Magnetron::NotRunning(Magnetron * const me, QEvt const * const e) {
         case MAGNETRON_TIMER: {
             EVENT(e);
             me->m_magnetronTimer.Start(me->m_onTime);
+            Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), me->m_powerLevel - 1);
+            Fw::Post(evt);
             return Q_TRAN(&Magnetron::Running);
         }
     }
@@ -408,12 +400,14 @@ QState Magnetron::Paused(Magnetron * const me, QEvt const * const e) {
         case MAGNETRON_ON_REQ: {
             EVENT(e);
             if(MIN_POWER < me->m_powerLevel) {
-            	if(me->m_powerLevel < MAX_POWER) {
-            		me->m_magnetronTimer.Start(me->m_remainingTime);
-            	}
+                if(me->m_powerLevel < MAX_POWER) {
+                    me->m_magnetronTimer.Start(me->m_remainingTime);
+                }
 
-				Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), me->m_powerLevel - 1);
-				Fw::Post(evt);
+                if(&Magnetron::Running == me->m_history) {
+                    Evt *evt = new GpioOutPatternReq(GPIO_OUT, GET_HSMN(), GEN_SEQ(), me->m_powerLevel - 1);
+                    Fw::Post(evt);
+                }
             }
             return Q_TRAN(me->m_history);
         }
